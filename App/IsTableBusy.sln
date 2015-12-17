@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsTableBusy.Core.Tests", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsTableBusy.EntityFramework", "IsTableBusy.EntityFramework\IsTableBusy.EntityFramework.csproj", "{C10E7CA0-318D-4777-8922-F6494187F513}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsTableBusy.App.Api", "IsTableBusy.App.Api\IsTableBusy.App.Api.csproj", "{306C7AC2-13FE-4C72-A3F1-3BD8F6DA32B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C10E7CA0-318D-4777-8922-F6494187F513}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C10E7CA0-318D-4777-8922-F6494187F513}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C10E7CA0-318D-4777-8922-F6494187F513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306C7AC2-13FE-4C72-A3F1-3BD8F6DA32B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306C7AC2-13FE-4C72-A3F1-3BD8F6DA32B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306C7AC2-13FE-4C72-A3F1-3BD8F6DA32B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306C7AC2-13FE-4C72-A3F1-3BD8F6DA32B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

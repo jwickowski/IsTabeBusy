@@ -8,16 +8,21 @@ namespace IsTableBusy.Core
 {
     public class TableInPlaceReader
     {
-        IEnumerable<TableViewModel> Read(string placeName)
+        Context context;
+        public TableInPlaceReader(Context context)
         {
-            using (var context = new Context())
-            {
-                var tablesQuery = context.Tables.Where(x => x.Place.Name == placeName);
-                var result = tablesQuery.Select(x => x.ToTableViewModel());
-                return result;
-            }
+            this.context = context;
+        }
+
+        public IEnumerable<TableViewModel> Read(string placeName)
+        {
+            var result = context
+                .Tables
+                .Where(x => x.Place.Name == placeName)
+                .ToList()
+                .Select(x => x.ToTableViewModel());
+
+            return result;
         }
     }
-
-
 }
