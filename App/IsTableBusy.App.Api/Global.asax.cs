@@ -11,7 +11,8 @@ namespace IsTableBusy.App.Api
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            AutoFacConfig.Register();    
+            AutoFacConfig.Register();
+            FormatterConfig.RegisterFormatters(GlobalConfiguration.Configuration.Formatters);
         }
     }
 }

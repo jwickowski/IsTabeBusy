@@ -13,8 +13,6 @@ namespace IsTableBusy.App.Api.Controllers
     
     public class PlacesController : ApiController
     {
-
-
         private TableInPlaceReader tableInPlaceReader;
         public PlacesController(TableInPlaceReader tableInPlaceReader)
         {
