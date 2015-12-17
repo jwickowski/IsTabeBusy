@@ -11,7 +11,5 @@ namespace IsTableBusy.Core.Tests
         {
             Assert.IsTrue(true);
         }
-
-       
     }
 }
