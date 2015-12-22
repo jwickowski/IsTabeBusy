@@ -253,8 +253,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\pages\place\PlacePage.ts" />
-    <TypeScriptCompile Include="Scripts\pages\place\PlaceViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\app\place\PlacePage.ts" />
+    <TypeScriptCompile Include="Scripts\app\place\PlaceViewModel.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\js-signals\js-signals.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
