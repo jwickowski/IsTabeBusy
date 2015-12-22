@@ -195,3 +195,6 @@ FakesAssemblies/
 *.opt
 Deployment/build.log.txt
 Deployment/deploy.log.txt
+*/**/*.generated.cs
+App/IsTableBusy.App.Web/Scripts/pages/**/*.js
+App/IsTableBusy.App.Web/Scripts/pages/**/*.js.map
