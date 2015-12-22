@@ -1,5 +1,8 @@
 ﻿/// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
+/// <reference path="../apiwrapper.ts" />
+
+import ApiWrapper = require("./../ApiWrapper")
 
 interface Table {
     id: number;
@@ -12,14 +15,13 @@ interface Tables {
 }
 
 class PlaceViewModel {
+    private apiWrapper = new ApiWrapper();
     public tables: any;
-    public place: KnockoutObservableStatic;
+    public place: string;
     constructor() {
         this.tables = ko.observableArray();
 
-        var promise: JQueryXHR = $.ajax({
-            url: "http://localhost:64598/places/place1/tables", method: "GET", dataType:"JSONP"
-        });
+        var promise: JQueryXHR = this.apiWrapper.getTables(this.place);
 
         promise.then((data) => {
             this.tables(data);
