@@ -7,4 +7,26 @@
 
 <h2>Tables</h2>
 
-@Model.PlaceName
+<table>
+    <thead>
+        <tr>
+            <th>Passenger name</th>
+            <th>Meal</th>
+            <th>Surcharge</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: tables">
+        <tr>
+            <td data-bind="text: Id"></td>
+            <td data-bind="text:Name"></td>
+            <td data-bind="text: IsBusy"></td>
+        </tr>
+    </tbody>
+    <tbody></tbody>
+</table>
+
+
+@section Scripts{
+    <script data-main="../../scripts/pages/place/placePage" src="@Url.Content("~/scripts/require.js")"></script>
+}
