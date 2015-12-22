@@ -1,9 +1,10 @@
-﻿/// <reference path="../../typings/knockout/knockout.d.ts" />
+﻿/// <reference path="../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../typings/knockout/knockout.d.ts" />
 
 interface Table {
-    Id: number;
-    Name: string;
-    IsBusy: boolean;
+    id: number;
+    name: string;
+    isBusy: boolean;
 }
 
 interface Tables {
@@ -11,9 +12,18 @@ interface Tables {
 }
 
 class PlaceViewModel {
-    public tables: Tables;
+    public tables: any;
+    public place: KnockoutObservableStatic;
     constructor() {
-        this.tables = [{ Id: 1, IsBusy: true, Name: 'Foo' }];
+        this.tables = ko.observableArray();
+
+        var promise: JQueryXHR = $.ajax({
+            url: "http://localhost:64598/places/place1/tables", method: "GET", dataType:"JSONP"
+        });
+
+        promise.then((data) => {
+            this.tables(data);
+        });
     }
 }
 

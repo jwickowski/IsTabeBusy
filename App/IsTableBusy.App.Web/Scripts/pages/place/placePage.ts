@@ -8,15 +8,11 @@ class PlacePage {
 
     constructor() {
         this.placeViewModel = new PlaceViewModel();
-
     }
 
     public run(): void {
         ko.applyBindings(this.placeViewModel);
-
     }
 }
-
-
    
 new PlacePage().run();
