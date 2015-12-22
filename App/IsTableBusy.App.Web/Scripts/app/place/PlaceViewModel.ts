@@ -27,6 +27,15 @@ class PlaceViewModel {
             this.tables(data);
         });
     }
+
+    public SetBusy(item: Table) {
+        alert("set busy for" + item.id);
+    }
+
+    public SetFree(item: Table) {
+        alert("set free for" + item.id);
+    }
+
 }
 
 export = PlaceViewModel
