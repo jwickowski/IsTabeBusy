@@ -5,21 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Tables</h2>
+<h2>Tables in @Model.PlaceName</h2>
 
-
-    <div data-bind="foreach: tables">
-
-            <span data-bind="text: id"></span>
+<div class="container"  data-bind="foreach: tables">
+    <div class="row" data-bind="css: {'bg-success': !isBusy, 'bg-danger': isBusy}" >
+        <div class="col-xs-5" >
             <span data-bind="text: name"></span>
-            <span data-bind="text: isBusy"></span>
-        <a href="#" data-bind="visible: !isBusy,click: $parent.SetBusy">Zajmij</a>
-        <a href="#" data-bind="visible: isBusy,click: $parent.SetFree">Zwolnij</a>
-<hr />
         </div>
 
+        <div class="col-xs-4" >
+            <span data-bind="visible: isBusy">Busy</span>
+            <span data-bind="visible: !isBusy">Free</span>
+        </div>
 
+        <div class="col-xs-3 ">
+            <a href="#" class="btn btn-danger" data-bind="visible: !isBusy,click: $parent.SetBusy">Zajmij</a>
+            <a href="#" class="btn btn-success" data-bind="visible: isBusy,click: $parent.SetFree">Zwolnij</a>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
-    <script data-main="../../scripts/app/place/placePage" src="@Url.Content("~/scripts/require.js")"></script>
+    <script data-main="../../scripts/app/place/placePage" src="@Links.Scripts.require_js"></script>
 }
