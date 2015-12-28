@@ -3,37 +3,38 @@
 /// <reference path="../apiwrapper.ts" />
 
 import ApiWrapper = require("./../ApiWrapper")
-
-interface Table {
-    id: number;
-    name: string;
-    isBusy: boolean;
-}
+import Table = require("Table");
 
 interface Tables {
     [index: number]: Table;
 }
 
 class PlaceViewModel {
-    private apiWrapper = new ApiWrapper();
+    private apiWrapper: ApiWrapper;
     public tables: any;
-    public place: string;
+    public placeName: string;
     constructor() {
         this.tables = ko.observableArray();
+        this.apiWrapper = new ApiWrapper();
+       
+    }
 
-        var promise: JQueryXHR = this.apiWrapper.getTables(this.place);
+    public run(): void {
+        var promise: JQueryXHR = this.apiWrapper.getTables(this.placeName);
 
         promise.then((data) => {
             this.tables(data);
         });
     }
 
-    public SetBusy(item: Table) {
-        alert("set busy for" + item.id);
+    public setBusy =  (item: Table) => {
+        this.apiWrapper.setBusy(this.placeName, item.id, true);
     }
+        
+    
 
-    public SetFree(item: Table) {
-        alert("set free for" + item.id);
+    public setFree = (item: Table) => {
+        this.apiWrapper.setBusy(this.placeName, item.id, false);
     }
 
 }

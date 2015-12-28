@@ -267,6 +267,7 @@
     <TypeScriptCompile Include="Scripts\app\ApiWrapper.ts" />
     <TypeScriptCompile Include="Scripts\app\place\PlacePage.ts" />
     <TypeScriptCompile Include="Scripts\app\place\PlaceViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\app\place\Table.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\js-signals\js-signals.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />

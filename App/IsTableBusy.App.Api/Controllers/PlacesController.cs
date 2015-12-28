@@ -2,6 +2,7 @@
 using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace IsTableBusy.App.Api.Controllers
 {
@@ -26,17 +27,15 @@ namespace IsTableBusy.App.Api.Controllers
             var result = this.tableInPlaceReader.Read(place);
             return result;
         }
-
         [HttpPost]
-        [Route("places/{placeName}/tables/{tableId:int}/busy")]
+        [Route("places/{placeName}/tables/{tableId:int}/setBusy")]
         public void SetBusy(string placeName, int tableId)
         {
             this.tableTurningValidator.Validate(placeName, tableId);
             this.tableManager.SetBusy(tableId);
         }
-
         [HttpPost]
-        [Route("places/{placeName}/tables/{tableId:int}/busy")]
+        [Route("places/{placeName}/tables/{tableId:int}/setFree")]
         public void SetFree(string placeName, int tableId)
         {
             this.tableTurningValidator.Validate(placeName, tableId);

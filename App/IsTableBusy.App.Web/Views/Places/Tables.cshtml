@@ -14,12 +14,15 @@
         </div>
      
         <div class="col-xs-5 ">
-            <a href="#" class="btn btn-danger btn-lg btn-block pull-right" data-bind="visible: !isBusy,click: $parent.SetBusy">Set busy</a>
-            <a href="#" class="btn btn-success btn-lg btn-block pull-right btn" data-bind="visible: isBusy,click: $parent.SetFree">Set free</a>
+            <a href="#" class="btn btn-danger btn-lg btn-block pull-right" data-bind="visible: !isBusy,click: $parent.setBusy">Set busy</a>
+            <a href="#" class="btn btn-success btn-lg btn-block pull-right btn" data-bind="visible: isBusy,click: $parent.setFree">Set free</a>
         </div>
     </div>
 </div>
 
 @section Scripts{
+    <script>
+        window.placeName = '@Model.PlaceName';
+    </script>
     <script data-main="../../scripts/app/place/placePage" src="@Links.Scripts.require_js"></script>
 }
