@@ -7,14 +7,11 @@ namespace IsTableBusy.EntityFramework
 {
     public class Context : DbContext
     {
-        internal static string ConnectionString { get; set; }
+        internal static string ConnectionString { get; set; } = "DefaultConnection";
 
         public Context() :  base(ConnectionString)
         {
-            if (ConnectionString == null)
-            {
-                throw new NullReferenceException("ConnectionString should be set.");
-            }
+          
         }   
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
