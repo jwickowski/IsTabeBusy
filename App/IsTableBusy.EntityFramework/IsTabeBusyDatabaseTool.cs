@@ -1,10 +1,9 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Migrations;
 using Tazos.Tools.XUnit;
 
-namespace IsTableBusy.Core.Tests.Integration
+namespace IsTableBusy.EntityFramework
 {
     public class IsTabeBusyDatabaseTool: DatabaseCreator, DatabaseRemover
     {

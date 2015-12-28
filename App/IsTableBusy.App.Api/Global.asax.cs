@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using IsTableBusy.App.Api.App_Start;
 using System.Web.Http;
 using System.Web.Routing;
 

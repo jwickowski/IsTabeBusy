@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net.Http.Formatting;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Web;
 using WebApiContrib.Formatting.Jsonp;
 
-namespace IsTableBusy.App.Api.App_Start
+namespace IsTableBusy.App.Api
 {
     public static class FormatterConfig
     {

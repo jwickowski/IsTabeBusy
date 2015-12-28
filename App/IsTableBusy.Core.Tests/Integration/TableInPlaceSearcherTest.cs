@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
-using IsTableBusy.Core.Tests.Integration;
 using IsTableBusy.EntityFramework;
 using Xunit;
 
-namespace IsTableBusy.Core.Tests.Unit
+namespace IsTableBusy.Core.Tests.Integration
 {
     public class TableInPlaceSearcherTest: IsTableBusyDatabaseTest, IDisposable
     {

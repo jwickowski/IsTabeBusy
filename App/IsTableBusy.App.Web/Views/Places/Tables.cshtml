@@ -1,4 +1,5 @@
-﻿@model IsTableBusy.App.Web.ViewModels.TablesViewModel
+﻿@using Scripts = IsTableBusy.App.Web.Scripts
+@model IsTableBusy.App.Web.ViewModels.TablesViewModel
 
 @{
     ViewBag.Title = "Tables";
@@ -21,5 +22,5 @@
 </div>
 
 @section Scripts{
-    <script data-main="../../scripts/app/place/placePage" src="@Links.Scripts.require_js"></script>
+    <script data-main="../../scripts/app/place/placePage" src="@Scripts.require_js"></script>
 }

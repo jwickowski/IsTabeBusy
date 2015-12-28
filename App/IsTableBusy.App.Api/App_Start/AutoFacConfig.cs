@@ -1,16 +1,11 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using System.Web.Http;
+using Autofac;
 using Autofac.Integration.WebApi;
-using IsTableBusy.App.Api.Controllers;
 using IsTableBusy.Core;
 using IsTableBusy.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Http;
 
-namespace IsTableBusy.App.Api.App_Start
+namespace IsTableBusy.App.Api
 {
     public static class AutoFacConfig
     {

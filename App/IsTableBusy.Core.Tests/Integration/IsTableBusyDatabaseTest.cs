@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IsTableBusy.EntityFramework;
 using Tazos.Tools.XUnit;
 
 namespace IsTableBusy.Core.Tests.Integration
