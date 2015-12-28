@@ -1,10 +1,5 @@
 ﻿using IsTableBusy.Core.Models;
 using IsTableBusy.EntityFramework.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IsTableBusy.Core.Mappers
 {

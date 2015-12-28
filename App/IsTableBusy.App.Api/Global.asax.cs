@@ -1,7 +1,4 @@
-﻿using Autofac;
-using Autofac.Integration.WebApi;
-using System.Web.Http;
-using System.Web.Routing;
+﻿using System.Web.Http;
 
 namespace IsTableBusy.App.Api
 {
