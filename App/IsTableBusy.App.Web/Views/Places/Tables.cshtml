@@ -9,18 +9,13 @@
 
 <div class="container"  data-bind="foreach: tables">
     <div class="row" data-bind="css: {'bg-success': !isBusy, 'bg-danger': isBusy}" >
-        <div class="col-xs-5" >
+        <div class="col-xs-7" >
             <span data-bind="text: name"></span>
         </div>
-
-        <div class="col-xs-4" >
-            <span data-bind="visible: isBusy">Busy</span>
-            <span data-bind="visible: !isBusy">Free</span>
-        </div>
-
-        <div class="col-xs-3 ">
-            <a href="#" class="btn btn-danger" data-bind="visible: !isBusy,click: $parent.SetBusy">Zajmij</a>
-            <a href="#" class="btn btn-success" data-bind="visible: isBusy,click: $parent.SetFree">Zwolnij</a>
+     
+        <div class="col-xs-5 ">
+            <a href="#" class="btn btn-danger btn-lg btn-block pull-right" data-bind="visible: !isBusy,click: $parent.SetBusy">Set busy</a>
+            <a href="#" class="btn btn-success btn-lg btn-block pull-right btn" data-bind="visible: isBusy,click: $parent.SetFree">Set free</a>
         </div>
     </div>
 </div>

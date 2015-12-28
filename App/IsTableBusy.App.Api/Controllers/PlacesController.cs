@@ -23,7 +23,8 @@ namespace IsTableBusy.App.Api.Controllers
         [Route("places/{place}/tables")]
         public IEnumerable<TableViewModel> GetTablesForPlace(string place)
         {
-            return this.tableInPlaceReader.Read(place);
+            var result =  this.tableInPlaceReader.Read(place);
+            return result;
         }
     }
 }

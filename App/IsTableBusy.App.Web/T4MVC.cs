@@ -72,6 +72,23 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class app {
+            private const string URLPATH = "~/Scripts/app";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string ApiWrapper_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ApiWrapper.min.js") ? Url("ApiWrapper.min.js") : Url("ApiWrapper.js");
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class place {
+                private const string URLPATH = "~/Scripts/app/place";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string PlacePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PlacePage.min.js") ? Url("PlacePage.min.js") : Url("PlacePage.js");
+                public static readonly string PlaceViewModel_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PlaceViewModel.min.js") ? Url("PlaceViewModel.min.js") : Url("PlaceViewModel.js");
+            }
+        
+        }
+    
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.10.2.intellisense.min.js") ? Url("jquery-1.10.2.intellisense.min.js") : Url("jquery-1.10.2.intellisense.js");
@@ -86,22 +103,6 @@ namespace Links
         public static readonly string knockout_3_4_0_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-3.4.0.debug.min.js") ? Url("knockout-3.4.0.debug.min.js") : Url("knockout-3.4.0.debug.js");
         public static readonly string knockout_3_4_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-3.4.0.min.js") ? Url("knockout-3.4.0.min.js") : Url("knockout-3.4.0.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class pages {
-            private const string URLPATH = "~/Scripts/pages";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class place {
-                private const string URLPATH = "~/Scripts/pages/place";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string placePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/placePage.min.js") ? Url("placePage.min.js") : Url("placePage.js");
-                public static readonly string placeViewModel_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/placeViewModel.min.js") ? Url("placeViewModel.min.js") : Url("placeViewModel.js");
-            }
-        
-        }
-    
         public static readonly string r_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/r.min.js") ? Url("r.min.js") : Url("r.js");
         public static readonly string require_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/require.min.js") ? Url("require.min.js") : Url("require.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
@@ -111,6 +112,14 @@ namespace Links
             private const string URLPATH = "~/Scripts/typings";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class jquery {
+                private const string URLPATH = "~/Scripts/typings/jquery";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string jquery_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.d.min.js") ? Url("jquery.d.min.js") : Url("jquery.d.js");
+            }
+        
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class js_signals {
                 private const string URLPATH = "~/Scripts/typings/js-signals";
@@ -136,9 +145,15 @@ namespace Links
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
+        public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map");
+        public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
+        public static readonly string bootstrap_theme_min_css_map = Url("bootstrap-theme.min.css.map");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
+        public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
-        public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
+        public static readonly string bootstrap_min_css_map = Url("bootstrap.min.css.map");
+        public static readonly string Site_less = Url("Site.less");
     }
 
     
@@ -147,7 +162,7 @@ namespace Links
     {
         public static partial class Scripts 
         {
-            public static partial class pages 
+            public static partial class app 
             {
                 public static partial class place 
                 {
@@ -161,6 +176,12 @@ namespace Links
             }
             public static partial class typings 
             {
+                public static partial class jquery 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
                 public static partial class js_signals 
                 {
                     public static class Assets
@@ -202,9 +223,10 @@ namespace Links
         {
             public static class Assets
             {
+                public const string bootstrap_theme_css = "~/Content/bootstrap-theme.css";
+                public const string bootstrap_theme_min_css = "~/Content/bootstrap-theme.min.css";
                 public const string bootstrap_css = "~/Content/bootstrap.css";
                 public const string bootstrap_min_css = "~/Content/bootstrap.min.css";
-                public const string Site_css = "~/Content/Site.css";
             }
         }
     }

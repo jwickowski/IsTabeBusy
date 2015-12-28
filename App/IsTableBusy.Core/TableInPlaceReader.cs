@@ -8,7 +8,7 @@ namespace IsTableBusy.Core
 {
     public class TableInPlaceReader
     {
-        Context context;
+        readonly Context context;
         public TableInPlaceReader(Context context)
         {
             this.context = context;

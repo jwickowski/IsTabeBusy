@@ -26,7 +26,7 @@ namespace IsTableBusy.EntityFramework.Migrations
 
                 context.Places.AddOrUpdate(
                     x => x.Id, 
-                    new Place() { Id = placeId, Name = $"Place{placeId}" });
+                    new Place { Id = placeId, Name = $"Place{placeId}" });
 
                 for (var tableId = 1; tableId<=5; tableId++)
                 {

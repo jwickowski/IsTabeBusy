@@ -11,10 +11,15 @@ namespace IsTableBusy.EntityFramework
 {
     public class Context : DbContext
     {
-        public Context():base("DefaultConnection")
-        {
+        internal static string ConnectionString { get; set; }
 
-        }
+        public Context() :  base(ConnectionString)
+        {
+            if (ConnectionString == null)
+            {
+                throw new NullReferenceException("ConnectionString should be set.");
+            }
+        }   
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

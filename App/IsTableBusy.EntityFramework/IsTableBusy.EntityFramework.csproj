@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IsTableBusy.EntityFramework</RootNamespace>
     <AssemblyName>IsTableBusy.EntityFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -60,6 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="IsTabeBusyDatabaseTool.cs" />
     <Compile Include="Migrations\201512171811127_AddPlacesAndTables.cs" />
     <Compile Include="Migrations\201512171811127_AddPlacesAndTables.Designer.cs">
       <DependentUpon>201512171811127_AddPlacesAndTables.cs</DependentUpon>
@@ -78,6 +81,12 @@
     <EmbeddedResource Include="Migrations\201512171811127_AddPlacesAndTables.resx">
       <DependentUpon>201512171811127_AddPlacesAndTables.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Tools\Tazos.Tools.XUnit\Tazos.Tools.XUnit.csproj">
+      <Project>{68bb29b5-a07c-4628-8dce-ebdea58d2167}</Project>
+      <Name>Tazos.Tools.XUnit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
