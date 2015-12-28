@@ -3,11 +3,12 @@ using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using IsTableBusy.App.Api.Hubs;
 
 namespace IsTableBusy.App.Api.Controllers
 {
 
-    public class PlacesController : ApiController
+    public class PlacesController : ApiControllerWithHub<PlacesHub>
     {
         private readonly TableInPlaceReader tableInPlaceReader;
         private readonly TableManager tableManager;
@@ -33,6 +34,7 @@ namespace IsTableBusy.App.Api.Controllers
         {
             this.tableTurningValidator.Validate(placeName, tableId);
             this.tableManager.SetBusy(tableId);
+            Hub.Clients.All.isBusy(tableId);
         }
         [HttpPost]
         [Route("places/{placeName}/tables/{tableId:int}/setFree")]
@@ -40,6 +42,7 @@ namespace IsTableBusy.App.Api.Controllers
         {
             this.tableTurningValidator.Validate(placeName, tableId);
             this.tableManager.SetFree(tableId);
+            Hub.Clients.All.isFree(tableId);
         }
     }
 }
