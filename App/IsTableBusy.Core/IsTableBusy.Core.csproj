@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\TableInWrongPlaceException.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\TableViewModel.cs" />
     <Compile Include="TableInPlaceReader.cs" />
