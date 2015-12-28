@@ -55,6 +55,7 @@
     <Compile Include="TableInPlaceReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableManager.cs" />
+    <Compile Include="TableTurningValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsTableBusy.EntityFramework\IsTableBusy.EntityFramework.csproj">

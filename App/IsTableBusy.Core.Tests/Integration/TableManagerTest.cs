@@ -3,6 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using IsTableBusy.EntityFramework;
 using Xunit;
+using Tazos.Tools.Extensions.EntityFramework;
 
 namespace IsTableBusy.Core.Tests.Integration
 {
@@ -17,7 +18,7 @@ namespace IsTableBusy.Core.Tests.Integration
                 testTable.IsBusy = false;
                 ctx.SaveChanges();
 
-                TableManager tm  = new TableManager(ctx);
+                TableManager tm = new TableManager(ctx);
                 tm.SetBusy(testTable.Id);
 
                 var result = ctx.Tables.Single(x => x.Id == testTable.Id);
