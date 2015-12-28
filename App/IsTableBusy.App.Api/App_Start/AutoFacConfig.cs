@@ -38,23 +38,14 @@ namespace IsTableBusy.App.Api
         {
             var dataAccess = Assembly.GetExecutingAssembly();
 
-
-
-            builder.RegisterAssemblyTypes(dataAccess)
+            builder.RegisterAssemblyTypes(dataAccess, typeof(TableInPlaceReader).Assembly)
                 .AsSelf()
                 .AsImplementedInterfaces();
-
-
 
             builder
                    .RegisterType<Context>()
                    .AsSelf()
                    .InstancePerRequest();
-
-            builder
-                  .RegisterType<TableInPlaceReader>()
-                  .AsSelf();
-
         }
     }
 }
