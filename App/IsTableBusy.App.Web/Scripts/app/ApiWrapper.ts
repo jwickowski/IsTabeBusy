@@ -1,11 +1,11 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
-
+/// <reference path="config.ts" />
+import config = require('./config');
 
 class ApiWrapper {
-    private baseUrl: string = "http://localhost:64598";
 
     getTables(placeName: string): JQueryXHR {
-        var url: string = this.baseUrl + "/places/{placeName}/tables";
+        var url: string = config.apiUrl + "/places/{placeName}/tables";
         url = url.replace('{placeName}', placeName);
 
         var promise: JQueryXHR = $.ajax({
@@ -17,7 +17,7 @@ class ApiWrapper {
     }
 
     public setBusy(placeName: string, tableId: number, isBusy: boolean): JQueryXHR{
-        var url: string = this.baseUrl + "/places/{placeName}/tables/{tableId}/{actionName}";
+        var url: string = config.apiUrl + "/places/{placeName}/tables/{tableId}/{actionName}";
         url = url.replace('{placeName}', placeName);
         url = url.replace('{tableId}', tableId.toString());
 

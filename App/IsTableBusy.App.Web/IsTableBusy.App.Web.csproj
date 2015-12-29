@@ -232,6 +232,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
@@ -267,12 +269,15 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\app\ApiWrapper.ts" />
+    <TypeScriptCompile Include="Scripts\app\config.ts" />
+    <TypeScriptCompile Include="Scripts\app\place\PlacesHub.ts" />
     <TypeScriptCompile Include="Scripts\app\place\PlacePage.ts" />
     <TypeScriptCompile Include="Scripts\app\place\PlaceViewModel.ts" />
     <TypeScriptCompile Include="Scripts\app\place\Table.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\js-signals\js-signals.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\lodash\lodash.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\signalr\signalr.d.ts" />
   </ItemGroup>
   <ItemGroup>

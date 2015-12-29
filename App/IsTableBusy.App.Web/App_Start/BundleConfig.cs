@@ -12,7 +12,8 @@ namespace IsTableBusy.App.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/knockout-3.4.0.debug.js",
-                "~/Scripts/jquery.signalR-{version}.js"));
+                "~/Scripts/jquery.signalR-{version}.js",
+                "~/Scripts/lodash.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));

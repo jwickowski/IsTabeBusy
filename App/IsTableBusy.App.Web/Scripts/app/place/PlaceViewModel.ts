@@ -1,46 +1,50 @@
 ﻿/// <reference path="../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../typings/lodash/lodash.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../typings/signalr/signalr.d.ts" />
 /// <reference path="../apiwrapper.ts" />
 
-import ApiWrapper = require("./../ApiWrapper")
-import Table = require("Table");
+/// <reference path="placeshub.ts" />
 
-interface Tables {
-    [index: number]: Table;
-}
+import ApiWrapper = require("../ApiWrapper")
+import Table = require("Table");
+import PlacesHub = require("PlacesHub");
+
 
 class PlaceViewModel {
     private apiWrapper: ApiWrapper;
-    public tables: any;
+    public tables: KnockoutObservableArray<Table>;
     public placeName: string;
-    private hub: any;
+    private placesHub: PlacesHub;
     constructor() {
-        this.tables = ko.observableArray();
+        this.tables = ko.observableArray<Table>();
         this.apiWrapper = new ApiWrapper();
-   
-       
+        this.placesHub = new PlacesHub();
     }
 
     public run(): void {
         var promise: JQueryXHR = this.apiWrapper.getTables(this.placeName);
 
         promise.then((data) => {
-            this.tables(data);
+            var mapped = _(data).map((item) => { return new Table(item); }).value();
+            this.tables(mapped);
         });
 
+        this.placesHub.run();
 
-        $.connection.hub.url = "http://localhost:64598/signalr";
-        var connection = $.hubConnection();
-        connection.url = "http://localhost:64598/signalr";
-        var contosoChatHubProxy = connection.createHubProxy('placesHub');
-        contosoChatHubProxy.on('isBusy', function (x) {
-            console.log('isBusy');
+        this.placesHub.isBusy((tableId: number) => {
+            var table: any = ko.utils.arrayFirst(this.tables(), (item) => {
+                return item.id === tableId;
+            });
+            table.isBusy(true);
         });
-        contosoChatHubProxy.on('isFree', function (x) {
-            console.log('isBusy');
+
+        this.placesHub.isFree((tableId: number) => {
+            var table: any = ko.utils.arrayFirst(this.tables(), (item) => {
+                return item.id === tableId;
+            });
+            table.isBusy(false);
         });
-        connection.start();
     }
 
     public setBusy = (item: Table) => {
