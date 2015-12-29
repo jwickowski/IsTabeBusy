@@ -2,7 +2,6 @@
 using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using IsTableBusy.App.Api.Hubs;
 
 namespace IsTableBusy.App.Api.Controllers

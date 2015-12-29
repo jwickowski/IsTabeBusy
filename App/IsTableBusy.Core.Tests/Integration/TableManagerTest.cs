@@ -3,7 +3,6 @@ using System.Linq;
 using FluentAssertions;
 using IsTableBusy.EntityFramework;
 using Xunit;
-using Tazos.Tools.Extensions.EntityFramework;
 
 namespace IsTableBusy.Core.Tests.Integration
 {
