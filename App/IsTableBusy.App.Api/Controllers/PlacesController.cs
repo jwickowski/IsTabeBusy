@@ -9,24 +9,39 @@ namespace IsTableBusy.App.Api.Controllers
 
     public class PlacesController : ApiControllerWithHub<PlacesHub>
     {
-        private readonly TableInPlaceReader tableInPlaceReader;
+        private readonly TablesInPlaceReader tablesInPlaceReader;
         private readonly TableManager tableManager;
         private readonly TableTurningValidator tableTurningValidator;
+        private readonly TableReader tableReader;
 
-        public PlacesController(TableInPlaceReader tableInPlaceReader, TableManager tableManager, TableTurningValidator tableTurningValidator)
+        public PlacesController(
+            TablesInPlaceReader tablesInPlaceReader, 
+            TableManager tableManager, 
+            TableTurningValidator tableTurningValidator,
+            TableReader tableReader)
         {
-            this.tableInPlaceReader = tableInPlaceReader;
+            this.tablesInPlaceReader = tablesInPlaceReader;
             this.tableManager = tableManager;
             this.tableTurningValidator = tableTurningValidator;
+            this.tableReader = tableReader;
         }
 
 
         [Route("places/{place}/tables")]
         public IEnumerable<TableViewModel> GetTablesForPlace(string place)
         {
-            var result = this.tableInPlaceReader.Read(place);
+            var result = this.tablesInPlaceReader.Read(place);
             return result;
         }
+
+        [Route("places/{placeName}/tables/{tableId:int}")]
+        public TableViewModel GetTable(string placeName, int tableId)
+        {
+            this.tableTurningValidator.Validate(placeName, tableId);
+            var result = this.tableReader.Read(placeName, tableId);
+            return result;
+        }
+
         [HttpPost]
         [Route("places/{placeName}/tables/{tableId:int}/setBusy")]
         public void SetBusy(string placeName, int tableId)
@@ -35,6 +50,7 @@ namespace IsTableBusy.App.Api.Controllers
             this.tableManager.SetBusy(tableId);
             Hub.Clients.All.isBusy(tableId);
         }
+
         [HttpPost]
         [Route("places/{placeName}/tables/{tableId:int}/setFree")]
         public void SetFree(string placeName, int tableId)

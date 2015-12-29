@@ -13,7 +13,7 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
-                TableInPlaceReader reader = new TableInPlaceReader(ctx);
+                TablesInPlaceReader reader = new TablesInPlaceReader(ctx);
 
                 var result = reader.Read("place1");
                 result.Should().NotBeEmpty();

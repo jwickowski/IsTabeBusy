@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace IsTableBusy.Core
 {
-    public class TableInPlaceReader
+    public class TablesInPlaceReader
     {
         readonly Context context;
-        public TableInPlaceReader(Context context)
+        public TablesInPlaceReader(Context context)
         {
             this.context = context;
         }

@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Integration\IsTableBusyDatabaseTest.cs" />
     <Compile Include="Integration\TableInPlaceSearcherTest.cs" />
+    <Compile Include="Integration\TableReaderTest.cs" />
     <Compile Include="Integration\TableTurningValidatorTest.cs" />
     <Compile Include="Integration\TableManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
