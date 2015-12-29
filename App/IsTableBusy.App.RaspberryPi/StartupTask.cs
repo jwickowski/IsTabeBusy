@@ -1,5 +1,6 @@
 ﻿using Windows.ApplicationModel.Background;
 
+
 namespace IsTableBusy.App.RaspberryPi
 {
     public sealed class StartupTask : IBackgroundTask
