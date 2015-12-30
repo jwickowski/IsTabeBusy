@@ -7,6 +7,8 @@ interface IsBusyChanged {
 
 class PlacesHub {
     private hub: HubProxy;
+    private isBusyFunctions = [];
+    private isFreeFunctions = [];
     constructor() {
        
     }
@@ -14,18 +16,31 @@ class PlacesHub {
     public run() {
         var connection: HubConnection = $.hubConnection();
         connection.url = config.signalRUrl;
-        connection.start().done(() => { console.log('done'); });
         this.hub = connection.createHubProxy('placesHub');
+        this.hub.on('isBusy', (tableId) => {
+            for (var i = 0; i < this.isBusyFunctions.length; i++) {
+                this.isBusyFunctions[i](tableId);
+            }
+        });  
+
+        this.hub.on('isFree', (tableId) => {
+            for (var i = 0; i < this.isFreeFunctions.length; i++) {
+                this.isFreeFunctions[i](tableId);
+            }
+        });  
+
+        connection.start();
+        
     }
 
     public isBusy = (func: IsBusyChanged) => {
         console.log("register busy");
-        this.hub.on('isBusy', func);  
+        this.isBusyFunctions.push(func);
     };
 
     public isFree = (func: IsBusyChanged) => {
         console.log("register free");
-        this.hub.on('isFree', func);
+        this.isFreeFunctions.push(func);
     };
 }
 export = PlacesHub
