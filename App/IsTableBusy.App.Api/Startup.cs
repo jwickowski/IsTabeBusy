@@ -20,12 +20,15 @@ namespace IsTableBusy.App.Api
                     // You can enable JSONP by uncommenting line below.
                     // JSONP requests are insecure but some older browsers (and some
                     // versions of IE) require JSONP to work cross domain
-                     EnableJSONP = true
+                    EnableJSONP = true,
+                    EnableJavaScriptProxies = false,
+                    EnableDetailedErrors = true
                 };
                 // Run the SignalR pipeline. We're not using MapSignalR
                 // since this branch already runs under the "/signalr"
                 // path.
                 map.RunSignalR(hubConfiguration);
+                app.MapSignalR();
             });
         }
     }
