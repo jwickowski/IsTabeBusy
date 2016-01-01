@@ -2,12 +2,12 @@
 using Windows.Devices.Gpio;
 using Windows.Foundation;
 
-namespace IsTableBusy.App.RaspberryPi.Common
+namespace IsTableBusy.App.RaspberryPi.Logic
 {
-    public sealed class Button
+    public sealed class ButtonImp : Button
     {
         private readonly GpioPin pin;
-        public Button(int pinNumber)
+        public ButtonImp(int pinNumber)
         {
             var controller = GpioController.GetDefault();
             pin = controller.OpenPin(pinNumber);
@@ -24,6 +24,6 @@ namespace IsTableBusy.App.RaspberryPi.Common
             };
         }
         
-        public event TypedEventHandler<Button,object> Clicked;
+        public event TypedEventHandler<ButtonImp,object> Clicked;
     }
 }

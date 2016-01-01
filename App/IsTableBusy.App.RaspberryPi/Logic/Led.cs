@@ -1,8 +1,8 @@
 ﻿using Windows.Devices.Gpio;
 
-namespace IsTableBusy.App.RaspberryPi.Common
+namespace IsTableBusy.App.RaspberryPi.Logic
 {
-    public sealed class Led
+    public sealed class Led: Light
     {
         private readonly GpioPin pin;
         private GpioPinValue value;
