@@ -96,7 +96,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ReadingTableException.cs" />
+    <Compile Include="Logic\ApiClient.cs" />
     <Compile Include="Logic\AppState.cs" />
+    <Compile Include="Logic\Config.cs" />
     <Compile Include="Logic\Light.cs" />
     <Compile Include="Logic\Button.cs" />
     <Compile Include="Logic\App.cs" />
@@ -104,7 +107,9 @@
     <Compile Include="Logic\IsTableApiClient.cs" />
     <Compile Include="Logic\Led.cs" />
     <Compile Include="Logic\Device.cs" />
+    <Compile Include="Logic\LightManager.cs" />
     <Compile Include="Logic\RasbperryPi.cs" />
+    <Compile Include="Logic\Table.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -149,6 +154,11 @@
     <SDKReference Include="WindowsIoT, Version=10.0.10586.0">
       <Name>Windows IoT Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

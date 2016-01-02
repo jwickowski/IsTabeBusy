@@ -1,39 +1,59 @@
-﻿namespace IsTableBusy.App.RaspberryPi.Logic
+﻿using System.Threading.Tasks;
+using IsTableBusy.App.RaspberryPi.Exceptions;
+
+namespace IsTableBusy.App.RaspberryPi.Logic
 {
     public sealed class App
     {
         private readonly Device device;
+        private readonly ApiClient apiClient;
+        private readonly LightManager lightManager;
 
-        public App(Device device)
+        private Table Table { get; set; }
+
+        public App(Device device, ApiClient apiClient, LightManager lightManager)
         {
             this.device = device;
+            this.apiClient = apiClient;
+            this.lightManager = lightManager;
             this.State = AppState.NotStarted;
         }
 
-         public AppState State { get; private set; }
+        private AppState state;
 
-        public void Run()
+        public AppState State
         {
-            device.Button.Clicked += (s, e) =>
+            get
             {
-                ChangeLed();
-            };
-
-            ChangeLed();
+                return state;
+            }
+            private set
+            {
+                state = value;
+                lightManager.Apply(state);
+            }
         }
 
-        private void ChangeLed()
+        internal void Run()
         {
-            if ( device.GreenLight.IsOn)
+            try
             {
-                device.GreenLight.Off();
-                device.RedLight.Off();
+                Table =  apiClient.GetTable();
+                if (Table.IsBusy)
+                {
+                    this.State = AppState.Busy;
+                }
+                else
+                {
+                    this.State = AppState.Free;
+                }
+                
             }
-            else
+            catch (ReadingTableException)
             {
-                device.GreenLight.On();
-                device.RedLight.On();
+                this.State = AppState.Error;
             }
         }
     }
 }
+

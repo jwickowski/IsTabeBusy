@@ -1,4 +1,5 @@
-﻿using Windows.ApplicationModel.Background;
+﻿using System.Reflection;
+using Windows.ApplicationModel.Background;
 using IsTableBusy.App.RaspberryPi.Logic;
 
 
@@ -10,9 +11,20 @@ namespace IsTableBusy.App.RaspberryPi
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             deferral = taskInstance.GetDeferral();
-            Device device = new RasbperryPi();
-            var app = new Logic.App(device);
+
+            var app = PrepareApp();
+
             app.Run();
+        }
+
+        private static Logic.App PrepareApp()
+        {
+            var device = new RasbperryPi();
+            var config = new Config();
+            var apiClient = new ApiClient(config);
+            var lightManager = new LightManager(device);
+            var app = new Logic.App(device, apiClient, lightManager);
+            return app;
         }
     }
 }

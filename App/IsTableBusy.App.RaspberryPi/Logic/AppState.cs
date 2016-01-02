@@ -1,7 +1,11 @@
-﻿namespace IsTableBusy.App.RaspberryPi.Logic
+﻿
+namespace IsTableBusy.App.RaspberryPi.Logic
 {
     public enum AppState
     {
-        NotStarted
+        NotStarted,
+        Error,
+        Busy,
+        Free
     }
 }
