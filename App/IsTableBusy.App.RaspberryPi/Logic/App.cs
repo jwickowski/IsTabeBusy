@@ -4,17 +4,16 @@
     {
         private readonly Device device;
 
-
         public App(Device device)
         {
             this.device = device;
+            this.State = AppState.NotStarted;
         }
 
+         public AppState State { get; private set; }
 
         public void Run()
         {
-           
-
             device.Button.Clicked += (s, e) =>
             {
                 ChangeLed();

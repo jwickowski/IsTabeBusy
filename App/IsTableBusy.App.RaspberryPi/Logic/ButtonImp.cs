@@ -24,6 +24,6 @@ namespace IsTableBusy.App.RaspberryPi.Logic
             };
         }
         
-        public event TypedEventHandler<ButtonImp,object> Clicked;
+        public event TypedEventHandler<Button,object> Clicked;
     }
 }
