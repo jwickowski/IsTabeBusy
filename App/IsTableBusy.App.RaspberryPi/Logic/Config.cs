@@ -2,7 +2,7 @@
 {
     public sealed  class Config
     {
-        public  string ApiUrl => "http://169.254.127.122/api";
+        public  string ApiUrl => "http://192.168.0.101/api";
 
         public string PlaceName => "place1";
 
