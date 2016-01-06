@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using IsTableBusy.App.RaspberryPi.Exceptions;
+﻿using IsTableBusy.App.RaspberryPi.Exceptions;
 
 namespace IsTableBusy.App.RaspberryPi.Logic
 {
@@ -16,6 +15,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
             this.device = device;
             this.apiClient = apiClient;
             this.lightManager = lightManager;
+
             this.State = AppState.NotStarted;
         }
 
@@ -47,7 +47,6 @@ namespace IsTableBusy.App.RaspberryPi.Logic
                 {
                     this.State = AppState.Free;
                 }
-                
             }
             catch (ReadingTableException)
             {

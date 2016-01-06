@@ -39,5 +39,31 @@ namespace IsTableBusy.App.RaspberryPi.Logic
                 throw new ReadingTableException();
             }
         }
+
+        internal void  SetBusy(bool isBusy)
+        {
+            try
+            {
+                HttpClient hc = new HttpClient();
+                Uri baseUri = new Uri(config.ApiUrl);
+                Uri tablesUri;
+                if (isBusy)
+                {
+                    tablesUri = new Uri(baseUri, $"api/places/{config.PlaceName}/tables/{config.TableId}/SetBusy");
+                }
+                else
+                {
+                    tablesUri = new Uri(baseUri, $"api/places/{config.PlaceName}/tables/{config.TableId}/SetFree");
+                }
+                
+                var responseTask = hc.PostAsync(tablesUri, null);
+                var response = responseTask.Result;
+                
+            }
+            catch (AggregateException)
+            {
+                throw new CachngeTableStateException();
+            }
+        }
     }
 }

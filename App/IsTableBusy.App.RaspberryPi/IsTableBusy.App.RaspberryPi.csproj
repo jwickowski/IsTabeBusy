@@ -96,6 +96,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\CachngeTableStateException.cs" />
     <Compile Include="Exceptions\ReadingTableException.cs" />
     <Compile Include="Logic\ApiClient.cs" />
     <Compile Include="Logic\AppState.cs" />
