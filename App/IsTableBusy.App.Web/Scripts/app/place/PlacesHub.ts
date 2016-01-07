@@ -34,12 +34,10 @@ class PlacesHub {
     }
 
     public isBusy = (func: IsBusyChanged) => {
-        console.log("register busy");
         this.isBusyFunctions.push(func);
     };
 
     public isFree = (func: IsBusyChanged) => {
-        console.log("register free");
         this.isFreeFunctions.push(func);
     };
 }
