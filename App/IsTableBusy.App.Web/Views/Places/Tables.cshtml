@@ -8,14 +8,13 @@
 <h2>Tables in @Model.PlaceName</h2>
 
 <div class="container"  data-bind="foreach: tables">
-    <div class="row" data-bind="css: {'bg-success': !isBusy(), 'bg-danger': isBusy()}" >
-        <div class="col-xs-7" >
-            <span data-bind="text: name"></span>
+    <div class="row bs-callout" data-bind="css: {'bg-success bs-callout-success': !isBusy(), 'bg-danger bs-callout-danger': isBusy()}">
+        <div class="col-xs-7">
+            <span class="table-title" data-bind="text: name"></span>
         </div>
-     
+
         <div class="col-xs-5 ">
-            <a href="#" class="btn btn-default btn-lg btn-block pull-right" data-bind="visible: !isBusy(),click: $parent.setBusy">Set busy</a>
-            <a href="#" class="btn btn-default btn-lg btn-block pull-right btn" data-bind="visible: isBusy(),click: $parent.setFree">Set free</a>
+            <a href="#" class="btn btn-info btn-lg btn-block pull-right" data-bind="click: isBusy() ? $parent.setFree : $parent.setBusy, text: isBusy() ? 'Set free' : 'Set busy'"></a>
         </div>
     </div>
 </div>
