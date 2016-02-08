@@ -43,6 +43,12 @@ namespace IsTableBusy.App.RaspberryPi.Logic
                         device.RedLight.On();
                         break;
                     }
+                case AppState.Working:
+                    {
+                        device.GreenLight.Off();
+                        device.RedLight.Off();
+                        break;
+                    }
             }
         }
     }

@@ -6,6 +6,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
         NotStarted,
         Error,
         Busy,
-        Free
+        Free,
+        Working
     }
 }
