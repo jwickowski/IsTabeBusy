@@ -67,8 +67,13 @@
     <Compile Include="Migrations\201512171811127_AddPlacesAndTables.Designer.cs">
       <DependentUpon>201512171811127_AddPlacesAndTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602110945388_AddDevice.cs" />
+    <Compile Include="Migrations\201602110945388_AddDevice.Designer.cs">
+      <DependentUpon>201602110945388_AddDevice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseEntity.cs" />
+    <Compile Include="Model\Device.cs" />
     <Compile Include="Model\Table.cs" />
     <Compile Include="Model\Place.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +85,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201512171811127_AddPlacesAndTables.resx">
       <DependentUpon>201512171811127_AddPlacesAndTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602110945388_AddDevice.resx">
+      <DependentUpon>201602110945388_AddDevice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

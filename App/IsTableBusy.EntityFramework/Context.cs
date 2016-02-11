@@ -22,5 +22,7 @@ namespace IsTableBusy.EntityFramework
         public DbSet<Place> Places { get; set; }
 
         public DbSet<Table> Tables { get; set; }
+
+        public DbSet<Device> Devices { get; set; }
     }
 }

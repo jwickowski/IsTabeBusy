@@ -82,6 +82,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Integration\DeviceRegisterTest.cs" />
     <Compile Include="Integration\IsTableBusyDatabaseTest.cs" />
     <Compile Include="Integration\TableInPlaceSearcherTest.cs" />
     <Compile Include="Integration\TableReaderTest.cs" />
