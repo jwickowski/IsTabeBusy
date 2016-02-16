@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\TableInWrongPlaceException.cs" />
     <Compile Include="Exceptions\WrongDeviceRegistrationException.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
+    <Compile Include="Models\DeviceRegisterViewModel.cs" />
     <Compile Include="Models\TableViewModel.cs" />
     <Compile Include="TableReader.cs" />
     <Compile Include="TablesInPlaceReader.cs" />
