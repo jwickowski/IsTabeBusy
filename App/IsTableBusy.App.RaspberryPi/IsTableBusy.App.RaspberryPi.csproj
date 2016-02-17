@@ -96,21 +96,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\CachngeTableStateException.cs" />
-    <Compile Include="Exceptions\ReadingTableException.cs" />
-    <Compile Include="Logic\ApiClient.cs" />
-    <Compile Include="Logic\AppState.cs" />
-    <Compile Include="Logic\Config.cs" />
-    <Compile Include="Logic\Light.cs" />
-    <Compile Include="Logic\Button.cs" />
-    <Compile Include="Logic\App.cs" />
-    <Compile Include="Logic\ButtonImp.cs" />
-    <Compile Include="Logic\IsTableApiClient.cs" />
-    <Compile Include="Logic\Led.cs" />
-    <Compile Include="Logic\Device.cs" />
-    <Compile Include="Logic\LightManager.cs" />
-    <Compile Include="Logic\RasbperryPi.cs" />
-    <Compile Include="Logic\Table.cs" />
+    <Compile Include="Plugins\ButtonImp.cs" />
+    <Compile Include="Plugins\Led.cs" />
+    <Compile Include="Plugins\RasbperryPi.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -161,6 +149,13 @@
       <HintPath>..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IsTableBusy.Device.Core\IsTableBusy.Device.Core.csproj">
+      <Project>{9dd25ed1-7e4f-453f-a920-eae98720ea01}</Project>
+      <Name>IsTableBusy.Device.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

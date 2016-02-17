@@ -17,13 +17,13 @@ namespace IsTableBusy.App.RaspberryPi
             app.Run();
         }
 
-        private static Logic.App PrepareApp()
+        private static Logic.DeviceApp PrepareApp()
         {
             var device = new RasbperryPi();
             var config = new Config();
             var apiClient = new ApiClient(config);
             var lightManager = new LightManager(device);
-            var app = new Logic.App(device, apiClient, lightManager);
+            var app = new Logic.DeviceApp(device, apiClient, lightManager);
             return app;
         }
     }

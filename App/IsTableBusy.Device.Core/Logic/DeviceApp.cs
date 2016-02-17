@@ -1,8 +1,9 @@
 ﻿using IsTableBusy.App.RaspberryPi.Exceptions;
+using IsTableBusy.Device.Core.Logic;
 
 namespace IsTableBusy.App.RaspberryPi.Logic
 {
-    public sealed class App
+    public sealed class DeviceApp
     {
         private readonly Device device;
         private readonly ApiClient apiClient;
@@ -10,7 +11,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
 
         private Table Table { get; set; }
 
-        public App(Device device, ApiClient apiClient, LightManager lightManager)
+        public DeviceApp(Device device, ApiClient apiClient, LightManager lightManager)
         {
             this.device = device;
             this.apiClient = apiClient;
@@ -34,7 +35,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
             }
         }
 
-        internal void Run()
+        public void Run()
         {
             try
             {
@@ -60,7 +61,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
             }
         }
 
-        private void Button_Clicked(Button sender, object args)
+        private void Button_Clicked(object sender, ButtonClickedEventArgs e)
         {
             try
             {

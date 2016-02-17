@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IsTableBusy.Device.Core.Logic;
+using System;
 using Windows.Devices.Gpio;
 using Windows.Foundation;
 
@@ -23,7 +24,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
                 }
             };
         }
-        
-        public event TypedEventHandler<Button,object> Clicked;
+
+        public event System.EventHandler<ButtonClickedEventArgs> Clicked;
     }
 }

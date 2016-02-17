@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.UI.Xaml.Shapes;
-using dotless.Core.Parser.Tree;
 using IsTableBusy.App.RaspberryPi.Exceptions;
 using Newtonsoft.Json;
 
