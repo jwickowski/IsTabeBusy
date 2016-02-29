@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IsTableBusy.Device.Core.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IsTableBusy.App.RaspberryPi.Logic
 {
-    public sealed class RasbperryPi : Device
+    public sealed class RasbperryPi : IoTDevice
     {
         public RasbperryPi()
         {

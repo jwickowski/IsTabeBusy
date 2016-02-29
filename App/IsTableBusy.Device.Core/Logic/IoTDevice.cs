@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.Device.Core.Logic
 {
-    public interface Device
+    public interface IoTDevice
     {
         Light RedLight { get; }
         Light GreenLight { get; }

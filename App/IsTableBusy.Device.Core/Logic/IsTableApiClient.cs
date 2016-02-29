@@ -1,4 +1,4 @@
-﻿namespace IsTableBusy.App.RaspberryPi.Logic
+﻿namespace IsTableBusy.Device.Core.Logic
 {
     public sealed class IsTableApiClient
     {

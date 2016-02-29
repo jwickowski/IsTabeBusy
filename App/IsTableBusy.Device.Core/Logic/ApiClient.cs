@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using IsTableBusy.App.RaspberryPi.Exceptions;
+using IsTableBusy.Device.Core.Exceptions;
 using Newtonsoft.Json;
 
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.Device.Core.Logic
 {
     public sealed class ApiClient
     {

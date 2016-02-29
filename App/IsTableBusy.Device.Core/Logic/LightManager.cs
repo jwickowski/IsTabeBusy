@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.Device.Core.Logic
 {
     public sealed class LightManager
     {
-        private readonly Device device;
+        private readonly IoTDevice device;
 
-        public LightManager(Device device)
+        public LightManager(IoTDevice device)
         {
             this.device = device;
         }

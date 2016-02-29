@@ -1,4 +1,5 @@
-﻿using Windows.Devices.Gpio;
+﻿using IsTableBusy.Device.Core.Logic;
+using Windows.Devices.Gpio;
 
 namespace IsTableBusy.App.RaspberryPi.Logic
 {

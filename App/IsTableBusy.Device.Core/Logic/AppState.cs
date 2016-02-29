@@ -1,5 +1,5 @@
 ﻿
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.Device.Core.Logic
 {
     public enum AppState
     {

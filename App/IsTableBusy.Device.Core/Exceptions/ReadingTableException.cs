@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IsTableBusy.App.RaspberryPi.Exceptions
+namespace IsTableBusy.Device.Core.Exceptions
 {
     internal class ReadingTableException : Exception
     {

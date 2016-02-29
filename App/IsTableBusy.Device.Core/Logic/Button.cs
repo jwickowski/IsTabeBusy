@@ -1,11 +1,10 @@
-﻿
-using IsTableBusy.Device.Core.Logic;
+﻿using Windows.Foundation;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.Device.Core.Logic
 {
     public interface Button
     {
-        event System.EventHandler<ButtonClickedEventArgs> Clicked;
+        event TypedEventHandler<Button, object> Clicked;
         
     }
 }

@@ -1,17 +1,18 @@
-﻿using IsTableBusy.App.RaspberryPi.Exceptions;
-using IsTableBusy.Device.Core.Logic;
+﻿
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+using IsTableBusy.Device.Core.Exceptions;
+
+namespace IsTableBusy.Device.Core.Logic
 {
     public sealed class DeviceApp
     {
-        private readonly Device device;
+        private readonly IoTDevice device;
         private readonly ApiClient apiClient;
         private readonly LightManager lightManager;
 
         private Table Table { get; set; }
 
-        public DeviceApp(Device device, ApiClient apiClient, LightManager lightManager)
+        public DeviceApp(IoTDevice device, ApiClient apiClient, LightManager lightManager)
         {
             this.device = device;
             this.apiClient = apiClient;
@@ -61,7 +62,7 @@ namespace IsTableBusy.App.RaspberryPi.Logic
             }
         }
 
-        private void Button_Clicked(object sender, ButtonClickedEventArgs e)
+        private void Button_Clicked(Button sender, object args)
         {
             try
             {

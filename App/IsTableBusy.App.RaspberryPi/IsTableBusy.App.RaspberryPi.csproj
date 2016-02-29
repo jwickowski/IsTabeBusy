@@ -151,11 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsTableBusy.Device.Core\IsTableBusy.Device.Core.csproj">
-      <Project>{9dd25ed1-7e4f-453f-a920-eae98720ea01}</Project>
+      <Project>{5a01cc34-6bd4-4f52-8c9b-e8454777f9d2}</Project>
       <Name>IsTableBusy.Device.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
