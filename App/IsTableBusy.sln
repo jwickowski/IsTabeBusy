@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsTableBusy.App.RaspberryPi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsTableBusy.Device.Core", "IsTableBusy.Device.Core\IsTableBusy.Device.Core.csproj", "{5A01CC34-6BD4-4F52-8C9B-E8454777F9D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsTableBusy.Device.Core.Tests", "IsTableBusy.Device.Core.Tests\IsTableBusy.Device.Core.Tests.csproj", "{E975B2E1-3601-484B-98E5-9444316853D6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,22 +183,6 @@ Global
 		{5A01CC34-6BD4-4F52-8C9B-E8454777F9D2}.Release|x64.Build.0 = Release|x64
 		{5A01CC34-6BD4-4F52-8C9B-E8454777F9D2}.Release|x86.ActiveCfg = Release|x86
 		{5A01CC34-6BD4-4F52-8C9B-E8454777F9D2}.Release|x86.Build.0 = Release|x86
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|ARM.ActiveCfg = Debug|ARM
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|ARM.Build.0 = Debug|ARM
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|x64.ActiveCfg = Debug|x64
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|x64.Build.0 = Debug|x64
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|x86.ActiveCfg = Debug|x86
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Debug|x86.Build.0 = Debug|x86
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|ARM.ActiveCfg = Release|ARM
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|ARM.Build.0 = Release|ARM
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|x64.ActiveCfg = Release|x64
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|x64.Build.0 = Release|x64
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|x86.ActiveCfg = Release|x86
-		{E975B2E1-3601-484B-98E5-9444316853D6}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
