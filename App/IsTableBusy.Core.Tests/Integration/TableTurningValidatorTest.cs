@@ -3,6 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using IsTableBusy.Core.Exceptions;
 using IsTableBusy.EntityFramework;
+using IsTableBusy.EntityFramework.Model;
 using Xunit;
 using Tazos.Tools.Extensions.EntityFramework;
 
@@ -15,6 +16,11 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
+
+                var table = new Table { Place = new Place { Name = "place1" }, Name = "table11", IsBusy = false };
+                ctx.Tables.Add(table);
+                ctx.SaveChanges();
+
                 var testTable = ctx.Tables.Include(x => x.Place).First();
 
                 var ttv = new TableTurningValidator(ctx);
@@ -28,6 +34,9 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
+                var table = new Table { Place = new Place { Name = "place1" }, Name = "table11", IsBusy = false };
+                ctx.Tables.Add(table);
+                ctx.SaveChanges();
                 var testTable = ctx.Tables.Include(x => x.Place).First();
 
                 var ttv = new TableTurningValidator(ctx);

@@ -19,7 +19,7 @@ namespace IsTableBusy.Core
 
         public void Connect(int tableId, int deviceId)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

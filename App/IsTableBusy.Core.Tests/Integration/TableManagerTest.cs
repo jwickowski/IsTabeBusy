@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using IsTableBusy.EntityFramework;
+using IsTableBusy.EntityFramework.Model;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration
@@ -13,6 +14,10 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
+                var table = new Table {Place = new Place {Name = "place1"}, Name = "table11", IsBusy = false};
+                ctx.Tables.Add(table);
+                ctx.SaveChanges();
+
                 var testTable = ctx.Tables.First();
                 testTable.IsBusy = false;
                 ctx.SaveChanges();
@@ -30,6 +35,10 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
+                var table = new Table { Place = new Place { Name = "place1" }, Name = "table11", IsBusy = false };
+                ctx.Tables.Add(table);
+                ctx.SaveChanges();
+
                 var testTable = ctx.Tables.First();
                 testTable.IsBusy = true;
                 ctx.SaveChanges();
