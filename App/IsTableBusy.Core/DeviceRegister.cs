@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IsTableBusy.Core.Exceptions;
 using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
@@ -13,10 +9,11 @@ namespace IsTableBusy.Core
     public class DeviceRegister
     {
         private Context context;
-
+        private DeviceRegistrationAuditer auditer;
         public DeviceRegister(Context context)
         {
             this.context = context;
+            this.auditer = new DeviceRegistrationAuditer(context);
         }
 
         public Guid Register(Guid? guid = null)
@@ -27,14 +24,17 @@ namespace IsTableBusy.Core
                 newDevice.Guid = Guid.NewGuid();
                 context.Devices.Add(newDevice);
                 context.SaveChanges();
+                auditer.AuditRegisteringNewDevice(newDevice);
                 return newDevice.Guid;
             }
-
-            if (context.Devices.Any(x => x.Guid == guid.Value))
+            var device = context.Devices.FirstOrDefault(x => x.Guid == guid.Value);
+            if (device != null)
             {
+                auditer.AuditRegisteringExistingDevice(device);
                 return guid.Value;
             }
 
+            auditer.AuditWrongRegistered(guid.Value);
             throw new WrongDeviceRegistrationException();
         }
     }

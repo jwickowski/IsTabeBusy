@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeSupplier.cs" />
     <Compile Include="DeviceRegister.cs" />
+    <Compile Include="DeviceRegistrationAuditer.cs" />
     <Compile Include="Exceptions\TableInWrongPlaceException.cs" />
     <Compile Include="Exceptions\WrongDeviceRegistrationException.cs" />
     <Compile Include="Mappers\TableMapper.cs" />

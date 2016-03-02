@@ -71,7 +71,14 @@
     <Compile Include="Migrations\201602110945388_AddDevice.Designer.cs">
       <DependentUpon>201602110945388_AddDevice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603020944546_DeviceAudit.cs" />
+    <Compile Include="Migrations\201603020944546_DeviceAudit.Designer.cs">
+      <DependentUpon>201603020944546_DeviceAudit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Audit\AuditItemType.cs" />
+    <Compile Include="Model\Audit\BaseAudit.cs" />
+    <Compile Include="Model\Audit\DeviceAudit.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\Device.cs" />
     <Compile Include="Model\Table.cs" />
@@ -88,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602110945388_AddDevice.resx">
       <DependentUpon>201602110945388_AddDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603020944546_DeviceAudit.resx">
+      <DependentUpon>201603020944546_DeviceAudit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using IsTableBusy.EntityFramework.Model;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using IsTableBusy.EntityFramework.Model.Audit;
 
 namespace IsTableBusy.EntityFramework
 {
@@ -16,6 +17,10 @@ namespace IsTableBusy.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<BaseAudit>().ToTable("BaseAudit", "Audit");
+            modelBuilder.Entity<DeviceAudit>().ToTable("DeviceAudit", "Audit");
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -24,5 +29,7 @@ namespace IsTableBusy.EntityFramework
         public DbSet<Table> Tables { get; set; }
 
         public DbSet<Device> Devices { get; set; }
+
+        public DbSet<BaseAudit> Audits { get; set; }
     }
 }

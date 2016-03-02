@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using IsTableBusy.Core.Exceptions;
 using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
+using IsTableBusy.EntityFramework.Model.Audit;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration
 {
     public class DeviceRegisterTest : IsTableBusyDatabaseTest, IDisposable
     {
-
-        [Fact]
+        public DeviceRegisterTest()
+        {
+            DateTimeSupplier.Date = new DateTime(2015, 3, 4);
+        }
+    
+    [Fact]
         public void Register_new_device()
         {
             using (Context context = new Context())
@@ -25,7 +27,6 @@ namespace IsTableBusy.Core.Tests.Integration
                 context.Devices.Count(x => x.Guid == deviceGuid).Should().Be(1);
             }
         }
-
 
         [Fact]
         public void Register_existing_device_and_accept_it()
@@ -51,15 +52,88 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context context = new Context())
             {
-               
                 var guid = Guid.NewGuid();
-            
+
+                DeviceRegister deviceRegister = new DeviceRegister(context);
+
+                Action a = () => deviceRegister.Register(guid);
+                a.ShouldThrow<WrongDeviceRegistrationException>();
+            }
+        }
+
+        [Fact]
+        public void Audit_registering_new_device()
+        {
+            using (Context context = new Context())
+            {
+                DeviceRegister deviceRegister = new DeviceRegister(context);
+                Guid deviceGuid = deviceRegister.Register();
+                int deviceId = context.Devices.First().Id;
+
+               var expectedAudit = new DeviceAudit
+                {
+                    ItemType = AuditItemType.Device,
+                    ItemId = deviceId,
+                    DeviceGuid = deviceGuid,
+                    Date = DateTimeSupplier.Date,
+                    Event = "Registered new device"
+                };
+
+                var audit = context.Audits.OfType<DeviceAudit>().Single();
+                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x=> x.Id));
+            }
+        }
+
+        [Fact]
+        public void Audit_register_existing_device()
+        {
+            using (Context context = new Context())
+            {
+                Device device = new Device();
+                device.Guid = Guid.NewGuid(); ;
+                context.Devices.Add(device);
+                context.SaveChanges();
+
+                DeviceRegister deviceRegister = new DeviceRegister(context);
+                Guid deviceGuid = deviceRegister.Register(device.Guid);
+
+                var expectedAudit = new DeviceAudit
+                {
+                    ItemType = AuditItemType.Device,
+                    ItemId = device.Id,
+                    DeviceGuid = deviceGuid,
+                    Date = DateTimeSupplier.Date,
+                    Event = "Registered existing device"
+                };
+
+                var audit = context.Audits.OfType<DeviceAudit>().Single();
+                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
+            }
+        }
+
+        [Fact]
+        public void Audit_wrong_regisering_device()
+        {
+            using (Context context = new Context())
+            {
+                var guid = Guid.NewGuid();
 
                 DeviceRegister deviceRegister = new DeviceRegister(context);
 
                 Action a = () => deviceRegister.Register(guid);
                 a.ShouldThrow<WrongDeviceRegistrationException>();
 
+                var expectedAudit = new DeviceAudit
+                {
+                    ItemType = AuditItemType.Device,
+                    ItemId = null,
+                    DeviceGuid = guid,
+                    Date = DateTimeSupplier.Date,
+                    Event = "Not registered device"
+                };
+
+                var audit = context.Audits.OfType<DeviceAudit>().Single();
+                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
             }
         }
     }

@@ -10,9 +10,6 @@ namespace IsTableBusy.EntityFramework
 
         public static object _lock = new object();
 
-     
-
-
         public void Create(string connectionString)
         {
             lock (_lock)
