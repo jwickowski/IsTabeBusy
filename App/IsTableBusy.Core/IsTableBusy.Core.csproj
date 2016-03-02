@@ -54,6 +54,7 @@
     <Compile Include="DeviceRegister.cs" />
     <Compile Include="DeviceRegistrationAuditer.cs" />
     <Compile Include="DeviceTableConnector.cs" />
+    <Compile Include="Exceptions\TableDeviceConnectingException.cs" />
     <Compile Include="Exceptions\TableInWrongPlaceException.cs" />
     <Compile Include="Exceptions\WrongDeviceRegistrationException.cs" />
     <Compile Include="Mappers\TableMapper.cs" />

@@ -199,3 +199,5 @@ Deployment/deploy.log.txt
 App/IsTableBusy.App.Web/Scripts/app/**/*.js
 App/IsTableBusy.App.Web/Scripts/app/**/*.js.map
 project.lock.json
+*.ncrunchsolution
+*.ncrunchproject
