@@ -4,6 +4,7 @@ using FluentAssertions;
 using IsTableBusy.Core.Exceptions;
 using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
+using IsTableBusy.EntityFramework.Model.Audit;
 using Xunit;
 namespace IsTableBusy.Core.Tests.Integration
 {
@@ -26,6 +27,35 @@ namespace IsTableBusy.Core.Tests.Integration
 
                 var result = ctx.Tables.Single(x => x.Id == table.Id);
                 result.DeviceId.Should().Be(device.Id);
+            }
+        }
+
+        [Fact]
+        public void Audit_connecting_table_with_device()
+        {
+            using (Context ctx = new Context())
+            {
+                DateTimeSupplier.Date = new DateTime(2016, 2, 5);
+
+                var place = new Place {Name = "place1"};
+                var table = new Table {Name = "table1", IsBusy = false, Place = place};
+                var device = new Device {Guid = Guid.NewGuid()};
+                ctx.Tables.Add(table);
+                ctx.Devices.Add(device);
+                ctx.SaveChanges();
+
+                var connector = new DeviceTableConnector(ctx);
+                connector.Connect(table.Id, device.Id);
+
+                var audit = ctx.Audits.OfType<TableAudit>().Single();
+                audit.ShouldBeEquivalentTo(new TableAudit
+                {
+                    Date = DateTimeSupplier.Date,
+                    ItemId = table.Id,
+                    ItemType = AuditItemType.Table,
+                    Event = "Table connected with device",
+                    DeviceId = device.Id
+                }, options => options.Excluding(x => x.Id));
             }
         }
 

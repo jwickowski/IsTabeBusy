@@ -20,6 +20,7 @@ namespace IsTableBusy.EntityFramework
 
             modelBuilder.Entity<BaseAudit>().ToTable("BaseAudit", "Audit");
             modelBuilder.Entity<DeviceAudit>().ToTable("DeviceAudit", "Audit");
+            modelBuilder.Entity<TableAudit>().ToTable("TableAudit", "Audit");
 
             base.OnModelCreating(modelBuilder);
         }

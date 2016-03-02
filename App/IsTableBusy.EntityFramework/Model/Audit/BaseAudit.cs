@@ -7,5 +7,6 @@ namespace IsTableBusy.EntityFramework.Model.Audit
         public DateTime Date { get; set; }
         public AuditItemType ItemType { get; set; }
         public int? ItemId { get; set; }
+        public string Event { get; set; }
     }
 }

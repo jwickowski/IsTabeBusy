@@ -79,10 +79,19 @@
     <Compile Include="Migrations\201603021246337_ConnectTableWithDevice.Designer.cs">
       <DependentUpon>201603021246337_ConnectTableWithDevice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603021348378_AddTableAudit.cs" />
+    <Compile Include="Migrations\201603021348378_AddTableAudit.Designer.cs">
+      <DependentUpon>201603021348378_AddTableAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603021352006_MoveEventToBaseAudit.cs" />
+    <Compile Include="Migrations\201603021352006_MoveEventToBaseAudit.Designer.cs">
+      <DependentUpon>201603021352006_MoveEventToBaseAudit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Audit\AuditItemType.cs" />
     <Compile Include="Model\Audit\BaseAudit.cs" />
     <Compile Include="Model\Audit\DeviceAudit.cs" />
+    <Compile Include="Model\Audit\TableAudit.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\Device.cs" />
     <Compile Include="Model\Table.cs" />
@@ -105,6 +114,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603021246337_ConnectTableWithDevice.resx">
       <DependentUpon>201603021246337_ConnectTableWithDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603021348378_AddTableAudit.resx">
+      <DependentUpon>201603021348378_AddTableAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603021352006_MoveEventToBaseAudit.resx">
+      <DependentUpon>201603021352006_MoveEventToBaseAudit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

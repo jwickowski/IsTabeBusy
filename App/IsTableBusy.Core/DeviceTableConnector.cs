@@ -2,6 +2,7 @@
 using IsTableBusy.Core.Exceptions;
 using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
+using IsTableBusy.EntityFramework.Model.Audit;
 
 namespace IsTableBusy.Core
 {
@@ -20,6 +21,22 @@ namespace IsTableBusy.Core
             Validate(table, deviceId);
 
             table.DeviceId = deviceId;
+
+            Audit(table);
+            ctx.SaveChanges();
+        }
+
+        private void Audit(Table table)
+        {
+            var tableAudit = new TableAudit
+            {
+                Event = "Table connected with device",
+                DeviceId = table.DeviceId.Value,
+                Date = DateTimeSupplier.Date,
+                ItemId = table.Id,
+                ItemType = AuditItemType.Table
+            };
+            ctx.Audits.Add(tableAudit);
             ctx.SaveChanges();
         }
 

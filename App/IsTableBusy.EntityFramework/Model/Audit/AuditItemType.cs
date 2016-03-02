@@ -2,6 +2,7 @@
 {
     public enum AuditItemType : int
     {
-        Device = 1
+        Device = 1,
+        Table = 2
     }
 }
