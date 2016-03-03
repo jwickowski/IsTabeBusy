@@ -60,6 +60,7 @@
     <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\DeviceRegisterViewModel.cs" />
     <Compile Include="Models\TableViewModel.cs" />
+    <Compile Include="Models\PlaceViewModel.cs" />
     <Compile Include="TableReader.cs" />
     <Compile Include="TablesInPlaceReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
