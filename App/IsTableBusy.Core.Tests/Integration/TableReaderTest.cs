@@ -18,11 +18,12 @@ namespace IsTableBusy.Core.Tests.Integration
                 var loader = new StandardTestDataLoader(ctx);
                 var loadedData = loader.Load();
 
-                var tableId = loadedData.PlaceWithTwoTables.Tables.First().Id;
+                var tableId = loadedData.TableWithDevice.Id;
+                var placeName = loadedData.TableWithDevice.Place.Name;
 
                 var reader = new TableReader(ctx);
 
-                TableViewModel result = reader.Read(loadedData.PlaceWithTwoTables.Name, tableId);
+                TableViewModel result = reader.Read(placeName, tableId);
                 result.Should().NotBeNull();
                 result.Id.Should().Be(tableId);
             }
