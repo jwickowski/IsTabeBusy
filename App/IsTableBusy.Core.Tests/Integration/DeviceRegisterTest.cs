@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using IsTableBusy.Core.Exceptions;
+using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
 using IsTableBusy.EntityFramework.Model.Audit;
@@ -15,8 +16,8 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             DateTimeSupplier.Date = new DateTime(2015, 3, 4);
         }
-    
-    [Fact]
+
+        [Fact]
         public void Register_new_device()
         {
             using (Context context = new Context())
@@ -33,16 +34,12 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context context = new Context())
             {
-                Device device = new Device();
-                var guid = Guid.NewGuid();
-                device.Guid = guid;
-                context.Devices.Add(device);
-                context.SaveChanges();
+                var loader = new StandardTestDataLoader(context);
+                var loadedData = loader.Load();
 
                 DeviceRegister deviceRegister = new DeviceRegister(context);
-                Guid deviceGuid = deviceRegister.Register(guid);
-                deviceGuid.Should().NotBeEmpty();
-                deviceGuid.Should().Be(guid);
+                Guid deviceGuid = deviceRegister.Register(loadedData.NotConnectedDevice.Guid);
+                deviceGuid.Should().Be(loadedData.NotConnectedDevice.Guid);
                 context.Devices.Count(x => x.Guid == deviceGuid).Should().Be(1);
             }
         }
@@ -70,7 +67,7 @@ namespace IsTableBusy.Core.Tests.Integration
                 Guid deviceGuid = deviceRegister.Register();
                 int deviceId = context.Devices.First().Id;
 
-               var expectedAudit = new DeviceAudit
+                var expectedAudit = new DeviceAudit
                 {
                     ItemType = AuditItemType.Device,
                     ItemId = deviceId,
@@ -80,7 +77,7 @@ namespace IsTableBusy.Core.Tests.Integration
                 };
 
                 var audit = context.Audits.OfType<DeviceAudit>().Single();
-                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x=> x.Id));
+                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
             }
         }
 
@@ -89,18 +86,16 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context context = new Context())
             {
-                Device device = new Device();
-                device.Guid = Guid.NewGuid(); ;
-                context.Devices.Add(device);
-                context.SaveChanges();
+                var loader = new StandardTestDataLoader(context);
+                var loadedData = loader.Load();
 
                 DeviceRegister deviceRegister = new DeviceRegister(context);
-                Guid deviceGuid = deviceRegister.Register(device.Guid);
+                Guid deviceGuid = deviceRegister.Register(loadedData.NotConnectedDevice.Guid);
 
                 var expectedAudit = new DeviceAudit
                 {
                     ItemType = AuditItemType.Device,
-                    ItemId = device.Id,
+                    ItemId = loadedData.NotConnectedDevice.Id,
                     DeviceGuid = deviceGuid,
                     Date = DateTimeSupplier.Date,
                     Event = "Registered existing device"

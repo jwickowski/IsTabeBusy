@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
+using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;
-using IsTableBusy.EntityFramework.Model;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration
@@ -14,11 +14,10 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
-                var table = new Table {Place = new Place {Name = "place1"}, Name = "table11", IsBusy = false};
-                ctx.Tables.Add(table);
-                ctx.SaveChanges();
+                var loader = new StandardTestDataLoader(ctx);
+                var loadedData = loader.Load();
 
-                var testTable = ctx.Tables.First();
+                var testTable = ctx.Tables.First(x=> x.Id == loadedData.ConnectedDevice.Id);
                 testTable.IsBusy = false;
                 ctx.SaveChanges();
 
@@ -35,11 +34,10 @@ namespace IsTableBusy.Core.Tests.Integration
         {
             using (Context ctx = new Context())
             {
-                var table = new Table { Place = new Place { Name = "place1" }, Name = "table11", IsBusy = false };
-                ctx.Tables.Add(table);
-                ctx.SaveChanges();
+                var loader = new StandardTestDataLoader(ctx);
+                var loadedData = loader.Load();
 
-                var testTable = ctx.Tables.First();
+                var testTable = ctx.Tables.First(x => x.Id == loadedData.ConnectedDevice.Id);
                 testTable.IsBusy = true;
                 ctx.SaveChanges();
 

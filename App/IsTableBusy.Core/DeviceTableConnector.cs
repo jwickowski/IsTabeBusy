@@ -57,6 +57,12 @@ namespace IsTableBusy.Core
             {
                 throw new TableDeviceConnectingException();
             }
+
+            var isAnyDevicesTable = ctx.Tables.Any(x => x.DeviceId == device.Id);
+            if (isAnyDevicesTable)
+            {
+                throw new TableDeviceConnectingException();
+            }
         }
     }
 }

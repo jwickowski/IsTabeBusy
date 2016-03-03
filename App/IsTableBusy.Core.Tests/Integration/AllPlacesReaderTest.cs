@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;
-using IsTableBusy.EntityFramework.Model;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration

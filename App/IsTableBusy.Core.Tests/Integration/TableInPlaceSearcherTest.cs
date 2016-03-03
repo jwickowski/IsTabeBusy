@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
+using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;
-using IsTableBusy.EntityFramework.Model;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration
@@ -22,19 +22,18 @@ namespace IsTableBusy.Core.Tests.Integration
         }
 
         [Fact]
-        public void return_one_item()
+        public void return_item()
         {
             using (Context ctx = new Context())
             {
+                var loader = new StandardTestDataLoader(ctx);
+                var loadedData = loader.Load();
+
                 TablesInPlaceReader reader = new TablesInPlaceReader(ctx);
 
-                var table = new Table { Place = new Place { Name = "place1" }, Name = "table11", IsBusy = false };
-                ctx.Tables.Add(table);
-                ctx.SaveChanges();
-
-                var result = reader.Read("place1");
+                var result = reader.Read(loadedData.PlaceWithTwoTables.Name);
                 result.Should().NotBeEmpty();
-                result.Count().Should().Be(1);
+                result.Count().Should().Be(2);
             }
         }
     }
