@@ -13,19 +13,27 @@ namespace IsTableBusy.App.Api.Controllers
         private readonly TableManager tableManager;
         private readonly TableTurningValidator tableTurningValidator;
         private readonly TableReader tableReader;
+        private readonly AllPlacesReader allPlacesReader;
 
         public PlacesController(
             TablesInPlaceReader tablesInPlaceReader, 
             TableManager tableManager, 
             TableTurningValidator tableTurningValidator,
-            TableReader tableReader)
+            TableReader tableReader,
+            AllPlacesReader allPlacesReader)
         {
             this.tablesInPlaceReader = tablesInPlaceReader;
             this.tableManager = tableManager;
             this.tableTurningValidator = tableTurningValidator;
             this.tableReader = tableReader;
+            allPlacesReader = allPlacesReader;
         }
 
+
+        public IEnumerable<PlaceViewModel> Get()
+        {
+            return allPlacesReader.Read();
+        }
 
         [Route("places/{place}/tables")]
         public IEnumerable<TableViewModel> GetTablesForPlace(string place)

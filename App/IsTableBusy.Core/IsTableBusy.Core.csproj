@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllPlacesReader.cs" />
     <Compile Include="DateTimeSupplier.cs" />
     <Compile Include="DeviceRegister.cs" />
     <Compile Include="DeviceRegistrationAuditer.cs" />
