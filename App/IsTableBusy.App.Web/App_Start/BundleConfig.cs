@@ -13,7 +13,8 @@ namespace IsTableBusy.App.Web
                 "~/Scripts/respond.js",
                 "~/Scripts/knockout-3.4.0.debug.js",
                 "~/Scripts/jquery.signalR-{version}.js",
-                "~/Scripts/lodash.js"));
+                "~/Scripts/lodash.js",
+                "~/Scripts/vendor/jsgrid/jsgrid.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));
@@ -24,7 +25,9 @@ namespace IsTableBusy.App.Web
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css"));
+                "~/Content/bootstrap.css",
+                "~/Content/vendor/jsgrid.css",
+                "~/Content/vendor/jsgrid-theme.css"));
         }
     }
 }
