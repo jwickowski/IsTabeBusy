@@ -39,6 +39,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -50,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllPlacesReader.cs" />
+    <Compile Include="Exceptions\RequiredFileFieldIsEmptyExpection.cs" />
+    <Compile Include="Models\PlaceViewModelValidator.cs" />
+    <Compile Include="Places\AllPlacesReader.cs" />
     <Compile Include="DateTimeSupplier.cs" />
     <Compile Include="DeviceRegister.cs" />
     <Compile Include="DeviceRegistrationAuditer.cs" />
@@ -62,6 +68,7 @@
     <Compile Include="Models\DeviceRegisterViewModel.cs" />
     <Compile Include="Models\TableViewModel.cs" />
     <Compile Include="Models\PlaceViewModel.cs" />
+    <Compile Include="Places\PlaceInserter.cs" />
     <Compile Include="TableReader.cs" />
     <Compile Include="TablesInPlaceReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +85,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

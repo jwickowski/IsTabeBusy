@@ -5,7 +5,7 @@ using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;
 using Xunit;
 
-namespace IsTableBusy.Core.Tests.Integration
+namespace IsTableBusy.Core.Tests.Integration.Places
 {
     public class AllPlacesReaderTest : IsTableBusyDatabaseTest, IDisposable
     {

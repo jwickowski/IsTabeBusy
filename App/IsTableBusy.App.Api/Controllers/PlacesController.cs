@@ -1,4 +1,5 @@
-﻿using IsTableBusy.Core;
+﻿using System;
+using IsTableBusy.Core;
 using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -30,9 +31,27 @@ namespace IsTableBusy.App.Api.Controllers
         }
 
 
-        public IEnumerable<PlaceViewModel> Get()
+        public IEnumerable<PlaceViewModel> GetPlaces()
         {
             return this.allPlacesReader.Read();
+        }
+
+        public void PostPlace(PlaceViewModel place)
+        {
+            throw new NotImplementedException();
+           // this.placeInserter.Insert(place);
+        }
+
+        public IEnumerable<PlaceViewModel> PutPlace(PlaceViewModel place)
+        {
+            throw new NotImplementedException();
+           // this.placeUpdater.Update(place);
+        }
+
+        public void DeletePlace (int id)
+        {
+               throw new NotImplementedException();
+            //this.placeRemover.Remove(place);
         }
 
         [Route("places/{place}/tables")]

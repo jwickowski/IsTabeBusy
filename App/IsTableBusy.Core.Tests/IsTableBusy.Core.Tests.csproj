@@ -52,6 +52,10 @@
       <HintPath>..\packages\FluentAssertions.4.1.1\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml" />
@@ -82,10 +86,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Integration\AllPlacesReaderTest.cs" />
+    <Compile Include="Integration\Places\AllPlacesReaderTest.cs" />
     <Compile Include="Integration\DeviceRegisterTest.cs" />
     <Compile Include="Integration\DeviceTableConnectorTest.cs" />
     <Compile Include="Integration\IsTableBusyDatabaseTest.cs" />
+    <Compile Include="Integration\Places\PlaceInserterTest.cs" />
     <Compile Include="Integration\TableInPlaceSearcherTest.cs" />
     <Compile Include="Integration\TableReaderTest.cs" />
     <Compile Include="Integration\TableTurningValidatorTest.cs" />
