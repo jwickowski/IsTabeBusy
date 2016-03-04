@@ -5,7 +5,7 @@ import config = require('./config');
 class ApiWrapper {
 
     getTables(placeName: string): JQueryXHR {
-        var url: string = config.apiUrl + "/places/{placeName}/tables";
+        var url: string = config.apiUrl() + "/places/{placeName}/tables";
         url = url.replace('{placeName}', placeName);
 
         var promise: JQueryXHR = $.ajax({
@@ -17,7 +17,7 @@ class ApiWrapper {
     }
 
     public setBusy(placeName: string, tableId: number, isBusy: boolean): JQueryXHR{
-        var url: string = config.apiUrl + "/places/{placeName}/tables/{tableId}/{actionName}";
+        var url: string = config.apiUrl() + "/places/{placeName}/tables/{tableId}/{actionName}";
         url = url.replace('{placeName}', placeName);
         url = url.replace('{tableId}', tableId.toString());
 

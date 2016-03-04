@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -37,6 +38,14 @@
 
     @Scripts.Render("~/bundles/libs")
 
-    @RenderSection("scripts", required: false)
+<script>
+    window.config = {};
+    window.config.apiUrl = '@ConfigurationManager.AppSettings["ApiUrl"]';
+    window.config.apisignalRUrl ='@ConfigurationManager.AppSettings["SignalRUrl"]';
+</script>
+
+@RenderSection("scripts", required: false)
+
+    
 </body>
 </html>

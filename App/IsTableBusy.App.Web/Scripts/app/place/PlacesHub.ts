@@ -15,7 +15,7 @@ class PlacesHub {
 
     public run() {
         var connection: HubConnection = $.hubConnection();
-        connection.url = config.signalRUrl;
+        connection.url = config.signalRUrl();
         this.hub = connection.createHubProxy('placesHub');
         this.hub.on('isBusy', (tableId) => {
             for (var i = 0; i < this.isBusyFunctions.length; i++) {

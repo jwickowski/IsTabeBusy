@@ -1,7 +1,11 @@
 ﻿class Config {
-    public apiUrl: string = "http://localhost/api/";
-    public signalRUrl: string = "http://localhost/api/signalr";
+    public apiUrl(): string {
+        return window['config'].apiUrl;
+    };
+    public signalRUrl(): string {
+        return window['config'].signalRUrl;
+    }
 }
 
- export = new Config();
+export = new Config();
 
