@@ -189,6 +189,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <TypeScriptCompile Include="Scripts\app\places\PlacesData.ts" />
+    <TypeScriptCompile Include="Scripts\app\places\PlacesPage.ts" />
+    <TypeScriptCompile Include="Scripts\vendor\jsgrid\jsGrid.d.ts" />
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
