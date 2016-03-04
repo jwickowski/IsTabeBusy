@@ -324,7 +324,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56094</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56094/</IISUrl>
+          <IISUrl>http://localhost:6789/IsTableBusy/Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
