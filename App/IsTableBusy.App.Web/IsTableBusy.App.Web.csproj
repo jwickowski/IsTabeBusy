@@ -262,6 +262,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Places\Tables.cshtml" />
     <None Include="T4MVC.tt.hooks.t4" />
+    <Content Include="Views\Places\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -273,10 +274,10 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\app\ApiWrapper.ts" />
     <TypeScriptCompile Include="Scripts\app\config.ts" />
-    <TypeScriptCompile Include="Scripts\app\place\PlacesHub.ts" />
-    <TypeScriptCompile Include="Scripts\app\place\PlacePage.ts" />
-    <TypeScriptCompile Include="Scripts\app\place\PlaceViewModel.ts" />
-    <TypeScriptCompile Include="Scripts\app\place\Table.ts" />
+    <TypeScriptCompile Include="Scripts\app\placeTables\PlacesHub.ts" />
+    <TypeScriptCompile Include="Scripts\app\placeTables\PlaceTablesPage.ts" />
+    <TypeScriptCompile Include="Scripts\app\placeTables\TablesViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\app\placeTables\Table.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\js-signals\js-signals.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />

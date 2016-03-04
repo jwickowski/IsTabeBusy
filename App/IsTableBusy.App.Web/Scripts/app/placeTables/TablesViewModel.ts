@@ -11,7 +11,7 @@ import Table = require("Table");
 import PlacesHub = require("PlacesHub");
 
 
-class PlaceViewModel {
+class TablesViewModel {
     private apiWrapper: ApiWrapper;
     public tables: KnockoutObservableArray<Table>;
     public placeName: string;
@@ -57,4 +57,4 @@ class PlaceViewModel {
 
 }
 
-export = PlaceViewModel
+export = TablesViewModel
