@@ -27,7 +27,7 @@ class PlacesPage {
             controller: data,
 
             fields: [
-                { name: "Name", type: "text", width: 150 },
+                { name: "name", type: "text", width: 150 },
                 { type: "control" }
             ]
         });

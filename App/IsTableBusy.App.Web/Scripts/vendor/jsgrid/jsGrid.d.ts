@@ -1,8 +1,8 @@
 ﻿interface JsGridDataSource {
     loadData(): JQueryPromise<{}>;
-    insertItem(item: any): void;
-    updateItem(item: any): void;
-    deleteItem(item: any): void;
+    insertItem(item: any): JQueryPromise<{}>    ;
+    updateItem(item: any): JQueryPromise<{}>;
+    deleteItem(item: any): JQueryPromise<{}>;
 }
 
 

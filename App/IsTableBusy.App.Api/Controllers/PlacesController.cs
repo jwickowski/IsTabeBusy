@@ -4,6 +4,7 @@ using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;
 using IsTableBusy.App.Api.Hubs;
+using IsTableBusy.Core.Places;
 
 namespace IsTableBusy.App.Api.Controllers
 {
@@ -15,43 +16,55 @@ namespace IsTableBusy.App.Api.Controllers
         private readonly TableTurningValidator tableTurningValidator;
         private readonly TableReader tableReader;
         private readonly AllPlacesReader allPlacesReader;
+        private readonly PlaceInserter placeInserter;
+        private readonly PlaceUpdater placeUpdater;
+        private readonly PlaceRemover placeRemover;
 
         public PlacesController(
             TablesInPlaceReader tablesInPlaceReader, 
             TableManager tableManager, 
             TableTurningValidator tableTurningValidator,
             TableReader tableReader,
-            AllPlacesReader allPlacesReader)
+            AllPlacesReader allPlacesReader,
+            PlaceInserter placeInserter,
+            PlaceUpdater placeUpdater,
+            PlaceRemover placeRemover)
         {
             this.tablesInPlaceReader = tablesInPlaceReader;
             this.tableManager = tableManager;
             this.tableTurningValidator = tableTurningValidator;
             this.tableReader = tableReader;
             this.allPlacesReader = allPlacesReader;
+            this.placeInserter = placeInserter;
+            this.placeUpdater = placeUpdater;
+            this.placeRemover = placeRemover;
         }
 
-
+        [Route("places")]
         public IEnumerable<PlaceViewModel> GetPlaces()
         {
             return this.allPlacesReader.Read();
         }
-
-        public void PostPlace(PlaceViewModel place)
+        [HttpPost]
+        [Route("place")]
+        public PlaceViewModel PostPlace(PlaceViewModel place)
         {
-            throw new NotImplementedException();
-           // this.placeInserter.Insert(place);
+            this.placeInserter.Insert(place);
+            return place;
+        }
+        [HttpPut]
+        [Route("place")]
+        public PlaceViewModel PutPlace(PlaceViewModel place)
+        {
+            this.placeUpdater.Update(place);
+            return place;
         }
 
-        public IEnumerable<PlaceViewModel> PutPlace(PlaceViewModel place)
-        {
-            throw new NotImplementedException();
-           // this.placeUpdater.Update(place);
-        }
-
+        [HttpDelete]
+        [Route("place/{id}")]
         public void DeletePlace (int id)
         {
-               throw new NotImplementedException();
-            //this.placeRemover.Remove(place);
+            this.placeRemover.Remove(id);
         }
 
         [Route("places/{place}/tables")]

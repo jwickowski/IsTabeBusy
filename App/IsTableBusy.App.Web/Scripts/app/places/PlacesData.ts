@@ -1,28 +1,34 @@
 ﻿/// <reference path="../../vendor/jsgrid/jsGrid.d.ts" />
+/// <reference path="../apiwrapper.ts" />
+
+import ApiWrapper = require("../ApiWrapper");
 
 class PlacesData implements JsGridDataSource {
-    private places = [
-        { Id: 1, Name: "place1" },
-        { Id: 2, Name: "place2" }
-    ];
+    private apiWrapper: ApiWrapper;
+
+    public constructor() {
+        this.apiWrapper = new ApiWrapper();
+    }
 
     loadData(): any {
-        var deferred = $.Deferred();
-        var promis = deferred.promise();
-        setTimeout(() => {
-            deferred.resolve(this.places);
-        }, 2000);
-
-        return promis;
+        var promise = this.apiWrapper.getPlaces();
+        return promise;
     }
 
-    insertItem(item): void {
-        this.places.push(item);
+    insertItem(item): any {
+        var promise = this.apiWrapper.postPlace(item);
+        return promise;
     }
 
-    updateItem(item): void { throw new Error("Not implemented"); }
+    updateItem(item): any {
+        var promise = this.apiWrapper.putPlace(item);
+        return promise;
+    }
 
-    deleteItem(item): void { throw new Error("Not implemented"); }
+    deleteItem(item): any {
+        var promise = this.apiWrapper.deletePlace(item);
+        return promise;
+    }
 }
 
 export = PlacesData;
