@@ -12,11 +12,11 @@ namespace IsTableBusy.Device.Core.Logic
 
         private Table Table { get; set; }
 
-        public DeviceApp(IoTDevice device, ApiClient apiClient, LightManager lightManager)
+        public DeviceApp(IoTDevice device, ApiClient apiClient)
         {
             this.device = device;
             this.apiClient = apiClient;
-            this.lightManager = lightManager;
+            this.lightManager = new LightManager(device);
 
             this.State = AppState.NotStarted;
         }

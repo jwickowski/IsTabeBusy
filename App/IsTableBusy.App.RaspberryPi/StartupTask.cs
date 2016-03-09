@@ -24,7 +24,7 @@ namespace IsTableBusy.App.RaspberryPi
             var config = new Config();
             var apiClient = new ApiClient(config);
             var lightManager = new LightManager(device);
-            var app = new DeviceApp(device, apiClient, lightManager);
+            var app = new DeviceApp(device, apiClient);
             return app;
         }
     }
