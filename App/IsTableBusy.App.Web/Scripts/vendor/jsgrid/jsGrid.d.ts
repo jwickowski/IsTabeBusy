@@ -22,6 +22,11 @@ interface JsGridDataSource {
     
 }
 
+interface JsGridCallback
+{
+    (args: any): void;
+}
+
 interface JsGridOptions {
     width: string;
     height: string;
@@ -33,6 +38,7 @@ interface JsGridOptions {
     paging: boolean;
     controller?: JsGridDataSource;
     fields?: JsGridField[];
+    rowClick?: JsGridCallback;
 }
 
 interface JQuery {
