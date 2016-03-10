@@ -1,5 +1,4 @@
-﻿using System;
-using IsTableBusy.Core;
+﻿using IsTableBusy.Core;
 using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;

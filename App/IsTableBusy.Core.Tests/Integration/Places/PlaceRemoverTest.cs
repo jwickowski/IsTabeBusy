@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FluentAssertions;
-using IsTableBusy.Core.Models;
 using IsTableBusy.Core.Places;
 using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;

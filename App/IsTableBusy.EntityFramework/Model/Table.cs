@@ -1,6 +1,4 @@
-﻿using System.Data.Entity.Core.Metadata.Edm;
-
-namespace IsTableBusy.EntityFramework.Model
+﻿namespace IsTableBusy.EntityFramework.Model
 {
     public class Table :BaseEntity
     {

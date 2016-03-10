@@ -2,7 +2,6 @@
 using System.Linq;
 using FluentAssertions;
 using FluentValidation;
-using IsTableBusy.Core.Exceptions;
 using IsTableBusy.Core.Models;
 using IsTableBusy.Core.Places;
 using IsTableBusy.Core.Tests.LoadData;

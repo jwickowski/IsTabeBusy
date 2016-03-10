@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using FluentAssertions;
 using IsTableBusy.Core.Models;
 using IsTableBusy.Core.Tests.LoadData;
