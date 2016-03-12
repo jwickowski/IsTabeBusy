@@ -172,11 +172,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPlacesController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminPlacesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,7 +272,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Places\Tables.cshtml" />
     <None Include="T4MVC.tt.hooks.t4" />
-    <Content Include="Views\Places\Index.cshtml" />
+    <Content Include="Views\AdminPlaces\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
