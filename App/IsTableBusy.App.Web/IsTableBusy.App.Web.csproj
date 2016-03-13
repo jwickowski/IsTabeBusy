@@ -193,6 +193,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+	<TypeScriptCompile Include="Scripts\app\homePage\HomePage.ts" />
+    <TypeScriptCompile Include="Scripts\app\homePage\Place.ts" />
+    <TypeScriptCompile Include="Scripts\app\homePage\PlacesViewModel.ts" />
     <TypeScriptCompile Include="Scripts\app\places\Device.ts" />
     <TypeScriptCompile Include="Scripts\app\places\PlacesData.ts" />
     <TypeScriptCompile Include="Scripts\app\places\PlacesPage.ts" />

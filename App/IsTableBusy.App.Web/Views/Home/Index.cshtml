@@ -7,22 +7,18 @@
     <p> Bacon ipsum dolor amet meatball pork chop strip steak, bacon alcatra porchetta chuck cupim tri-tip jerky rump. Beef ribs fatback sirloin, pork belly sausage andouille meatloaf landjaeger salami tongue.</p>
 </div>
 
-<div class="row">
+<div class="row" data-bind="foreach: places">
     <div class="col-md-4">
-        <h2>place1</h2>
+        <h2 data-bind="text: name"></h2>
         <p>
-            place1
+            <span data-bind="text: name"></span>
         </p>
-        <p><a class="btn btn-default" href="#">go</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>place2</h2>
-        <p>place2</p>
-        <p><a class="btn btn-default" href="#">go</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>place3</h2>
-        <p>place3</p>
-        <p><a class="btn btn-default" href="#">go</a></p>
+        <p>
+            <a class="btn btn-default" href="#">go</a>
+        </p>
     </div>
 </div>
+
+@section Scripts{
+    <script data-main="../../web/scripts/app/homePage/HomePage.js" src="/IsTableBusy/Web/Scripts/require.js"></script>
+}
