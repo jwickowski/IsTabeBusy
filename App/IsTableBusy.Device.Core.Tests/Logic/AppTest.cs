@@ -96,6 +96,42 @@ namespace IsTableBusy.App.RaspberryPi.Tests.Logic
             Assert.AreEqual(true, askForRegistration);
             Assert.AreEqual(true, askForBusy);
         }
+
+        [TestMethod]
+        public void change_state_to_busy_on_click()
+        {
+            ChangeStateTest(before: true, after: false);
+        }
+
+        [TestMethod]
+        public void change_state_to_free_on_click()
+        {
+            ChangeStateTest(before: false, after:true);
+        }
+
+        public void ChangeStateTest(bool before, bool after)
+        {
+            Init();
+            bool isBusyRan = false;
+            bool isBusyValue = false;
+
+            apiClient
+             .WithGetBusy(() => { return before; })
+             .WithSetBusy((isBusy) =>
+             {
+                 isBusyRan = true;
+                 isBusyValue = isBusy;
+             });
+
+            app.Run();
+
+            device.FakeButton.RaiseEvent();
+
+            Assert.AreEqual(true, isBusyRan);
+            Assert.AreEqual(after, isBusyValue);
+        }
+
+
     }
 }
 
