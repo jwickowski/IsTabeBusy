@@ -201,4 +201,3 @@ App/IsTableBusy.App.Web/Scripts/app/**/*.js.map
 project.lock.json
 *.ncrunchsolution
 *.ncrunchproject
-App/IsTableBusy.App.Web/T4MVC.cs
