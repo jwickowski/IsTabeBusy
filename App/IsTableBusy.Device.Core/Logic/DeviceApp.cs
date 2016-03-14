@@ -11,8 +11,7 @@ namespace IsTableBusy.Device.Core.Logic
         private readonly ApiClient apiClient;
         private readonly LightManager lightManager;
 
-        private Table Table { get; set; }
-
+        private bool isButtonSubscribed = false;
         public DeviceApp(IoTDevice device, ApiClient apiClient)
         {
             this.device = device;
@@ -39,11 +38,16 @@ namespace IsTableBusy.Device.Core.Logic
 
         public void Run()
         {
+            if (isButtonSubscribed == false)
+            {
+                   this.device.Button.Clicked += Button_Clicked;
+                isButtonSubscribed = true;
+            }
             try
             {
                 apiClient.RegisterDevice();
                 RefreshState();
-                this.device.Button.Clicked += Button_Clicked;
+                
             }
             catch (ReadingTableException)
             {
@@ -118,7 +122,7 @@ namespace IsTableBusy.Device.Core.Logic
                     }
                 case AppState.Error:
                     {
-                        RefreshState();
+                        Run();
                         break;
                     }
             }
