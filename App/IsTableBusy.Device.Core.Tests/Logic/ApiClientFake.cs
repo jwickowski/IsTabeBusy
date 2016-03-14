@@ -9,9 +9,9 @@ namespace IsTableBusy.Device.Core.Tests.Logic
 {
     public class ApiClientFake : ApiClient
     {
-        private Func<Table> getTable;
-        public Action<bool> setBusy;
-        public Func<Guid> registerDevice;
+        private Func<Table> getTable = () =>  null;
+        public Action<bool> setBusy = (isBusy) => { };
+        public Action registerDevice = () => { };
 
         public ApiClientFake WithGetTable(Func<Table> getTableFunction) {
             getTable = getTableFunction;
@@ -24,7 +24,7 @@ namespace IsTableBusy.Device.Core.Tests.Logic
             return this;
         }
 
-        internal ApiClientFake WithRegisterDevice(Func<Guid> registerDeviceFunction)
+        internal ApiClientFake WithRegisterDevice(Action registerDeviceFunction)
         {
             registerDevice = registerDeviceFunction;
             return this;
@@ -39,9 +39,9 @@ namespace IsTableBusy.Device.Core.Tests.Logic
         {
             setBusy(isBusy);
         }
-        public Guid RegisterDevice()
+        public void RegisterDevice()
         {
-            return registerDevice();
+            registerDevice();
         }
     }
 }

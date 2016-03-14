@@ -1,8 +1,4 @@
-﻿
-
-
-using IsTableBusy.Device.Core.Exceptions;
-using IsTableBusy.Device.Core.Logic;
+﻿using IsTableBusy.Device.Core.Logic;
 using IsTableBusy.Device.Core.Tests.Logic;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
@@ -40,7 +36,6 @@ namespace IsTableBusy.App.RaspberryPi.Tests.Logic
                 .WithRegisterDevice(() =>
                 {
                     registerExecuted = true;
-                    return Guid.NewGuid();
                 });
 
             app.Run();
@@ -58,6 +53,17 @@ namespace IsTableBusy.App.RaspberryPi.Tests.Logic
                     throw new Exception("Device registration error");
                 });
 
+            app.Run();
+
+            Assert.AreEqual(AppState.Error, app.State);
+        }
+
+        [TestMethod]
+        public void device_is_not_connected_with_table()
+        {
+            Init();
+            apiClient
+               .WithGetTable(() => null);
             app.Run();
 
             Assert.AreEqual(AppState.Error, app.State);

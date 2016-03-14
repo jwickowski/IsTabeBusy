@@ -51,21 +51,30 @@ namespace IsTableBusy.Device.Core.Logic
             }
             catch(Exception ex)
             {
-                if (ex.Message == "Device registration error")
+                switch (ex.Message)
                 {
-                    this.State = AppState.Error;
-                    return;
+                    case "Device registration error":
+                    case "Device is not connected to device":
+                        {
+                            this.State = AppState.Error;
+                            return;
+                        }
+                    default:
+                        {
+                            throw;
+                        }
                 }
-                else
-                {
-                    throw;
-                }
+                
             }
         }
 
         private void RefreshState()
         {
             Table = apiClient.GetTable();
+            if(Table == null)
+            {
+                throw new Exception("Device is not connected to device");
+            }
             if (Table.IsBusy)
             {
                 this.State = AppState.Busy;

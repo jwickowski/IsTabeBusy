@@ -35,7 +35,7 @@ namespace IsTableBusy.Device.Core.Logic
             }
         }
 
-        public Guid RegisterDevice()
+        public void RegisterDevice()
         {
             throw new NotImplementedException();
         }

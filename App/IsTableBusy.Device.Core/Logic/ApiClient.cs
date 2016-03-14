@@ -12,6 +12,6 @@ namespace IsTableBusy.Device.Core.Logic
 
         void SetBusy(bool isBusy);
 
-        Guid RegisterDevice();
+        void RegisterDevice();
     }
 }
