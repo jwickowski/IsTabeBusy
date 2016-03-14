@@ -9,12 +9,12 @@ namespace IsTableBusy.Device.Core.Tests.Logic
 {
     public class ApiClientFake : ApiClient
     {
-        private Func<Table> getTable = () =>  null;
+        private Func<bool> getBusy = () =>  false;
         public Action<bool> setBusy = (isBusy) => { };
         public Action registerDevice = () => { };
 
-        public ApiClientFake WithGetTable(Func<Table> getTableFunction) {
-            getTable = getTableFunction;
+        public ApiClientFake WithGetBusy(Func<bool> getBusyFunction) {
+            getBusy = getBusyFunction;
             return this;
         }
 
@@ -30,9 +30,9 @@ namespace IsTableBusy.Device.Core.Tests.Logic
             return this;
         }
 
-        public Table GetTable()
+        public bool GetBusy()
         {
-            return getTable();
+            return getBusy();
         }
 
         public void SetBusy(bool isBusy)

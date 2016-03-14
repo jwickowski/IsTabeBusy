@@ -54,7 +54,7 @@ namespace IsTableBusy.Device.Core.Logic
                 switch (ex.Message)
                 {
                     case "Device registration error":
-                    case "Device is not connected to device":
+                    case "Reading table error":
                         {
                             this.State = AppState.Error;
                             return;
@@ -70,12 +70,9 @@ namespace IsTableBusy.Device.Core.Logic
 
         private void RefreshState()
         {
-            Table = apiClient.GetTable();
-            if(Table == null)
-            {
-                throw new Exception("Device is not connected to device");
-            }
-            if (Table.IsBusy)
+            var IsBusy = apiClient.GetBusy();
+           
+            if (IsBusy)
             {
                 this.State = AppState.Busy;
             }

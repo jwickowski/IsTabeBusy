@@ -8,7 +8,7 @@ namespace IsTableBusy.Device.Core.Logic
 {
    public  interface ApiClient
     {
-        Table GetTable();
+        bool GetBusy();
 
         void SetBusy(bool isBusy);
 

@@ -63,10 +63,11 @@ namespace IsTableBusy.App.RaspberryPi.Tests.Logic
         {
             Init();
             apiClient
-               .WithGetTable(() => null);
+               .WithGetBusy(() => { throw new Exception("Reading table error"); }); //throw
             app.Run();
 
             Assert.AreEqual(AppState.Error, app.State);
         }
     }
 }
+

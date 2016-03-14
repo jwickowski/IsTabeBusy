@@ -18,7 +18,7 @@ namespace IsTableBusy.Device.Core.Logic
             this.config = config;
         }
 
-        public Table GetTable()
+        public bool GetBusy()
         {
             try
             {
@@ -27,7 +27,8 @@ namespace IsTableBusy.Device.Core.Logic
                 Uri tablesUri = new Uri(baseUri, $"api/places/{config.PlaceName}/tables/{config.TableId}");
                 var responseTask = hc.GetStringAsync(tablesUri);
                 var response = responseTask.Result;
-                return JsonConvert.DeserializeObject<Table>(response);
+                var table =  JsonConvert.DeserializeObject<Table>(response);
+                return table.IsBusy;
             }
             catch (AggregateException)
             {
