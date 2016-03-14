@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using IsTableBusy.Device.Core.Exceptions;
 using Newtonsoft.Json;
-
+using Windows.Storage;
 
 namespace IsTableBusy.Device.Core.Logic
 {
@@ -38,7 +38,19 @@ namespace IsTableBusy.Device.Core.Logic
 
         public void RegisterDevice()
         {
-            throw new NotImplementedException();
+            //try
+            //{
+                HttpClient hc = new HttpClient();
+                Uri baseUri = new Uri(config.ApiUrl);
+                Uri registerUri = new Uri(baseUri, $"api/devices/register");
+                var responseTask = hc.PostAsync(registerUri, null);
+                var response = responseTask.Result;
+            //ApplicationData.Current.lo
+            //}
+            //catch (AggregateException)
+            //{
+            //throw new Exception("Device registration error");
+            //}
         }
 
         public void SetBusy(bool isBusy)
