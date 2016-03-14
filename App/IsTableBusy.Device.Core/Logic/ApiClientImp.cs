@@ -9,6 +9,11 @@ using Windows.Storage;
 
 namespace IsTableBusy.Device.Core.Logic
 {
+    internal class DeviceViewModel
+    {
+        public Guid Guid { get; set; }
+    }
+
     public sealed class ApiClientImp :ApiClient
     {
         private readonly Config config;
@@ -45,6 +50,9 @@ namespace IsTableBusy.Device.Core.Logic
                 Uri registerUri = new Uri(baseUri, $"api/devices/register");
                 var responseTask = hc.PostAsync(registerUri, null);
                 var response = responseTask.Result;
+            var data = response.Content.ReadAsStringAsync().Result;
+            var deviceData = JsonConvert.DeserializeObject<DeviceViewModel>(data);
+            config.DeviceGuid = deviceData.Guid;
             //ApplicationData.Current.lo
             //}
             //catch (AggregateException)
