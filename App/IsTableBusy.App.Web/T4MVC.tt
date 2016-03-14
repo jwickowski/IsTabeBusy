@@ -1,6 +1,6 @@
 ﻿<#
 /*
-T4MVC Version 3.17.0
+T4MVC Version 3.17.3
 Find latest version and documentation at https://github.com/T4MVC/T4MVC/wiki/Documentation
 Discuss on StackOverflow or on GitHub (https://github.com/T4MVC/T4MVC/issues)
 
@@ -154,8 +154,10 @@ PushIndent("    ");
 public static partial class Bundles
 {
 <#
-            
-        foreach (string folder in settings.StaticFilesFolders.Concat(GetStaticFilesViewFolders())) {
+	foreach (string folder in settings.StaticFilesFolders
+		.Concat(GetStaticFilesViewFolders())
+		.Concat(inAreas)
+		) {
             ProcessBundles(Project, folder);
         }
     
@@ -279,7 +281,7 @@ namespace <#=controller.Namespace #>
         public readonly string Name = "<#=ProcessAreaOrControllerName(controller.Name) #>";
         [<#= GeneratedCode #>]
         public const string NameConst = "<#=ProcessAreaOrControllerName(controller.Name) #>";
-
+        [<#= GeneratedCode #>]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [<#= GeneratedCode #>, DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
@@ -1417,15 +1419,18 @@ ProjectItem GetProjectItem(ProjectItems items, string subPath)
     {
         try
         {
-            // ProjectItems.Item() throws when it doesn't exist, so catch the exception
+            // ProjectItems.Item() sometimes throws when it doesn't exist, so catch the exception
             // to return null instead.
             current = items.Item(name);
+
+            if (current == null) return null;
         }
         catch
         {
             // If any chunk couldn't be found, fail
             return null;
         }
+
         items = current.ProjectItems;
     }
 
