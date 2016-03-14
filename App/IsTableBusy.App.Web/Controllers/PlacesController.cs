@@ -6,7 +6,7 @@ namespace IsTableBusy.App.Web.Controllers
     public partial class PlacesController : Controller
     {
         [HttpGet]
-        [Route("places/{placeName}/tables")]
+        [Route("places/{placeName}")]
         public virtual ActionResult Tables(string placeName)
         {
             var model = new TablesViewModel() { PlaceName = placeName };

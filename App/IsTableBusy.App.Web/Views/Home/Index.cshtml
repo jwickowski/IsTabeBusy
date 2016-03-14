@@ -14,7 +14,9 @@
             <span data-bind="text: name"></span>
         </p>
         <p>
-            <a class="btn btn-default" href="#">go</a>
+            <a data-bind="attr: { 'href': '@Url.Action(MVC.Places.Tables("/"))' + name }" class="btn btn-default">
+                GO
+            </a>
         </p>
     </div>
 </div>
