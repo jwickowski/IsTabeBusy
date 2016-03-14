@@ -20,7 +20,7 @@ namespace IsTableBusy.App.RaspberryPi.Tests.Logic
         {
             device = new FakeDevice();
             apiClient = new ApiClientFake();
-            var app = new DeviceApp(device, apiClient);
+            app = new DeviceApp(device, apiClient);
         }
 
         [TestMethod]
