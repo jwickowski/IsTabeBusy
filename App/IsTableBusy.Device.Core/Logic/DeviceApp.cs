@@ -1,6 +1,7 @@
 ﻿
 
 using IsTableBusy.Device.Core.Exceptions;
+using System;
 
 namespace IsTableBusy.Device.Core.Logic
 {
@@ -40,12 +41,25 @@ namespace IsTableBusy.Device.Core.Logic
         {
             try
             {
+                apiClient.RegisterDevice();
                 RefreshState();
                 this.device.Button.Clicked += Button_Clicked;
             }
             catch (ReadingTableException)
             {
                 this.State = AppState.Error;
+            }
+            catch(Exception ex)
+            {
+                if (ex.Message == "Device registration error")
+                {
+                    this.State = AppState.Error;
+                    return;
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 

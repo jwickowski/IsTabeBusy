@@ -95,6 +95,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\ApiClientFake.cs" />
     <Compile Include="Logic\AppTest.cs" />
     <Compile Include="Logic\FakeButton.cs" />
     <Compile Include="Logic\FakeDevice.cs" />

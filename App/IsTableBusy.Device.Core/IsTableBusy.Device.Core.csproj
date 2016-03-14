@@ -112,6 +112,7 @@
     <Compile Include="Exceptions\CachngeTableStateException.cs" />
     <Compile Include="Exceptions\ReadingTableException.cs" />
     <Compile Include="Logic\ApiClient.cs" />
+    <Compile Include="Logic\ApiClientImp.cs" />
     <Compile Include="Logic\AppState.cs" />
     <Compile Include="Logic\Button.cs" />
     <Compile Include="Logic\Config.cs" />
