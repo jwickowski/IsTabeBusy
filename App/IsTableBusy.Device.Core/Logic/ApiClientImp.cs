@@ -30,9 +30,9 @@ namespace IsTableBusy.Device.Core.Logic
                 var table =  JsonConvert.DeserializeObject<Table>(response);
                 return table.IsBusy;
             }
-            catch (AggregateException)
+            catch (AggregateException ex)
             {
-                throw new ReadingTableException();
+                throw new Exception("Reading table error", ex);
             }
         }
 

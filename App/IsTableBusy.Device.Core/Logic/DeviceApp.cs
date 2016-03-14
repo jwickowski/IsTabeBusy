@@ -40,20 +40,15 @@ namespace IsTableBusy.Device.Core.Logic
         {
             if (isButtonSubscribed == false)
             {
-                   this.device.Button.Clicked += Button_Clicked;
+                this.device.Button.Clicked += Button_Clicked;
                 isButtonSubscribed = true;
             }
             try
             {
                 apiClient.RegisterDevice();
                 RefreshState();
-                
             }
-            catch (ReadingTableException)
-            {
-                this.State = AppState.Error;
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 switch (ex.Message)
                 {
@@ -68,14 +63,14 @@ namespace IsTableBusy.Device.Core.Logic
                             throw;
                         }
                 }
-                
+
             }
         }
 
         private void RefreshState()
         {
             var IsBusy = apiClient.GetBusy();
-           
+
             if (IsBusy)
             {
                 this.State = AppState.Busy;
