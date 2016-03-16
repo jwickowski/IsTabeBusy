@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IsTableBusy.EntityFramework;
+﻿using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
 using IsTableBusy.EntityFramework.Model.Audit;
 
 namespace IsTableBusy.Core.Devices
 {
-    public class DeviceStateChangeAuditer
+    internal class DeviceStateChangeAuditer
     {
         private Context context;
 
-        public DeviceStateChangeAuditer(Context context)
+        internal DeviceStateChangeAuditer(Context context)
         {
             this.context = context;
         }
 
-        public void Audit(Table table)
+        internal void Audit(Table table)
         {
             TableAudit audit = new TableAudit
             {
