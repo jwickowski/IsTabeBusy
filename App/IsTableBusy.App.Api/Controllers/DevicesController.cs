@@ -9,10 +9,12 @@ namespace IsTableBusy.App.Api.Controllers
     public class DevicesController : ApiController
     {
         private readonly DeviceRegister deviceRegister;
+        private readonly DeviceStateChanger deviceStateChanger;
 
-        public DevicesController(DeviceRegister deviceRegister)
+        public DevicesController(DeviceRegister deviceRegister, DeviceStateChanger deviceStateChanger)
         {
             this.deviceRegister = deviceRegister;
+            this.deviceStateChanger = deviceStateChanger;
         }
 
         [HttpPost]
@@ -31,5 +33,18 @@ namespace IsTableBusy.App.Api.Controllers
             return new DeviceRegisterViewModel { Guid = result };
         }
 
+        [HttpPost]
+        [Route("devices/{guid:Guid}/SetBusy")]
+        public void ChangeStateToBusy(Guid guid)
+        {
+            this.deviceStateChanger.SetBusy(guid, true);
+
+        }
+        [HttpPost]
+        [Route("devices/{guid:Guid}/SetFree")]
+        public void ChangeStateToFree(Guid guid)
+        {
+            this.deviceStateChanger.SetBusy(guid, false);
+        }
     }
 }
