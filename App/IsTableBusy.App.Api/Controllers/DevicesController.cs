@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using IsTableBusy.Core;
+using IsTableBusy.Core.Devices;
 using IsTableBusy.Core.Models;
 
 namespace IsTableBusy.App.Api.Controllers

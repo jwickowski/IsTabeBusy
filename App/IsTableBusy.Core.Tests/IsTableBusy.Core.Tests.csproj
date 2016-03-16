@@ -87,7 +87,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Integration\Places\AllPlacesReaderTest.cs" />
-    <Compile Include="Integration\DeviceRegisterTest.cs" />
+    <Compile Include="Integration\Devices\DeviceRegisterTest.cs" />
     <Compile Include="Integration\DeviceTableConnectorTest.cs" />
     <Compile Include="Integration\IsTableBusyDatabaseTest.cs" />
     <Compile Include="Integration\Places\PlaceInserterTest.cs" />

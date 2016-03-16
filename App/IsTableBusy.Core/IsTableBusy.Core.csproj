@@ -58,8 +58,8 @@
     <Compile Include="Models\PlaceViewModelValidator.cs" />
     <Compile Include="Places\AllPlacesReader.cs" />
     <Compile Include="DateTimeSupplier.cs" />
-    <Compile Include="DeviceRegister.cs" />
-    <Compile Include="DeviceRegistrationAuditer.cs" />
+    <Compile Include="Devices\DeviceRegister.cs" />
+    <Compile Include="Devices\DeviceRegistrationAuditer.cs" />
     <Compile Include="DeviceTableConnector.cs" />
     <Compile Include="Exceptions\TableDeviceConnectingException.cs" />
     <Compile Include="Exceptions\TableInWrongPlaceException.cs" />
