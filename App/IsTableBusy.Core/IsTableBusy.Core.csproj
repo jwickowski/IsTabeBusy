@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Devices\DeviceStateChangeAuditer.cs" />
     <Compile Include="Devices\DeviceStateChanger.cs" />
+    <Compile Include="Devices\DeviceStateReader.cs" />
     <Compile Include="Exceptions\ChangingDeviceStateException.cs" />
     <Compile Include="Exceptions\RequiredFileFieldIsEmptyExpection.cs" />
     <Compile Include="Models\PlaceViewModelValidator.cs" />
