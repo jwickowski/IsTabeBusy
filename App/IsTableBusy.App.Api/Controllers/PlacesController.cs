@@ -8,7 +8,7 @@ using IsTableBusy.Core.Places;
 namespace IsTableBusy.App.Api.Controllers
 {
 
-    public class PlacesController : ApiControllerWithHub<PlacesHub>
+    public class PlacesController : ApiController
     {
         private readonly TablesInPlaceReader tablesInPlaceReader;
         private readonly TableManager tableManager;
@@ -18,6 +18,7 @@ namespace IsTableBusy.App.Api.Controllers
         private readonly PlaceInserter placeInserter;
         private readonly PlaceUpdater placeUpdater;
         private readonly PlaceRemover placeRemover;
+        private PlacesHubWrapper hub;
 
         public PlacesController(
             TablesInPlaceReader tablesInPlaceReader, 
@@ -27,7 +28,8 @@ namespace IsTableBusy.App.Api.Controllers
             AllPlacesReader allPlacesReader,
             PlaceInserter placeInserter,
             PlaceUpdater placeUpdater,
-            PlaceRemover placeRemover)
+            PlaceRemover placeRemover,
+            PlacesHubWrapper hub)
         {
             this.tablesInPlaceReader = tablesInPlaceReader;
             this.tableManager = tableManager;
@@ -37,6 +39,7 @@ namespace IsTableBusy.App.Api.Controllers
             this.placeInserter = placeInserter;
             this.placeUpdater = placeUpdater;
             this.placeRemover = placeRemover;
+            this.hub = hub;
         }
 
         [Route("places")]
@@ -87,7 +90,7 @@ namespace IsTableBusy.App.Api.Controllers
         {
             this.tableTurningValidator.Validate(placeName, tableId);
             this.tableManager.SetBusy(tableId);
-            Hub.Clients.All.isBusy(tableId);
+            hub.IsBusy(tableId);
         }
 
         [HttpPost]
@@ -96,7 +99,7 @@ namespace IsTableBusy.App.Api.Controllers
         {
             this.tableTurningValidator.Validate(placeName, tableId);
             this.tableManager.SetFree(tableId);
-            Hub.Clients.All.isFree(tableId);
+            hub.IsFree(tableId);
         }
     }
 }
