@@ -86,6 +86,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Integration\Devices\DeviceStateChangerTest.cs" />
     <Compile Include="Integration\Places\AllPlacesReaderTest.cs" />
     <Compile Include="Integration\Devices\DeviceRegisterTest.cs" />
     <Compile Include="Integration\DeviceTableConnectorTest.cs" />
@@ -97,6 +98,8 @@
     <Compile Include="Integration\TableReaderTest.cs" />
     <Compile Include="Integration\TableTurningValidatorTest.cs" />
     <Compile Include="Integration\TableManagerTest.cs" />
+    <Compile Include="LoadData\DeviceDrivenTestDataLoader.cs" />
+    <Compile Include="LoadData\DeviceDrivenTestData.cs" />
     <Compile Include="LoadData\StandarsTestDataExtensions.cs" />
     <Compile Include="LoadData\StandardTestData.cs" />
     <Compile Include="LoadData\StandardTestDataLoader.cs" />

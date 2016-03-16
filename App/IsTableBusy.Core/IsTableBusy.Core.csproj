@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Devices\DeviceStateChanger.cs" />
     <Compile Include="Exceptions\RequiredFileFieldIsEmptyExpection.cs" />
     <Compile Include="Models\PlaceViewModelValidator.cs" />
     <Compile Include="Places\AllPlacesReader.cs" />
