@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IsTableBusy.EntityFramework;
+using IsTableBusy.Core.Exceptions;
 
 namespace IsTableBusy.Core.Devices
 {
@@ -18,7 +19,11 @@ namespace IsTableBusy.Core.Devices
 
         public bool Read(Guid guid)
         {
-            var table = context.Tables.Single(x => x.Device.Guid == guid);
+            var table = context.Tables.SingleOrDefault(x => x.Device.Guid == guid);
+            if(table == null)
+            {
+                throw new ReadingDeviceStateException();
+            }
             return table.IsBusy;
         }
     }
