@@ -97,8 +97,8 @@
     <Compile Include="Integration\TableReaderTest.cs" />
     <Compile Include="Integration\TableTurningValidatorTest.cs" />
     <Compile Include="Integration\TableManagerTest.cs" />
-    <Compile Include="LoadData\LoadedDataExtensions.cs" />
-    <Compile Include="LoadData\LoadedData.cs" />
+    <Compile Include="LoadData\StandarsTestDataExtensions.cs" />
+    <Compile Include="LoadData\StandardTestData.cs" />
     <Compile Include="LoadData\StandardTestDataLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

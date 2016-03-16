@@ -13,9 +13,9 @@ namespace IsTableBusy.Core.Tests.LoadData
             this.context = context;
         }
 
-        public LoadedData Load()
+        public StandardTestData Load()
         {
-            var result = new LoadedData();
+            var result = new StandardTestData();
             var placeWithoutTable = new Place { Name = "PlaceWithoutTable" };
             result.PlaceWithoutTable = placeWithoutTable;
             this.context.Places.Add(placeWithoutTable);
