@@ -7,6 +7,8 @@ using IsTableBusy.Core.Tests.LoadData;
 using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model.Audit;
 using Xunit;
+using NSubstitute;
+using IsTableBusy.Core.Places;
 
 namespace IsTableBusy.Core.Tests.Integration.Devices
 {
@@ -25,7 +27,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 var loader = new DeviceDrivenTestDataLoader(context);
                 var loadedData = loader.Load();
                 var tableWithFreeDevice = loadedData.TableWithFreeDevice;
-                var deviceStateChanger = new DeviceStateChanger(context);
+                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
 
@@ -43,7 +45,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 var loader = new DeviceDrivenTestDataLoader(context);
                 var loadedData = loader.Load();
                 var tableWithFreeDevice = loadedData.TableWithFreeDevice;
-                var deviceStateChanger = new DeviceStateChanger(context);
+                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
 
@@ -62,6 +64,40 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
         }
 
         [Fact]
+        public void inform_hub_about_changing_state_to_busy()
+        {
+            using (Context context = new Context())
+            {
+                var loader = new DeviceDrivenTestDataLoader(context);
+                var loadedData = loader.Load();
+                var tableWithFreeDevice = loadedData.TableWithFreeDevice;
+                var hubMock = Substitute.For<PlacesHubWrapper>();
+                var deviceStateChanger = new DeviceStateChanger(context, hubMock);
+
+                deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
+
+                
+                hubMock.Received().IsBusy(tableWithFreeDevice.Id);              
+            }
+        }
+
+        [Fact]
+        public void inform_hub_about_changing_state_to_free()
+        {
+            using (Context context = new Context())
+            {
+                var hubMock = Substitute.For<PlacesHubWrapper>();
+                var loader = new DeviceDrivenTestDataLoader(context);
+                var loadedData = loader.Load();
+                var tableWithBusyDevice = loadedData.TableWithBusyDevice;
+                var deviceStateChanger = new DeviceStateChanger(context, hubMock);
+
+                deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
+                hubMock.Received().IsFree(tableWithBusyDevice.Id);
+            }
+        }
+
+        [Fact]
         public void change_state_to_free()
         {
             using (Context context = new Context())
@@ -69,7 +105,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 var loader = new DeviceDrivenTestDataLoader(context);
                 var loadedData = loader.Load();
                 var tableWithBusyDevice = loadedData.TableWithBusyDevice;
-                var deviceStateChanger = new DeviceStateChanger(context);
+                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
 
@@ -87,7 +123,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 var loader = new DeviceDrivenTestDataLoader(context);
                 var loadedData = loader.Load();
                 var tableWithBusyDevice = loadedData.TableWithBusyDevice;
-                var deviceStateChanger = new DeviceStateChanger(context);
+                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
 
@@ -111,7 +147,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
             using (Context context = new Context())
             {
 
-                var deviceStateChanger = new DeviceStateChanger(context);
+                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 Action a = () => { deviceStateChanger.SetBusy(Guid.NewGuid(), false); };
 
@@ -127,7 +163,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 var loader = new DeviceDrivenTestDataLoader(context);
                 var loadedData = loader.Load();
 
-                var deviceStateChanger = new DeviceStateChanger(context);
+                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 Action a = () => { deviceStateChanger.SetBusy(loadedData.NotConnectedDevice.Guid, false); };
 

@@ -70,11 +70,12 @@ namespace IsTableBusy.Device.Core.Logic
         {
             try
             {
+          
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
                 Uri stateUri = new Uri(baseUri, $"api/devices/{config.DeviceGuid}/State");
 
-                var data = new StringContent(JsonConvert.SerializeObject(new DeviceStateViewModel { IsBusy = isBusy }), Encoding.UTF8, "application/json");
+                var data = new StringContent(JsonConvert.SerializeObject(new DeviceStateViewModel { IsBusy = isBusy }), Encoding.UTF8, "application/json");               
 
                 var responseTask = hc.PostAsync(stateUri, data);
                 var response = responseTask.Result;

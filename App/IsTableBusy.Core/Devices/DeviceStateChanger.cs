@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using IsTableBusy.Core.Exceptions;
+using IsTableBusy.Core.Places;
 using IsTableBusy.EntityFramework;
 
 namespace IsTableBusy.Core.Devices
@@ -9,10 +10,12 @@ namespace IsTableBusy.Core.Devices
     {
         private Context context;
         private DeviceStateChangeAuditer auditer;
+        private PlacesHubWrapper hub;
 
-        public DeviceStateChanger(Context context)
+        public DeviceStateChanger(Context context, PlacesHubWrapper hub)
         {
             this.context = context;
+            this.hub = hub;
             this.auditer = new DeviceStateChangeAuditer(this.context);
         }
 
@@ -26,6 +29,15 @@ namespace IsTableBusy.Core.Devices
             table.IsBusy = isBusy;
             this.auditer.Audit(table);
             context.SaveChanges();
+            if (table.IsBusy)
+            {
+                hub.IsBusy(table.Id);
+            }
+            else
+            {
+                hub.IsFree(table.Id);
+            }
+            
         }
 
     }
