@@ -87,6 +87,10 @@
     <Compile Include="Migrations\201603021352006_MoveEventToBaseAudit.Designer.cs">
       <DependentUpon>201603021352006_MoveEventToBaseAudit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603161413527_AddNewStateToTableAudit.cs" />
+    <Compile Include="Migrations\201603161413527_AddNewStateToTableAudit.Designer.cs">
+      <DependentUpon>201603161413527_AddNewStateToTableAudit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Audit\AuditItemType.cs" />
     <Compile Include="Model\Audit\BaseAudit.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603021352006_MoveEventToBaseAudit.resx">
       <DependentUpon>201603021352006_MoveEventToBaseAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161413527_AddNewStateToTableAudit.resx">
+      <DependentUpon>201603161413527_AddNewStateToTableAudit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 {
     public class TableAudit :BaseAudit
     {
-        public int DeviceId { get; set; }
+        public int? DeviceId { get; set; }
+        public bool? NewState { get; set; }
     }
 }

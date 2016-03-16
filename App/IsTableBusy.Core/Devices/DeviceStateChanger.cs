@@ -11,10 +11,12 @@ namespace IsTableBusy.Core.Devices
     public class DeviceStateChanger
     {
         private Context context;
+        private DeviceStateChangeAuditer auditer;
 
         public DeviceStateChanger(Context context)
         {
             this.context = context;
+            this.auditer = new DeviceStateChangeAuditer(this.context);
         }
 
         public void SetBusy(Guid guid, bool isBusy)
@@ -25,6 +27,7 @@ namespace IsTableBusy.Core.Devices
                 throw new ChangingDeviceStateException();
             }
             table.IsBusy = isBusy;
+            this.auditer.Audit(table);
             context.SaveChanges();
         }
 
