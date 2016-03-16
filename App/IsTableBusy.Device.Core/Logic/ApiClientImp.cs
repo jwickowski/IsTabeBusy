@@ -6,6 +6,7 @@ using System.Net.Http;
 using IsTableBusy.Device.Core.Exceptions;
 using Newtonsoft.Json;
 using Windows.Storage;
+using System.Text;
 
 namespace IsTableBusy.Device.Core.Logic
 {
@@ -14,7 +15,12 @@ namespace IsTableBusy.Device.Core.Logic
         public Guid Guid { get; set; }
     }
 
-    public sealed class ApiClientImp :ApiClient
+    internal class DeviceStateViewModel
+    {
+        public bool IsBusy { get; set; }
+    }
+
+    public sealed class ApiClientImp : ApiClient
     {
         private readonly Config config;
 
@@ -29,11 +35,11 @@ namespace IsTableBusy.Device.Core.Logic
             {
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
-                Uri tablesUri = new Uri(baseUri, $"api/places/{config.PlaceName}/tables/{config.TableId}");
+                Uri tablesUri = new Uri(baseUri, $"api/devices/{config.DeviceGuid}/State");
                 var responseTask = hc.GetStringAsync(tablesUri);
                 var response = responseTask.Result;
-                var table =  JsonConvert.DeserializeObject<Table>(response);
-                return table.IsBusy;
+                var state = JsonConvert.DeserializeObject<DeviceStateViewModel>(response);
+                return state.IsBusy;
             }
             catch (AggregateException ex)
             {
@@ -43,22 +49,21 @@ namespace IsTableBusy.Device.Core.Logic
 
         public void RegisterDevice()
         {
-            //try
-            //{
+            try
+            {
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
                 Uri registerUri = new Uri(baseUri, $"api/devices/register");
                 var responseTask = hc.PostAsync(registerUri, null);
                 var response = responseTask.Result;
-            var data = response.Content.ReadAsStringAsync().Result;
-            var deviceData = JsonConvert.DeserializeObject<DeviceViewModel>(data);
-            config.DeviceGuid = deviceData.Guid;
-            //ApplicationData.Current.lo
-            //}
-            //catch (AggregateException)
-            //{
-            //throw new Exception("Device registration error");
-            //}
+                var data = response.Content.ReadAsStringAsync().Result;
+                var deviceData = JsonConvert.DeserializeObject<DeviceViewModel>(data);
+                config.DeviceGuid = deviceData.Guid;
+            }
+            catch (AggregateException)
+            {
+                throw new Exception("Device registration error");
+            }
         }
 
         public void SetBusy(bool isBusy)
@@ -67,19 +72,13 @@ namespace IsTableBusy.Device.Core.Logic
             {
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
-                Uri tablesUri;
-                if (isBusy)
-                {
-                    tablesUri = new Uri(baseUri, $"api/places/{config.PlaceName}/tables/{config.TableId}/SetBusy");
-                }
-                else
-                {
-                    tablesUri = new Uri(baseUri, $"api/places/{config.PlaceName}/tables/{config.TableId}/SetFree");
-                }
-                
-                var responseTask = hc.PostAsync(tablesUri, null);
+                Uri stateUri = new Uri(baseUri, $"api/devices/{config.DeviceGuid}/State");
+
+                var data = new StringContent(JsonConvert.SerializeObject(new DeviceStateViewModel { IsBusy = isBusy }), Encoding.UTF8, "application/json");
+
+                var responseTask = hc.PostAsync(stateUri, data);
                 var response = responseTask.Result;
-                
+
             }
             catch (AggregateException)
             {
