@@ -35,7 +35,7 @@ namespace IsTableBusy.Device.Core.Logic
             {
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
-                Uri tablesUri = new Uri(baseUri, $"api/devices/{config.DeviceGuid}/State");
+                Uri tablesUri = new Uri(baseUri, $"devices/{config.DeviceGuid}/State");
                 var responseTask = hc.GetStringAsync(tablesUri);
                 var response = responseTask.Result;
                 var state = JsonConvert.DeserializeObject<DeviceStateViewModel>(response);
@@ -53,7 +53,7 @@ namespace IsTableBusy.Device.Core.Logic
             {
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
-                Uri registerUri = new Uri(baseUri, $"api/devices/register");
+                Uri registerUri = new Uri(baseUri, $"devices/register");
                 var responseTask = hc.PostAsync(registerUri, null);
                 var response = responseTask.Result;
                 var data = response.Content.ReadAsStringAsync().Result;
@@ -73,7 +73,7 @@ namespace IsTableBusy.Device.Core.Logic
           
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
-                Uri stateUri = new Uri(baseUri, $"api/devices/{config.DeviceGuid}/State");
+                Uri stateUri = new Uri(baseUri, $"devices/{config.DeviceGuid}/State");
 
                 var data = new StringContent(JsonConvert.SerializeObject(new DeviceStateViewModel { IsBusy = isBusy }), Encoding.UTF8, "application/json");               
 

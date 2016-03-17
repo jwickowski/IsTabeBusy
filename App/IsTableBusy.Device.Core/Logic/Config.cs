@@ -9,7 +9,7 @@ namespace IsTableBusy.Device.Core.Logic
         {
             storage = new SerializableStorage("IsTableBusy.config.xml");
         }
-        public string ApiUrl => "http://192.168.0.101";
+        public string ApiUrl => "http://istablebusyapi.azurewebsites.net";
 
         public Guid DeviceGuid
         {
