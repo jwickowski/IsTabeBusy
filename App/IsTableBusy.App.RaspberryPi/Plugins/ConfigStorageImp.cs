@@ -5,10 +5,10 @@ using Windows.Storage;
 
 namespace IsTableBusy.Device.Core.Logic
 {
-    public sealed class SerializableStorage
+    public sealed class ConfigStorageImp : ConfigStorage
     {
         private string fileName;
-        public SerializableStorage(string fileName)
+        public ConfigStorageImp(string fileName)
         {
             this.fileName = fileName;
         }

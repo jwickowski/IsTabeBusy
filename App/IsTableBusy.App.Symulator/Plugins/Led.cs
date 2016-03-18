@@ -1,10 +1,9 @@
-﻿using IsTableBusy.Device.Core.Logic;
-using Windows.Devices.Gpio;
-using Windows.UI;
+﻿using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.App.Symulator.Plugins
 {
     public sealed class Led: Light
     {

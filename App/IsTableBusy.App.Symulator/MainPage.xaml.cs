@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using IsTableBusy.App.RaspberryPi.Logic;
+using IsTableBusy.App.Symulator.Plugins;
 using IsTableBusy.Device.Core.Logic;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -34,14 +35,14 @@ namespace IsTableBusy.App.Symulator
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             var app = PrepareApp();
-
             app.Run();
         }
 
         private  DeviceApp PrepareApp()
         {
             var device = new FakeDevice(MainButton, RedEllypse, GreenEllypse);
-            var config = new Config();
+            var configStorageImp = new ConfigStorageInMemory();
+            var config = new Config(configStorageImp);
             var apiClient = new ApiClientImp(config);
             var app = new DeviceApp(device, apiClient);
             return app;

@@ -120,7 +120,7 @@
     <Compile Include="Logic\IsTableApiClient.cs" />
     <Compile Include="Logic\Light.cs" />
     <Compile Include="Logic\LightManager.cs" />
-    <Compile Include="Logic\SerializableStorage.cs" />
+    <Compile Include="Logic\ConfigStorage.cs" />
     <Compile Include="Logic\Table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

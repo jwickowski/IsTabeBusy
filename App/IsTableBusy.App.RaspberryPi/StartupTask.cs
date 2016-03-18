@@ -21,9 +21,9 @@ namespace IsTableBusy.App.RaspberryPi
         private static DeviceApp PrepareApp()
         {
             var device = new RasbperryPi();
-            var config = new Config();
+            var configStorageImp = new ConfigStorageImp("IsTableBusy.Config.xml");
+            var config = new Config(configStorageImp);
             var apiClient = new ApiClientImp(config);
-            var lightManager = new LightManager(device);
             var app = new DeviceApp(device, apiClient);
             return app;
         }

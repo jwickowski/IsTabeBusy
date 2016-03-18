@@ -23,7 +23,7 @@ namespace IsTableBusy.App.Api.Controllers
         }
 
         [HttpPost]
-        [Route("devices/register")]
+        [Route("device/register")]
         public DeviceRegisterViewModel Register()
         {
             var result = this.deviceRegister.Register();
@@ -31,7 +31,7 @@ namespace IsTableBusy.App.Api.Controllers
         }
 
         [HttpPost]
-        [Route("devices/register/{guid:Guid}")]
+        [Route("device/register/{guid:guid}")]
         public DeviceRegisterViewModel Register(Guid guid)
         {
             var result = this.deviceRegister.Register(guid);
@@ -39,7 +39,7 @@ namespace IsTableBusy.App.Api.Controllers
         }
         
         [HttpGet]
-        [Route("devices/{guid:Guid}/State")]
+        [Route("device/{guid:guid}/state")]
         public DeviceStateViewModel GetState(Guid guid)
         {
             var result = new DeviceStateViewModel { IsBusy = deviceStateReader.Read(guid) };
@@ -47,7 +47,7 @@ namespace IsTableBusy.App.Api.Controllers
         }
 
         [HttpPost]
-        [Route("devices/{guid:Guid}/State")]
+        [Route("device/{guid:guid}/State")]
         public void ChangeStateToBusy(Guid guid, DeviceStateViewModel deviceState)
         {
             this.deviceStateChanger.SetBusy(guid, deviceState.IsBusy);

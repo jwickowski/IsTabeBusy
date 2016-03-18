@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Shapes;
+using IsTableBusy.App.Symulator.Plugins;
 
 namespace IsTableBusy.App.RaspberryPi.Logic
 {

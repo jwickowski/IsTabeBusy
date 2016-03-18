@@ -99,6 +99,7 @@
     <Compile Include="Plugins\ButtonImp.cs" />
     <Compile Include="Plugins\Led.cs" />
     <Compile Include="Plugins\RasbperryPi.cs" />
+    <Compile Include="Plugins\ConfigStorageImp.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

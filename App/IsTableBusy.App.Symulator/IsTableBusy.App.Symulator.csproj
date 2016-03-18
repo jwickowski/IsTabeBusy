@@ -104,6 +104,7 @@
     <Compile Include="Plugins\ButtonImp.cs" />
     <Compile Include="Plugins\Led.cs" />
     <Compile Include="Plugins\FakeDevice.cs" />
+    <Compile Include="Plugins\ConfigStorageInMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,10 +4,10 @@ namespace IsTableBusy.Device.Core.Logic
 {
     public sealed class Config
     {
-        SerializableStorage storage;
-        public Config()
+        ConfigStorage _storageImp;
+        public Config(ConfigStorage configStorage)
         {
-            storage = new SerializableStorage("IsTableBusy.config.xml");
+            _storageImp = configStorage;
         }
         public string ApiUrl => "http://istablebusyapi.azurewebsites.net";
 
@@ -15,13 +15,13 @@ namespace IsTableBusy.Device.Core.Logic
         {
             get
             {
-                return storage.Load().DeviceGuid;
+                return _storageImp.Load().DeviceGuid;
             }
             set
             {
-                var data = storage.Load();
+                var data = _storageImp.Load();
                 data.DeviceGuid = value;
-                storage.Save(data);
+                _storageImp.Save(data);
             }
         }
 

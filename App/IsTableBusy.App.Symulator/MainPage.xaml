@@ -7,10 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="MainPage_OnLoaded">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-<Button Name="MainButton" ></Button>
-        <Ellipse Name="RedEllypse" Width="100" Height="100" Fill="Red" ></Ellipse>
-        <Ellipse Name="GreenEllypse" Width="100" Height="100" Fill="Green"></Ellipse>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+         
+        </Grid.ColumnDefinitions>
+
+        <Button Name="MainButton" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >Change</Button>
+        <Ellipse Name="RedEllypse" Width="100" Height="100" Fill="Red" Grid.Column="0" Grid.Row="1" ></Ellipse>
+        <Ellipse Name="GreenEllypse" Width="100" Height="100" Fill="Green" Grid.Column="0" Grid.Row="2" ></Ellipse>
     </Grid>
 </Page>
 
