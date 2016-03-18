@@ -1,6 +1,6 @@
 ﻿using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.App.RaspberryPi.Tests.Logic
+namespace IsTableBusy.Device.Core.Tests.Logic
 {
     public class FakeLight : Light
     {

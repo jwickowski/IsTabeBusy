@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Windows.Storage;
-using IsTableBusy.Device.Core.Logic;
+﻿using IsTableBusy.Device.Core.Logic;
 
 namespace IsTableBusy.App.Symulator.Plugins
 {

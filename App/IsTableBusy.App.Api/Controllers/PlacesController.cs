@@ -2,7 +2,6 @@
 using IsTableBusy.Core.Models;
 using System.Collections.Generic;
 using System.Web.Http;
-using IsTableBusy.App.Api.Hubs;
 using IsTableBusy.Core.Places;
 
 namespace IsTableBusy.App.Api.Controllers

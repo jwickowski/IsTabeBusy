@@ -1,14 +1,7 @@
-﻿using IsTableBusy.Device.Core.Logic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Shapes;
-using IsTableBusy.App.Symulator.Plugins;
+﻿using Windows.UI.Xaml.Shapes;
+using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.App.Symulator.Plugins
 {
     public sealed class FakeDevice : IoTDevice
     {

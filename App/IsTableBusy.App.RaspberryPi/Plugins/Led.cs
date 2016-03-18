@@ -1,7 +1,7 @@
-﻿using IsTableBusy.Device.Core.Logic;
-using Windows.Devices.Gpio;
+﻿using Windows.Devices.Gpio;
+using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.App.RaspberryPi.Plugins
 {
     public sealed class Led: Light
     {

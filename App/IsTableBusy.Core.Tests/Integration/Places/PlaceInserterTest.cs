@@ -5,7 +5,6 @@ using FluentValidation;
 using IsTableBusy.Core.Models;
 using IsTableBusy.Core.Places;
 using IsTableBusy.Core.Tests.LoadData;
-using IsTableBusy.EntityFramework;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration.Places
@@ -15,8 +14,6 @@ namespace IsTableBusy.Core.Tests.Integration.Places
         [Fact]
         public void insert()
         {
-            using (var context = new Context())
-            {
                 PlaceInserter inserter = new PlaceInserter(context);
                 var item = new PlaceViewModel { Name = "testPlace" };
                 inserter.Insert(item);
@@ -29,14 +26,11 @@ namespace IsTableBusy.Core.Tests.Integration.Places
                     .ShouldBeEquivalentTo(item, options => options
                     .Including(x => x.Name)
                     .Including(x => x.Id));
-            }
         }
 
         [Fact]
         public void trim_name()
         {
-            using (var context = new Context())
-            {
                 PlaceInserter inserter = new PlaceInserter(context);
                 var item = new PlaceViewModel { Name = "  testPlace  " };
                 inserter.Insert(item);
@@ -44,14 +38,11 @@ namespace IsTableBusy.Core.Tests.Integration.Places
                 var place = context.Places.Single();
                 place.Name.Should().Be("testPlace");
                 item.Name.Should().Be("testPlace");
-            }
         }
 
         [Fact]
         public void valide_unique_name()
         {
-            using (var context = new Context())
-            {
                 var loader = new StandardTestDataLoader(context);
                 var loadedData = loader.Load();
 
@@ -60,14 +51,11 @@ namespace IsTableBusy.Core.Tests.Integration.Places
                 Action a = () => { inserter.Insert(item); };
 
                 a.ShouldThrow<ValidationException>().Where(x => x.Message.Contains("Name must be unique"));
-            }
         }
 
         [Fact]
         public void name_cannot_be_null_whitespace()
         {
-            using (var context = new Context())
-            {
                 PlaceInserter inserter = new PlaceInserter(context);
                 var item = new PlaceViewModel();
 
@@ -81,7 +69,6 @@ namespace IsTableBusy.Core.Tests.Integration.Places
 
                 item.Name = "   ";
                 a.ShouldThrow<ValidationException>();
-            }
         }
     }
 }

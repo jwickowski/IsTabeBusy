@@ -1,7 +1,7 @@
 ﻿using Windows.Foundation;
 using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.App.RaspberryPi.Tests.Logic
+namespace IsTableBusy.Device.Core.Tests.Logic
 {
     public sealed class FakeButton : Button
     {

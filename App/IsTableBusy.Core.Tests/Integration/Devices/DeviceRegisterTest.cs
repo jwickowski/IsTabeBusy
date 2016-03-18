@@ -4,7 +4,6 @@ using FluentAssertions;
 using IsTableBusy.Core.Devices;
 using IsTableBusy.Core.Exceptions;
 using IsTableBusy.Core.Tests.LoadData;
-using IsTableBusy.EntityFramework;
 using IsTableBusy.EntityFramework.Model;
 using IsTableBusy.EntityFramework.Model.Audit;
 using Xunit;
@@ -21,20 +20,15 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
         [Fact]
         public void Register_new_device()
         {
-            using (Context context = new Context())
-            {
                 DeviceRegister deviceRegister = new DeviceRegister(context);
                 Guid deviceGuid = deviceRegister.Register();
                 deviceGuid.Should().NotBeEmpty();
                 context.Devices.Count(x => x.Guid == deviceGuid).Should().Be(1);
-            }
         }
 
         [Fact]
         public void Register_existing_device_and_accept_it()
-        {
-            using (Context context = new Context())
-            {
+        { 
                 var loader = new StandardTestDataLoader(context);
                 var loadedData = loader.Load();
 
@@ -42,28 +36,22 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 Guid deviceGuid = deviceRegister.Register(loadedData.NotConnectedDevice.Guid);
                 deviceGuid.Should().Be(loadedData.NotConnectedDevice.Guid);
                 context.Devices.Count(x => x.Guid == deviceGuid).Should().Be(1);
-            }
         }
 
         [Fact]
         public void Register_existing_device_but_there_is_not_the_guid_then_throw_WrongDeviceRegistrationExceptions()
         {
-            using (Context context = new Context())
-            {
                 var guid = Guid.NewGuid();
 
                 DeviceRegister deviceRegister = new DeviceRegister(context);
 
                 Action a = () => deviceRegister.Register(guid);
                 a.ShouldThrow<WrongDeviceRegistrationException>();
-            }
         }
 
         [Fact]
         public void Audit_registering_new_device()
         {
-            using (Context context = new Context())
-            {
                 DeviceRegister deviceRegister = new DeviceRegister(context);
                 Guid deviceGuid = deviceRegister.Register();
                 int deviceId = context.Devices.First().Id;
@@ -79,14 +67,11 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
 
                 var audit = context.Audits.OfType<DeviceAudit>().Single();
                 audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
-            }
         }
 
         [Fact]
         public void Audit_register_existing_device()
         {
-            using (Context context = new Context())
-            {
                 var loader = new StandardTestDataLoader(context);
                 var loadedData = loader.Load();
 
@@ -104,14 +89,11 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
 
                 var audit = context.Audits.OfType<DeviceAudit>().Single();
                 audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
-            }
         }
 
         [Fact]
         public void Audit_wrong_regisering_device()
         {
-            using (Context context = new Context())
-            {
                 var guid = Guid.NewGuid();
 
                 DeviceRegister deviceRegister = new DeviceRegister(context);
@@ -130,7 +112,6 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
 
                 var audit = context.Audits.OfType<DeviceAudit>().Single();
                 audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
-            }
         }
     }
 }

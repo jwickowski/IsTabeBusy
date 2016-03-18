@@ -1,21 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using FluentAssertions;
 using IsTableBusy.Core.Models;
 using IsTableBusy.Core.Places;
 using IsTableBusy.Core.Tests.LoadData;
-using IsTableBusy.EntityFramework;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration.Places
 {
-   public  class PlaceUpdaterTest
+   public  class PlaceUpdaterTest : IsTableBusyDatabaseTest, IDisposable
     {
-
         [Fact]
         public void update()
         {
-            using (var context = new Context())
-            {
                 var loader = new StandardTestDataLoader(context);
                 var loadedData = loader.Load();
                 var updater = new PlaceUpdater(context);
@@ -29,7 +26,6 @@ namespace IsTableBusy.Core.Tests.Integration.Places
                     .ShouldBeEquivalentTo(item, options => options
                     .Including(x => x.Name)
                     .Including(x => x.Id));
-            }
         }
     }
 }

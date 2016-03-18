@@ -1,9 +1,8 @@
-﻿using IsTableBusy.Device.Core.Logic;
-using IsTableBusy.Device.Core.Tests.Logic;
+﻿using System;
+using IsTableBusy.Device.Core.Logic;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using System;
 
-namespace IsTableBusy.App.RaspberryPi.Tests.Logic
+namespace IsTableBusy.Device.Core.Tests.Logic
 {
     [TestClass]
     public class AppTest

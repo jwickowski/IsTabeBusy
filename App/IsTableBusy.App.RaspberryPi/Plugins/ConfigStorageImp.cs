@@ -2,8 +2,9 @@
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
+using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.Device.Core.Logic
+namespace IsTableBusy.App.RaspberryPi.Plugins
 {
     public sealed class ConfigStorageImp : ConfigStorage
     {

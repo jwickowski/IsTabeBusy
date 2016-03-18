@@ -2,7 +2,6 @@
 using FluentAssertions;
 using IsTableBusy.Core.Models;
 using IsTableBusy.Core.Tests.LoadData;
-using IsTableBusy.EntityFramework;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration
@@ -12,20 +11,17 @@ namespace IsTableBusy.Core.Tests.Integration
         [Fact]
         public void Read_table_correctly()
         {
-            using (Context ctx = new Context())
-            {
-                var loader = new StandardTestDataLoader(ctx);
+                var loader = new StandardTestDataLoader(context);
                 var loadedData = loader.Load();
 
                 var tableId = loadedData.TableWithDevice.Id;
                 var placeName = loadedData.TableWithDevice.Place.Name;
 
-                var reader = new TableReader(ctx);
+                var reader = new TableReader(context);
 
                 TableViewModel result = reader.Read(placeName, tableId);
                 result.Should().NotBeNull();
                 result.Id.Should().Be(tableId);
-            }
         }
     }
 }

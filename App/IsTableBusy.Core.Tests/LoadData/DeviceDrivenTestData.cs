@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IsTableBusy.EntityFramework.Model;
+﻿using IsTableBusy.EntityFramework.Model;
 
 namespace IsTableBusy.Core.Tests.LoadData
 {

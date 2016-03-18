@@ -2,7 +2,6 @@
 using System.Linq;
 using FluentAssertions;
 using IsTableBusy.Core.Tests.LoadData;
-using IsTableBusy.EntityFramework;
 using Xunit;
 
 namespace IsTableBusy.Core.Tests.Integration
@@ -12,29 +11,25 @@ namespace IsTableBusy.Core.Tests.Integration
         [Fact]
         public void Empty()
         {
-            using (Context ctx = new Context())
-            {
-                TablesInPlaceReader reader = new TablesInPlaceReader(ctx);
+            
+                TablesInPlaceReader reader = new TablesInPlaceReader(context);
 
                 var result = reader.Read("place");
                 result.Should().BeEmpty();
-            }
+            
         }
 
         [Fact]
         public void return_item()
         {
-            using (Context ctx = new Context())
-            {
-                var loader = new StandardTestDataLoader(ctx);
+                var loader = new StandardTestDataLoader(context);
                 var loadedData = loader.Load();
 
-                TablesInPlaceReader reader = new TablesInPlaceReader(ctx);
+                TablesInPlaceReader reader = new TablesInPlaceReader(context);
 
                 var result = reader.Read(loadedData.PlaceWithTwoTables.Name);
                 result.Should().NotBeEmpty();
                 result.Count().Should().Be(2);
-            }
         }
     }
 }

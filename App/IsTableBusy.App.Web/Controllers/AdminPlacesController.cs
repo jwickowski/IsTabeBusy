@@ -1,5 +1,4 @@
-﻿using IsTableBusy.App.Web.ViewModels;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace IsTableBusy.App.Web.Controllers
 {

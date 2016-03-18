@@ -1,10 +1,9 @@
-﻿
-using IsTableBusy.Device.Core.Logic;
-using System;
+﻿using System;
 using Windows.Devices.Gpio;
 using Windows.Foundation;
+using IsTableBusy.Device.Core.Logic;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.App.RaspberryPi.Plugins
 {
     public sealed class ButtonImp : Button
     {

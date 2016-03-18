@@ -1,6 +1,5 @@
-﻿
-
-using IsTableBusy.App.RaspberryPi.Logic;
+﻿using System.Threading.Tasks;
+using IsTableBusy.App.RaspberryPi.Plugins;
 using IsTableBusy.Device.Core.Logic;
 
 

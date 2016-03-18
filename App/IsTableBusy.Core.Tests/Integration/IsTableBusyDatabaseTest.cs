@@ -6,8 +6,16 @@ namespace IsTableBusy.Core.Tests.Integration
 {
     public class IsTableBusyDatabaseTest: DatabaseTest, IDisposable
     {
+        protected Context context;
         public IsTableBusyDatabaseTest() : base("DefaultConnection")
         {
+            context = new Context();
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+            base.Dispose();
         }
 
         protected override DatabaseCreator DatabaseCreator => new IsTabeBusyDatabaseTool();

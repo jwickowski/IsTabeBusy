@@ -1,7 +1,6 @@
 ﻿using System;
-using IsTableBusy.EntityFramework.Model.Audit;
 
-namespace IsTableBusy.EntityFramework.Model
+namespace IsTableBusy.EntityFramework.Model.Audit
 {
     public class DeviceAudit : BaseAudit
     {

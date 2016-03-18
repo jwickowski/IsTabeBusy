@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using IsTableBusy.Device.Core.Exceptions;
 using Newtonsoft.Json;
-using Windows.Storage;
 using System.Text;
 
 namespace IsTableBusy.Device.Core.Logic

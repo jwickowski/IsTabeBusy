@@ -16,129 +16,115 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
     {
         public DeviceStateChangerTest()
         {
-               DateTimeSupplier.Date = new DateTime(2015, 3, 4);
+            DateTimeSupplier.Date = new DateTime(2015, 3, 4);
         }
 
         [Fact]
         public void change_state_to_busy()
         {
-            using (Context context = new Context())
-            {
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
-                var tableWithFreeDevice = loadedData.TableWithFreeDevice;
-                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
-                deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
+            var tableWithFreeDevice = loadedData.TableWithFreeDevice;
+            var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
-                var table = context.Tables.Single(x => x.Id == tableWithFreeDevice.Id);
+            deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
 
-                table.IsBusy.Should().Be(true);
-            }
+            var table = context.Tables.Single(x => x.Id == tableWithFreeDevice.Id);
+
+            table.IsBusy.Should().Be(true);
+
         }
 
         [Fact]
         public void audit_changing_state_to_busy()
         {
-            using (Context context = new Context())
+
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
+            var tableWithFreeDevice = loadedData.TableWithFreeDevice;
+            var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+
+            deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
+
+            var expectedAudit = new TableAudit
             {
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
-                var tableWithFreeDevice = loadedData.TableWithFreeDevice;
-                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+                ItemType = AuditItemType.Table,
+                ItemId = tableWithFreeDevice.Id,
+                Date = DateTimeSupplier.Date,
+                NewState = true,
+                Event = "State changed"
+            };
 
-                deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
+            var audit = context.Audits.OfType<TableAudit>().Single();
+            audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
 
-                var expectedAudit = new TableAudit
-                {
-                    ItemType = AuditItemType.Table,
-                    ItemId = tableWithFreeDevice.Id,
-                    Date = DateTimeSupplier.Date,
-                    NewState = true,
-                    Event = "State changed"
-                };
-
-                var audit = context.Audits.OfType<TableAudit>().Single();
-                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
-            }
         }
 
         [Fact]
         public void inform_hub_about_changing_state_to_busy()
         {
-            using (Context context = new Context())
-            {
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
-                var tableWithFreeDevice = loadedData.TableWithFreeDevice;
-                var hubMock = Substitute.For<PlacesHubWrapper>();
-                var deviceStateChanger = new DeviceStateChanger(context, hubMock);
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
+            var tableWithFreeDevice = loadedData.TableWithFreeDevice;
+            var hubMock = Substitute.For<PlacesHubWrapper>();
+            var deviceStateChanger = new DeviceStateChanger(context, hubMock);
 
-                deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
+            deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
 
-                
-                hubMock.Received().IsBusy(tableWithFreeDevice.Id);              
-            }
+
+            hubMock.Received().IsBusy(tableWithFreeDevice.Id);
         }
 
         [Fact]
         public void inform_hub_about_changing_state_to_free()
         {
-            using (Context context = new Context())
-            {
-                var hubMock = Substitute.For<PlacesHubWrapper>();
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
-                var tableWithBusyDevice = loadedData.TableWithBusyDevice;
-                var deviceStateChanger = new DeviceStateChanger(context, hubMock);
+            var hubMock = Substitute.For<PlacesHubWrapper>();
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
+            var tableWithBusyDevice = loadedData.TableWithBusyDevice;
+            var deviceStateChanger = new DeviceStateChanger(context, hubMock);
 
-                deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
-                hubMock.Received().IsFree(tableWithBusyDevice.Id);
-            }
+            deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
+            hubMock.Received().IsFree(tableWithBusyDevice.Id);
         }
 
         [Fact]
         public void change_state_to_free()
         {
-            using (Context context = new Context())
-            {
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
-                var tableWithBusyDevice = loadedData.TableWithBusyDevice;
-                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
+            var tableWithBusyDevice = loadedData.TableWithBusyDevice;
+            var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
-                deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
+            deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
 
-                var table = context.Tables.Single(x => x.Id == tableWithBusyDevice.Id);
+            var table = context.Tables.Single(x => x.Id == tableWithBusyDevice.Id);
 
-                table.IsBusy.Should().Be(false);
-            }
+            table.IsBusy.Should().Be(false);
         }
 
         [Fact]
         public void audit_changing_state_to_free()
         {
-            using (Context context = new Context())
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
+            var tableWithBusyDevice = loadedData.TableWithBusyDevice;
+            var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+
+            deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
+
+            var expectedAudit = new TableAudit
             {
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
-                var tableWithBusyDevice = loadedData.TableWithBusyDevice;
-                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+                ItemType = AuditItemType.Table,
+                ItemId = tableWithBusyDevice.Id,
+                Date = DateTimeSupplier.Date,
+                NewState = false,
+                Event = "State changed"
+            };
 
-                deviceStateChanger.SetBusy(tableWithBusyDevice.Device.Guid, false);
-
-                var expectedAudit = new TableAudit
-                {
-                    ItemType = AuditItemType.Table,
-                    ItemId = tableWithBusyDevice.Id,
-                    Date = DateTimeSupplier.Date,
-                    NewState = false,
-                    Event = "State changed"
-                };
-
-                var audit = context.Audits.OfType<TableAudit>().Single();
-                audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
-            }
+            var audit = context.Audits.OfType<TableAudit>().Single();
+            audit.ShouldBeEquivalentTo(expectedAudit, options => options.Excluding(x => x.Id));
         }
 
         [Fact]
@@ -146,7 +132,6 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
         {
             using (Context context = new Context())
             {
-
                 var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
                 Action a = () => { deviceStateChanger.SetBusy(Guid.NewGuid(), false); };
@@ -158,17 +143,14 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
         [Fact]
         public void device_is_not_connected()
         {
-            using (Context context = new Context())
-            {
-                var loader = new DeviceDrivenTestDataLoader(context);
-                var loadedData = loader.Load();
+            var loader = new DeviceDrivenTestDataLoader(context);
+            var loadedData = loader.Load();
 
-                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+            var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
-                Action a = () => { deviceStateChanger.SetBusy(loadedData.NotConnectedDevice.Guid, false); };
+            Action a = () => { deviceStateChanger.SetBusy(loadedData.NotConnectedDevice.Guid, false); };
 
-                a.ShouldThrow<ChangingDeviceStateException>();
-            }
+            a.ShouldThrow<ChangingDeviceStateException>();
         }
     }
 }

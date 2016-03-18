@@ -1,9 +1,7 @@
-﻿
+﻿using Windows.Foundation;
 using IsTableBusy.Device.Core.Logic;
-using System;
-using Windows.Foundation;
 
-namespace IsTableBusy.App.RaspberryPi.Logic
+namespace IsTableBusy.App.Symulator.Plugins
 {
     public sealed class ButtonImp : Button
     {
