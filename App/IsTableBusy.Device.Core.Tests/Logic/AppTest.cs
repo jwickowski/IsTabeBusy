@@ -130,7 +130,21 @@ namespace IsTableBusy.Device.Core.Tests.Logic
             Assert.AreEqual(after, isBusyValue);
         }
 
+        [TestMethod]
+        public void change_state_and_device_is_not_connected()
+        {
+            Init();
+            apiClient
+             .WithGetBusy(() => { return true; })
+             .WithSetBusy((isBusy) =>
+             {
+                 throw new Exception("Changing state error");
+             });
 
+            app.Run();
+            device.FakeButton.RaiseEvent();
+            Assert.AreEqual(AppState.Error, app.State);
+        }
     }
 }
 

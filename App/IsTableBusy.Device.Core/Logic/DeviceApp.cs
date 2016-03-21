@@ -87,9 +87,15 @@ namespace IsTableBusy.Device.Core.Logic
             {
                 HandleClick();
             }
-            catch (CachngeTableStateException)
+            catch (Exception ex)
             {
-                this.State = AppState.Error;
+                if (ex.Message == "Changing state error")
+                {
+                    this.State = AppState.Error;
+                }
+                else {
+                    throw;
+                }
             }
         }
 

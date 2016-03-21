@@ -76,7 +76,6 @@ namespace IsTableBusy.Device.Core.Logic
         {
             try
             {
-          
                 HttpClient hc = new HttpClient();
                 Uri baseUri = new Uri(config.ApiUrl);
                 Uri stateUri = new Uri(baseUri, $"device/{config.DeviceGuid}/State");
@@ -89,7 +88,7 @@ namespace IsTableBusy.Device.Core.Logic
             }
             catch (AggregateException)
             {
-                throw new CachngeTableStateException();
+                throw new Exception("Changing state error");    
             }
         }
     }
