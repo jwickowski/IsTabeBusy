@@ -12,7 +12,7 @@ namespace IsTableBusy.App.RaspberryPi.Plugins
         {
             var controller = GpioController.GetDefault();
             pin = controller.OpenPin(pinNumber);
-            value = GpioPinValue.High;
+            value = GpioPinValue.Low;
             pin.Write(value);
             pin.SetDriveMode(GpioPinDriveMode.Output);
         }
@@ -21,7 +21,7 @@ namespace IsTableBusy.App.RaspberryPi.Plugins
         {
             if (IsOn == false)
             {
-                value = GpioPinValue.Low;
+                value = GpioPinValue.High;
                 pin.Write(value);
             }
 
@@ -31,11 +31,11 @@ namespace IsTableBusy.App.RaspberryPi.Plugins
         {
             if (IsOn)
             {
-                value = GpioPinValue.High;
+                value = GpioPinValue.Low;
                 pin.Write(value);
             }
         }
 
-        public bool IsOn => value == GpioPinValue.Low;
+        public bool IsOn => value == GpioPinValue.High;
     }
 }
