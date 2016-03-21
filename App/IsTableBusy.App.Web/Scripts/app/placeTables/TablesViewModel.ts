@@ -46,15 +46,6 @@ class TablesViewModel {
             table.isBusy(false);
         });
     }
-
-    public setBusy = (item: Table) => {
-        this.apiWrapper.setBusy(this.placeName, item.id, true);
-    }
-
-    public setFree = (item: Table) => {
-        this.apiWrapper.setBusy(this.placeName, item.id, false);
-    }
-
 }
 
 export = TablesViewModel

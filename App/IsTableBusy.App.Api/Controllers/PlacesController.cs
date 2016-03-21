@@ -10,8 +10,6 @@ namespace IsTableBusy.App.Api.Controllers
     public class PlacesController : ApiController
     {
         private readonly TablesInPlaceReader tablesInPlaceReader;
-        private readonly TableManager tableManager;
-        private readonly TableTurningValidator tableTurningValidator;
         private readonly TableReader tableReader;
         private readonly AllPlacesReader allPlacesReader;
         private readonly PlaceInserter placeInserter;
@@ -21,8 +19,6 @@ namespace IsTableBusy.App.Api.Controllers
 
         public PlacesController(
             TablesInPlaceReader tablesInPlaceReader, 
-            TableManager tableManager, 
-            TableTurningValidator tableTurningValidator,
             TableReader tableReader,
             AllPlacesReader allPlacesReader,
             PlaceInserter placeInserter,
@@ -31,8 +27,6 @@ namespace IsTableBusy.App.Api.Controllers
             PlacesHubWrapper hub)
         {
             this.tablesInPlaceReader = tablesInPlaceReader;
-            this.tableManager = tableManager;
-            this.tableTurningValidator = tableTurningValidator;
             this.tableReader = tableReader;
             this.allPlacesReader = allPlacesReader;
             this.placeInserter = placeInserter;
@@ -78,27 +72,8 @@ namespace IsTableBusy.App.Api.Controllers
         [Route("places/{placeName}/tables/{tableId:int}")]
         public TableViewModel GetTable(string placeName, int tableId)
         {
-            this.tableTurningValidator.Validate(placeName, tableId);
             var result = this.tableReader.Read(placeName, tableId);
             return result;
-        }
-
-        [HttpPost]
-        [Route("places/{placeName}/tables/{tableId:int}/setBusy")]
-        public void SetBusy(string placeName, int tableId)
-        {
-            this.tableTurningValidator.Validate(placeName, tableId);
-            this.tableManager.SetBusy(tableId);
-            hub.IsBusy(tableId);
-        }
-
-        [HttpPost]
-        [Route("places/{placeName}/tables/{tableId:int}/setFree")]
-        public void SetFree(string placeName, int tableId)
-        {
-            this.tableTurningValidator.Validate(placeName, tableId);
-            this.tableManager.SetFree(tableId);
-            hub.IsFree(tableId);
         }
     }
 }
