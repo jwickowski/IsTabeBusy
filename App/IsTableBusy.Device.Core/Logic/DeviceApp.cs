@@ -1,7 +1,4 @@
-﻿
-
-using IsTableBusy.Device.Core.Exceptions;
-using System;
+﻿using System;
 
 namespace IsTableBusy.Device.Core.Logic
 {

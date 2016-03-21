@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using IsTableBusy.Device.Core.Exceptions;
 using Newtonsoft.Json;
 using System.Text;
 
