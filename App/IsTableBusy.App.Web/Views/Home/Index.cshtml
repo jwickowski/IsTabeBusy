@@ -3,21 +3,17 @@
 }
 
 <div class="jumbotron">
-    <h1>Bacon ipsum</h1>
-    <p> Bacon ipsum dolor amet meatball pork chop strip steak, bacon alcatra porchetta chuck cupim tri-tip jerky rump. Beef ribs fatback sirloin, pork belly sausage andouille meatloaf landjaeger salami tongue.</p>
+    <h1>Is table busy?</h1>
 </div>
 
 <div class="row" data-bind="foreach: places">
     <div class="col-md-4">
-        <h2 data-bind="text: name"></h2>
-        <p>
-            <span data-bind="text: name"></span>
-        </p>
-        <p>
-            <a data-bind="attr: { 'href': '@Url.Action(MVC.Places.Tables("/"))' + name }" class="btn btn-default">
+        <a data-bind="attr: { 'href': '@Url.Action(MVC.Places.Tables("/"))' + name }" class="btn btn-default">
+            <h2 data-bind="text: name"></h2>
+            <p>
                 GO
-            </a>
-        </p>
+            </p>
+        </a>
     </div>
 </div>
 
