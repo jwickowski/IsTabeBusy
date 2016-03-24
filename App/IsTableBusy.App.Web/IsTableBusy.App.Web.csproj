@@ -278,6 +278,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Places\Tables.cshtml" />
     <Content Include="Views\AdminPlaces\Index.cshtml" />
+    <Content Include="Views\Shared\GoogleAnalytics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
