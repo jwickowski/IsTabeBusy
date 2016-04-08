@@ -11,9 +11,10 @@ namespace IsTableBusy.App.Web
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
-                "~/Scripts/knockout-3.4.0.debug.js",
+                "~/Scripts/knockout-{version}.js",
                 "~/Scripts/jquery.signalR-{version}.js",
                 "~/Scripts/lodash.js",
+                "~/Scripts/livestamp.js",
                 "~/Scripts/vendor/jsgrid/jsgrid.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(

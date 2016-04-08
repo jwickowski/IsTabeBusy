@@ -5,6 +5,7 @@
 /// <reference path="jquery-2.1.4.js" />
 /// <reference path="jquery-2.1.4.min.js" />
 /// <reference path="knockout-3.4.0.js" />
+/// <reference path="livestamp.js" />
 /// <reference path="lodash.min.js" />
 /// <reference path="modernizr-2.6.2.js" />
 /// <reference path="respond.js" />
