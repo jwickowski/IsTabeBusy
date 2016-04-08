@@ -11,4 +11,3 @@ class Table {
         this.isBusy = ko.observable<boolean>(item.isBusy);
     }
 }
-export = Table

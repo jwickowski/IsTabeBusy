@@ -1,8 +1,6 @@
 ﻿/// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="PlacesViewModel.ts" />
 
-import PlacesViewModel = require("PlacesViewModel");
-
 class HomePage {
     public placesViewModel: PlacesViewModel;
 
@@ -15,5 +13,3 @@ class HomePage {
         ko.applyBindings(this.placesViewModel);
     }
 }
-
-new HomePage().run();

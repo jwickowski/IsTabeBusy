@@ -9,4 +9,3 @@ class Place {
         this.name = item.name;
     }
 }
-export = Place

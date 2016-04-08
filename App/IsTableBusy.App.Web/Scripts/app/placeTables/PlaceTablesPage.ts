@@ -1,8 +1,6 @@
 ﻿/// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="TablesViewModel.ts" />
 
-import TablesViewModel = require("./TablesViewModel");
-
 class PlaceTablesPage {
     public tablesViewModel: TablesViewModel;
 

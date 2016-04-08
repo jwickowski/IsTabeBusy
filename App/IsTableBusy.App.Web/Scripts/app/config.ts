@@ -1,11 +1,8 @@
-﻿class Config {
-    public apiUrl(): string {
+﻿ class  Config {
+     public static apiUrl(): string {
         return window['config'].apiUrl;
     };
-    public signalRUrl(): string {
+    public static signalRUrl(): string {
         return window['config'].signalRUrl;
     }
 }
-
-export = new Config();
-

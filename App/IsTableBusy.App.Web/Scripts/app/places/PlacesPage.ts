@@ -4,8 +4,6 @@
 /// <reference path="selectdeviceviewmodel.ts" />
 /// <reference path="../../typings/bootstrap/bootstrap.d.ts" />
 
-import PlacesData = require('./PlacesData');
-import SelectDeviceViewModel = require("SelectDeviceViewModel");
 
 class PlacesPage {
     private selectDeviceViewModel: SelectDeviceViewModel;

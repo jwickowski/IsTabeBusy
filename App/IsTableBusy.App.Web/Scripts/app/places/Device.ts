@@ -2,5 +2,3 @@
     Id: number;
     Guid: string;
 };
-
-export = Device;

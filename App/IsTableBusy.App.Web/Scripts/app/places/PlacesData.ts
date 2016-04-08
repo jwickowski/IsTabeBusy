@@ -1,8 +1,5 @@
 ﻿/// <reference path="../../vendor/jsgrid/jsGrid.d.ts" />
 /// <reference path="../apiwrapper.ts" />
-
-import ApiWrapper = require("../ApiWrapper");
-
 class PlacesData implements JsGridDataSource {
     private apiWrapper: ApiWrapper;
 
@@ -30,5 +27,3 @@ class PlacesData implements JsGridDataSource {
         return promise;
     }
 }
-
-export = PlacesData;

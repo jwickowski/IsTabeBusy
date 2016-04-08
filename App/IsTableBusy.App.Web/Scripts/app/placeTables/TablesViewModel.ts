@@ -6,11 +6,6 @@
 
 /// <reference path="placeshub.ts" />
 
-import ApiWrapper = require("../ApiWrapper")
-import Table = require("Table");
-import PlacesHub = require("PlacesHub");
-
-
 class TablesViewModel {
     private apiWrapper: ApiWrapper;
     public tables: KnockoutObservableArray<Table>;
@@ -47,5 +42,3 @@ class TablesViewModel {
         });
     }
 }
-
-export = TablesViewModel

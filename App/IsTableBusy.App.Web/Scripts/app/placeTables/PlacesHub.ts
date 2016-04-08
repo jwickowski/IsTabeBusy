@@ -1,5 +1,4 @@
 ﻿/// <reference path="../config.ts" />
-import config = require("./../config")
 
 interface IsBusyChanged {
     (tableId: number): void;
@@ -15,7 +14,7 @@ class PlacesHub {
 
     public run() {
         var connection: HubConnection = $.hubConnection();
-        connection.url = config.signalRUrl();
+        connection.url = Config.signalRUrl();
         this.hub = connection.createHubProxy('placesHub');
         this.hub.on('isBusy', (tableId) => {
             for (var i = 0; i < this.isBusyFunctions.length; i++) {
@@ -41,4 +40,3 @@ class PlacesHub {
         this.isFreeFunctions.push(func);
     };
 }
-export = PlacesHub

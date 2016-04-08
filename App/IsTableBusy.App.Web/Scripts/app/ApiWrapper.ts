@@ -1,12 +1,10 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="config.ts" />
 
-import config = require('./config');
-
 class ApiWrapper {
 
     getPlaces(): JQueryXHR {
-        var url: string = config.apiUrl() + "/places";
+        var url: string = Config.apiUrl() + "/places";
         var promise: JQueryXHR = $.ajax({
             url: url,
             method: "GET",
@@ -16,7 +14,7 @@ class ApiWrapper {
     } 
 
     postPlace(place: any): JQueryXHR {
-        var url: string = config.apiUrl() + "/place";
+        var url: string = Config.apiUrl() + "/place";
         var promise: JQueryXHR = $.ajax({
             url: url,
             method: "POST",
@@ -26,7 +24,7 @@ class ApiWrapper {
     }
 
     putPlace(place) {
-        var url: string = config.apiUrl() + "/place";
+        var url: string = Config.apiUrl() + "/place";
         var promise: JQueryXHR = $.ajax({
             url: url,
             method: "PUT",
@@ -38,7 +36,7 @@ class ApiWrapper {
 
     deletePlace(place) {
         
-        var url: string = config.apiUrl() + "/place/" + place.id;
+        var url: string = Config.apiUrl() + "/place/" + place.id;
         var promise: JQueryXHR = $.ajax({
             url: url,
             method: "DELETE"
@@ -48,7 +46,7 @@ class ApiWrapper {
     }
 
     getTables(placeName: string): JQueryXHR {
-        var url: string = config.apiUrl() + "/places/{placeName}/tables";
+        var url: string = Config.apiUrl() + "/places/{placeName}/tables";
         url = url.replace('{placeName}', placeName);
 
         var promise: JQueryXHR = $.ajax({
@@ -60,4 +58,3 @@ class ApiWrapper {
     } 
 }
 
-export = ApiWrapper
