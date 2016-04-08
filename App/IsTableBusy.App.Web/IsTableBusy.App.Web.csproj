@@ -26,7 +26,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -282,9 +281,7 @@
     <TypeScriptCompile Include="Scripts\app\ApiWrapper.ts" />
     <TypeScriptCompile Include="Scripts\app\config.ts" />
     <TypeScriptCompile Include="Scripts\app\placeTables\PlacesHub.ts" />
-    <TypeScriptCompile Include="Scripts\app\placeTables\PlaceTablesPage.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\app\placeTables\PlaceTablesPage.ts" />
     <TypeScriptCompile Include="Scripts\app\placeTables\TablesViewModel.ts" />
     <TypeScriptCompile Include="Scripts\app\placeTables\Table.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
