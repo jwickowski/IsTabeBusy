@@ -1,4 +1,4 @@
-﻿ class  Config {
+﻿ class Config {
      public static apiUrl(): string {
         return window['config'].apiUrl;
     };

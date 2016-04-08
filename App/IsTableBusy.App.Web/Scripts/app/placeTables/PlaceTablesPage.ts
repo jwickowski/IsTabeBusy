@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="TablesViewModel.ts" />
 
+
 class PlaceTablesPage {
     public tablesViewModel: TablesViewModel;
 
@@ -15,5 +16,6 @@ class PlaceTablesPage {
         ko.applyBindings(this.tablesViewModel);
     }
 }
-   
-new PlaceTablesPage().run();
+
+
+

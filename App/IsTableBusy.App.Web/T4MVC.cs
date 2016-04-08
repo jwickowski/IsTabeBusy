@@ -72,6 +72,7 @@ namespace Links
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string _allScripts_build_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_allScripts.build.min.js") ? Url("_allScripts.build.min.js") : Url("_allScripts.build.js");
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class app {
@@ -321,6 +322,7 @@ namespace Links
             }
             public static class Assets
             {
+                public const string _allScripts_build_js = "~/Scripts/_allScripts.build.js"; 
                 public const string _references_js = "~/Scripts/_references.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 

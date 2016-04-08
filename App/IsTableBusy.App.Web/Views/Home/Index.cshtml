@@ -18,5 +18,7 @@
 </div>
 
 @section Scripts{
-    <script data-main="@Url.Content("~/scripts/app/homePage/HomePage.js")"  src="@Links.Scripts.require_js"></script>
+    <script>
+       new HomePage().run();
+    </script>
 }

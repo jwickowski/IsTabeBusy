@@ -14,7 +14,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("Home", MVC.Home.Index(),new { @class = "navbar-brand" })
+                @Html.ActionLink("Home", MVC.Home.Index(), new { @class = "navbar-brand" })
             </div>
         </div>
     </div>
@@ -28,14 +28,15 @@
 
     @Scripts.Render("~/bundles/libs")
 
-<script>
-    window.config = {};
-    window.config.apiUrl = '@ConfigurationManager.AppSettings["ApiUrl"]';
-    window.config.signalRUrl ='@ConfigurationManager.AppSettings["SignalRUrl"]';
-</script>
+    <script>
+        window.config = {};
+        window.config.apiUrl = '@ConfigurationManager.AppSettings["ApiUrl"]';
+        window.config.signalRUrl = '@ConfigurationManager.AppSettings["SignalRUrl"]';
+    </script>
 
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/app");
+    @RenderSection("scripts", required: false)
 
-@Html.Partial(MVC.Shared.Views.GoogleAnalytics)
+    @Html.Partial(MVC.Shared.Views.GoogleAnalytics)
 </body>
 </html>

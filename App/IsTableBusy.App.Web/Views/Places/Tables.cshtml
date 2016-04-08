@@ -19,5 +19,7 @@
     <script>
         window.placeName = '@Model.PlaceName';
     </script>
-    <script  data-main="@Url.Content("~/scripts/app/placeTables/placeTablesPage.js")" src="@Links.Scripts.require_js"></script>
+    <script>
+        new PlaceTablesPage().run();
+    </script>
 }

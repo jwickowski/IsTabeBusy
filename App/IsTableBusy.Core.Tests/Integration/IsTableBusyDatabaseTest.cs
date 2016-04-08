@@ -12,7 +12,7 @@ namespace IsTableBusy.Core.Tests.Integration
             context = new Context();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             context.Dispose();
             base.Dispose();
