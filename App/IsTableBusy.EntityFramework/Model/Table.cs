@@ -1,4 +1,6 @@
-﻿namespace IsTableBusy.EntityFramework.Model
+﻿using System;
+
+namespace IsTableBusy.EntityFramework.Model
 {
     public class Table :BaseEntity
     {
@@ -11,5 +13,7 @@
         
         public int? DeviceId { get; set; }
         public Device Device { get; set; }
+
+        public DateTime LastChangeStateDate { get; set; }
     }
 }
