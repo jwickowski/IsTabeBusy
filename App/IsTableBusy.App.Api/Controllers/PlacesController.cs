@@ -12,54 +12,21 @@ namespace IsTableBusy.App.Api.Controllers
         private readonly TablesInPlaceReader tablesInPlaceReader;
         private readonly TableReader tableReader;
         private readonly AllPlacesReader allPlacesReader;
-        private readonly PlaceInserter placeInserter;
-        private readonly PlaceUpdater placeUpdater;
-        private readonly PlaceRemover placeRemover;
-        private PlacesHubWrapper hub;
 
         public PlacesController(
             TablesInPlaceReader tablesInPlaceReader, 
             TableReader tableReader,
-            AllPlacesReader allPlacesReader,
-            PlaceInserter placeInserter,
-            PlaceUpdater placeUpdater,
-            PlaceRemover placeRemover,
-            PlacesHubWrapper hub)
+            AllPlacesReader allPlacesReader)
         {
             this.tablesInPlaceReader = tablesInPlaceReader;
             this.tableReader = tableReader;
             this.allPlacesReader = allPlacesReader;
-            this.placeInserter = placeInserter;
-            this.placeUpdater = placeUpdater;
-            this.placeRemover = placeRemover;
-            this.hub = hub;
         }
 
         [Route("places")]
         public IEnumerable<PlaceViewModel> GetPlaces()
         {
             return this.allPlacesReader.Read();
-        }
-        [HttpPost]
-        [Route("place")]
-        public PlaceViewModel PostPlace(PlaceViewModel place)
-        {
-            this.placeInserter.Insert(place);
-            return place;
-        }
-        [HttpPut]
-        [Route("place")]
-        public PlaceViewModel PutPlace(PlaceViewModel place)
-        {
-            this.placeUpdater.Update(place);
-            return place;
-        }
-
-        [HttpDelete]
-        [Route("place/{id}")]
-        public void DeletePlace (int id)
-        {
-            this.placeRemover.Remove(id);
         }
 
         [Route("places/{place}/tables")]

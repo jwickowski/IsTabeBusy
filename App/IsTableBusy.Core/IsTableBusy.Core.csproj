@@ -73,10 +73,7 @@
     <Compile Include="Models\DeviceRegisterViewModel.cs" />
     <Compile Include="Models\TableViewModel.cs" />
     <Compile Include="Models\PlaceViewModel.cs" />
-    <Compile Include="Places\PlaceInserter.cs" />
-    <Compile Include="Places\PlaceRemover.cs" />
     <Compile Include="Places\PlacesHubWrapper.cs" />
-    <Compile Include="Places\PlaceUpdater.cs" />
     <Compile Include="TableReader.cs" />
     <Compile Include="TablesInPlaceReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
