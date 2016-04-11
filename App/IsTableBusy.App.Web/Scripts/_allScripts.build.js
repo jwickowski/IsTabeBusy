@@ -24,32 +24,6 @@ var ApiWrapper = (function () {
         });
         return promise;
     };
-    ApiWrapper.prototype.postPlace = function (place) {
-        var url = Config.apiUrl() + "/place";
-        var promise = $.ajax({
-            url: url,
-            method: "POST",
-            data: place
-        });
-        return promise;
-    };
-    ApiWrapper.prototype.putPlace = function (place) {
-        var url = Config.apiUrl() + "/place";
-        var promise = $.ajax({
-            url: url,
-            method: "PUT",
-            data: place
-        });
-        return promise;
-    };
-    ApiWrapper.prototype.deletePlace = function (place) {
-        var url = Config.apiUrl() + "/place/" + place.id;
-        var promise = $.ajax({
-            url: url,
-            method: "DELETE"
-        });
-        return promise;
-    };
     ApiWrapper.prototype.getTables = function (placeName) {
         var url = Config.apiUrl() + "/places/{placeName}/tables";
         url = url.replace('{placeName}', placeName);
@@ -188,6 +162,7 @@ var Table = (function () {
         this.id = item.id;
         this.name = item.name;
         this.isBusy = ko.observable(item.isBusy);
+        this.lastChangeStateDate = ko.observable(item.lastChangeStateDate);
     }
     return Table;
 }());
