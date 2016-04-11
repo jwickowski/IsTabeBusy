@@ -92,17 +92,6 @@ namespace Links
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class places {
-                private const string URLPATH = "~/Scripts/app/places";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Device_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Device.min.js") ? Url("Device.min.js") : Url("Device.js");
-                public static readonly string PlacesData_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PlacesData.min.js") ? Url("PlacesData.min.js") : Url("PlacesData.js");
-                public static readonly string PlacesPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PlacesPage.min.js") ? Url("PlacesPage.min.js") : Url("PlacesPage.js");
-                public static readonly string SelectDeviceViewModel_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SelectDeviceViewModel.min.js") ? Url("SelectDeviceViewModel.min.js") : Url("SelectDeviceViewModel.js");
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class placeTables {
                 private const string URLPATH = "~/Scripts/app/placeTables";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -123,18 +112,16 @@ namespace Links
         public static readonly string jquery_2_1_4_min_map = Url("jquery-2.1.4.min.map");
         public static readonly string jquery_signalR_2_2_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-2.2.0.min.js") ? Url("jquery.signalR-2.2.0.min.js") : Url("jquery.signalR-2.2.0.js");
         public static readonly string jquery_signalR_2_2_0_min_js = Url("jquery.signalR-2.2.0.min.js");
-        public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
         public static readonly string knockout_3_4_0_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-3.4.0.debug.min.js") ? Url("knockout-3.4.0.debug.min.js") : Url("knockout-3.4.0.debug.js");
         public static readonly string knockout_3_4_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-3.4.0.min.js") ? Url("knockout-3.4.0.min.js") : Url("knockout-3.4.0.js");
+        public static readonly string livestamp_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/livestamp.min.js") ? Url("livestamp.min.js") : Url("livestamp.js");
         public static readonly string lodash_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/lodash.min.js") ? Url("lodash.min.js") : Url("lodash.js");
         public static readonly string lodash_min_js = Url("lodash.min.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
-        public static readonly string r_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/r.min.js") ? Url("r.min.js") : Url("r.js");
-        public static readonly string require_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/require.min.js") ? Url("require.min.js") : Url("require.js");
+        public static readonly string moment_with_locales_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment-with-locales.min.js") ? Url("moment-with-locales.min.js") : Url("moment-with-locales.js");
+        public static readonly string moment_with_locales_min_js = Url("moment-with-locales.min.js");
+        public static readonly string moment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment.min.js") ? Url("moment.min.js") : Url("moment.js");
+        public static readonly string moment_min_js = Url("moment.min.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_min_js = Url("respond.min.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -249,12 +236,6 @@ namespace Links
                     {
                     }
                 }
-                public static partial class places 
-                {
-                    public static class Assets
-                    {
-                    }
-                }
                 public static partial class placeTables 
                 {
                     public static class Assets
@@ -331,17 +312,16 @@ namespace Links
                 public const string jquery_2_1_4_min_js = "~/Scripts/jquery-2.1.4.min.js"; 
                 public const string jquery_signalR_2_2_0_js = "~/Scripts/jquery.signalR-2.2.0.js"; 
                 public const string jquery_signalR_2_2_0_min_js = "~/Scripts/jquery.signalR-2.2.0.min.js"; 
-                public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
-                public const string jquery_validate_min_js = "~/Scripts/jquery.validate.min.js"; 
-                public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery.validate.unobtrusive.js"; 
-                public const string jquery_validate_unobtrusive_min_js = "~/Scripts/jquery.validate.unobtrusive.min.js"; 
                 public const string knockout_3_4_0_debug_js = "~/Scripts/knockout-3.4.0.debug.js"; 
                 public const string knockout_3_4_0_js = "~/Scripts/knockout-3.4.0.js"; 
+                public const string livestamp_js = "~/Scripts/livestamp.js"; 
                 public const string lodash_js = "~/Scripts/lodash.js"; 
                 public const string lodash_min_js = "~/Scripts/lodash.min.js"; 
                 public const string modernizr_2_6_2_js = "~/Scripts/modernizr-2.6.2.js"; 
-                public const string r_js = "~/Scripts/r.js"; 
-                public const string require_js = "~/Scripts/require.js"; 
+                public const string moment_with_locales_js = "~/Scripts/moment-with-locales.js"; 
+                public const string moment_with_locales_min_js = "~/Scripts/moment-with-locales.min.js"; 
+                public const string moment_js = "~/Scripts/moment.js"; 
+                public const string moment_min_js = "~/Scripts/moment.min.js"; 
                 public const string respond_js = "~/Scripts/respond.js"; 
                 public const string respond_min_js = "~/Scripts/respond.min.js"; 
             }
