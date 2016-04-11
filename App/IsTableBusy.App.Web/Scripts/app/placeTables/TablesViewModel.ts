@@ -1,4 +1,5 @@
-﻿/// <reference path="../../typings/jquery/jquery.d.ts" />
+﻿/// <reference path="../../typings/moment/moment.d.ts" />
+/// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/lodash/lodash.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../typings/signalr/signalr.d.ts" />
@@ -21,7 +22,10 @@ class TablesViewModel {
         var promise: JQueryXHR = this.apiWrapper.getTables(this.placeName);
 
         promise.then((data) => {
-            var mapped = _(data).map((item) => { return new Table(item); }).value();
+            var mapped = _(data).map((item) => {
+                item.lastChangeStateDate = moment.utc(item.lastChangeStateDate).toDate();
+                return new Table(item);
+            }).value();
             this.tables(mapped);
         });
 
@@ -32,6 +36,7 @@ class TablesViewModel {
                 return item.id === tableId;
             });
             table.isBusy(true);
+            table.lastChangeStateDate(new Date());
         });
 
         this.placesHub.isFree((tableId: number) => {
@@ -39,6 +44,7 @@ class TablesViewModel {
                 return item.id === tableId;
             });
             table.isBusy(false);
+            table.lastChangeStateDate(new Date());
         });
     }
 }

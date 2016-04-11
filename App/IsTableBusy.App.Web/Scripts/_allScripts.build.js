@@ -107,6 +107,7 @@ var PlacesHub = (function () {
     };
     return PlacesHub;
 }());
+/// <reference path="../../typings/moment/moment.d.ts" />
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/lodash/lodash.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
@@ -123,7 +124,10 @@ var TablesViewModel = (function () {
         var _this = this;
         var promise = this.apiWrapper.getTables(this.placeName);
         promise.then(function (data) {
-            var mapped = _(data).map(function (item) { return new Table(item); }).value();
+            var mapped = _(data).map(function (item) {
+                item.lastChangeStateDate = moment.utc(item.lastChangeStateDate).toDate();
+                return new Table(item);
+            }).value();
             _this.tables(mapped);
         });
         this.placesHub.run();
@@ -132,12 +136,14 @@ var TablesViewModel = (function () {
                 return item.id === tableId;
             });
             table.isBusy(true);
+            table.lastChangeStateDate(new Date());
         });
         this.placesHub.isFree(function (tableId) {
             var table = ko.utils.arrayFirst(_this.tables(), function (item) {
                 return item.id === tableId;
             });
             table.isBusy(false);
+            table.lastChangeStateDate(new Date());
         });
     };
     return TablesViewModel;
