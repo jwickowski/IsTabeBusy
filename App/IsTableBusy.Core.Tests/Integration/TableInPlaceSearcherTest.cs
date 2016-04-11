@@ -11,25 +11,30 @@ namespace IsTableBusy.Core.Tests.Integration
         [Fact]
         public void Empty()
         {
-            
-                TablesInPlaceReader reader = new TablesInPlaceReader(context);
+            TablesInPlaceReader reader = new TablesInPlaceReader(context);
 
-                var result = reader.Read("place");
-                result.Should().BeEmpty();
-            
+            var result = reader.Read("place");
+            result.Should().BeEmpty();
         }
 
         [Fact]
         public void return_item()
         {
-                var loader = new StandardTestDataLoader(context);
-                var loadedData = loader.Load();
+            var loader = new StandardTestDataLoader(context);
+            var loadedData = loader.Load();
 
-                TablesInPlaceReader reader = new TablesInPlaceReader(context);
+            TablesInPlaceReader reader = new TablesInPlaceReader(context);
 
-                var result = reader.Read(loadedData.PlaceWithTwoTables.Name);
-                result.Should().NotBeEmpty();
-                result.Count().Should().Be(2);
+            var result = reader.Read(loadedData.PlaceWithTwoTables.Name);
+            result.Should().NotBeEmpty();
+            result.Count().Should().Be(2);
+
+            var returnedItem = result.First();
+            var orginalData = loadedData.PlaceWithTwoTables.Tables.Single(x => x.Id == returnedItem.Id);
+
+            returnedItem.IsBusy.Should().Be(orginalData.IsBusy);
+            returnedItem.Name.Should().Be(orginalData.Name);
+            returnedItem.LastChangeStateDate.Should().Be(orginalData.LastChangeStateDate);
         }
     }
 }

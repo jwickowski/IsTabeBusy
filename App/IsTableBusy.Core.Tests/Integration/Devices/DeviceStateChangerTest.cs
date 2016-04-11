@@ -22,7 +22,6 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
         [Fact]
         public void change_state_to_busy()
         {
-
             var loader = new DeviceDrivenTestDataLoader(context);
             var loadedData = loader.Load();
             var tableWithFreeDevice = loadedData.TableWithFreeDevice;
@@ -33,13 +32,12 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
             var table = context.Tables.Single(x => x.Id == tableWithFreeDevice.Id);
 
             table.IsBusy.Should().Be(true);
-
+            table.LastChangeStateDate.Should().Be(DateTimeSupplier.Date);
         }
 
         [Fact]
         public void audit_changing_state_to_busy()
         {
-
             var loader = new DeviceDrivenTestDataLoader(context);
             var loadedData = loader.Load();
             var tableWithFreeDevice = loadedData.TableWithFreeDevice;
@@ -72,7 +70,6 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
 
             deviceStateChanger.SetBusy(tableWithFreeDevice.Device.Guid, true);
 
-
             hubMock.Received().IsBusy(tableWithFreeDevice.Id);
         }
 
@@ -102,6 +99,7 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
             var table = context.Tables.Single(x => x.Id == tableWithBusyDevice.Id);
 
             table.IsBusy.Should().Be(false);
+            table.LastChangeStateDate.Should().Be(DateTimeSupplier.Date);
         }
 
         [Fact]
@@ -130,14 +128,11 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
         [Fact]
         public void device_is_not_exists()
         {
-            using (Context context = new Context())
-            {
-                var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
+            var deviceStateChanger = new DeviceStateChanger(context, Substitute.For<PlacesHubWrapper>());
 
-                Action a = () => { deviceStateChanger.SetBusy(Guid.NewGuid(), false); };
+            Action a = () => { deviceStateChanger.SetBusy(Guid.NewGuid(), false); };
 
-                a.ShouldThrow<ChangingDeviceStateException>();
-            }
+            a.ShouldThrow<ChangingDeviceStateException>();
         }
 
         [Fact]

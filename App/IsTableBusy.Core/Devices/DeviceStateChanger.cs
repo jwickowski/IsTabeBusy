@@ -27,6 +27,7 @@ namespace IsTableBusy.Core.Devices
                 throw new ChangingDeviceStateException();
             }
             table.IsBusy = isBusy;
+            table.LastChangeStateDate = DateTimeSupplier.Date;
             this.auditer.Audit(table);
             context.SaveChanges();
             if (table.IsBusy)

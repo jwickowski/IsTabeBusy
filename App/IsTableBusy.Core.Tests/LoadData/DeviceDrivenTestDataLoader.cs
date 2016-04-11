@@ -15,6 +15,8 @@ namespace IsTableBusy.Core.Tests.LoadData
 
         public DeviceDrivenTestData Load()
         {
+            var date = new DateTime(2016,4,11,9,10,35);
+
             var result = new DeviceDrivenTestData();
             var place = new Place { Name = "DeviceDrivenPlace" };
             result.Place = place;
@@ -25,7 +27,8 @@ namespace IsTableBusy.Core.Tests.LoadData
                 Device = new Device { Guid = Guid.NewGuid() },
                 IsBusy = false,
                 Name = "TableWithFreeDevice",
-                Place = place
+                Place = place,
+                LastChangeStateDate = date
             };
             result.TableWithFreeDevice = tableWithFreeDevice;
             this.context.Tables.Add(tableWithFreeDevice);
@@ -35,7 +38,8 @@ namespace IsTableBusy.Core.Tests.LoadData
                 Device = new Device { Guid = Guid.NewGuid() },
                 IsBusy = true,
                 Name = "TableWithBusyDevice",
-                Place = place
+                Place = place,
+                LastChangeStateDate = date
             };
             result.TableWithBusyDevice = tableWithBusyDevice;
             this.context.Tables.Add(tableWithBusyDevice);
