@@ -14,6 +14,7 @@ namespace IsTableBusy.App.Web
                 "~/Scripts/knockout-{version}.js",
                 "~/Scripts/jquery.signalR-{version}.js",
                 "~/Scripts/lodash.js",
+                "~/Scripts/moment.js",
                 "~/Scripts/livestamp.js",
                 "~/Scripts/vendor/jsgrid/jsgrid.js"));
 
