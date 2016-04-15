@@ -17,7 +17,7 @@ namespace IsTableBusy.Core.Places
 
         public IEnumerable<PlaceViewModel> Read()
         {
-            var result = Queryable.Select<Place, PlaceViewModel>(context.Places, x => new PlaceViewModel()
+            var result = context.Places.Select(x => new PlaceViewModel
             {
                 Id = x.Id,
                 Name = x.Name
