@@ -8,12 +8,11 @@ namespace IsTableBusy.EntityFramework
     public class IsTabeBusyDatabaseTool: DatabaseCreator, DatabaseRemover
     {
 
-        public static object _lock = new object();
+        
 
         public void Create(string connectionString)
         {
-            lock (_lock)
-            {
+         
                 Context.ConnectionString = connectionString;
                 Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
                 using (var ctx = new Context())
@@ -21,7 +20,7 @@ namespace IsTableBusy.EntityFramework
                     ctx.Places.Take(1).ToList();
                     ctx.SaveChanges();
                 }
-            }
+            
         }
 
         public void Remove(string connectionString)
