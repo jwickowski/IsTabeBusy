@@ -1,9 +1,3 @@
-/*
- * Blink
- * Turns on an LED on for one second,
- * then off for one second, repeatedly.
- */
-
 #include <Arduino.h>
 
 #define LED 04
@@ -11,9 +5,7 @@
 
 void setup()
 {
-  // initialize LED digital pin as an output.
   pinMode(LED, OUTPUT);
-
   pinMode(BUTTON_TOP, INPUT);
 }
 
