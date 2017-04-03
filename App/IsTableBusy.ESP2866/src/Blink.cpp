@@ -6,7 +6,7 @@
 
 #include <Arduino.h>
 
-#define LED_BUILTIN 02
+#define LED_BUILTIN 04
 
 void setup()
 {
