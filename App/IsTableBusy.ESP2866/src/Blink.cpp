@@ -2,30 +2,38 @@
 
 #define LED 04
 #define BUTTON_TOP 0
+
+unsigned long lastDebounceTime = millis();
+unsigned long deboundeDelay = 50;
+
 bool previousButtonState;
-bool previousLedState;
+bool ledState = LOW;
 void setup()
 {
   pinMode(LED, OUTPUT);
   pinMode(BUTTON_TOP, INPUT);
   previousButtonState = digitalRead(BUTTON_TOP);
-  digitalWrite(LED, LOW);
-  previousLedState = LOW;
+  digitalWrite(LED, ledState);
 }
 
-void loop()
-{
+void changeLed(){
+  ledState = !ledState;
+  digitalWrite(LED, ledState);
+}
+
+void loop(){
   bool buttonState =  digitalRead(BUTTON_TOP);
-  if(previousButtonState == LOW && buttonState == HIGH)
+
+
+
+  if(lastDebounceTime - millis() > deboundeDelay){
+    if(buttonState == LOW && buttonState != previousButtonState){
+      changeLed();
+    }
+  }
+  if(buttonState != previousButtonState)
   {
-    if(previousLedState == HIGH){
-      digitalWrite(LED, LOW);
-      previousLedState = LOW;
-    }
-    else{
-      digitalWrite(LED, HIGH);
-      previousLedState = HIGH;
-    }
+    lastDebounceTime = millis();
   }
   previousButtonState = buttonState;
 }
