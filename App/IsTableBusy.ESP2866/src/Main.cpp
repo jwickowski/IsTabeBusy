@@ -1,5 +1,24 @@
 #include <Arduino.h>
 
+
+class Button {
+private:
+      int gpioPin;
+      unsigned long debounceDelayInMiliseconds;
+      void (*callback)();
+public:
+      Button(int gpioPin, unsigned long debounceDelayInMiliseconds, void (*aCallback)() );
+};
+
+Button::Button( int aGpioPin, unsigned long aDebounceDelayInMiliseconds, void (*aCallback)())
+{
+  gpioPin = aGpioPin;
+  debounceDelayInMiliseconds = aDebounceDelayInMiliseconds;
+  callback = aCallback;
+  pinMode(gpioPin, INPUT);
+}
+
+
 #define LED 04
 #define BUTTON_TOP 0
 
@@ -8,6 +27,7 @@ unsigned long deboundeDelay = 50;
 
 bool previousButtonState;
 bool ledState = LOW;
+
 void setup()
 {
   pinMode(LED, OUTPUT);
@@ -27,6 +47,7 @@ bool shouldLedBeChanged(bool buttonState)
   {
     return false;
   }
+
   if(buttonState == HIGH || buttonState == previousButtonState)
   {
     return false;
