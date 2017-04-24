@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 class Button {
 private:
       int gpioPin;

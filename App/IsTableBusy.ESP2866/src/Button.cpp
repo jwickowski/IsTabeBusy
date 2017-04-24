@@ -1,8 +1,7 @@
 #include <Arduino.h>
 #include "Button.h"
 
-
-Button::Button( int aGpioPin, void (*aCallback)())
+Button::Button(int aGpioPin, void (*aCallback)())
 {
   gpioPin = aGpioPin;
   callback = aCallback;
