@@ -21,16 +21,27 @@ void changeLed(){
   digitalWrite(LED, ledState);
 }
 
+bool shouldLedBeChanged(bool buttonState)
+{
+  if(lastDebounceTime - millis() <= deboundeDelay)
+  {
+    return false;
+  }
+  if(buttonState == HIGH || buttonState == previousButtonState)
+  {
+    return false;
+  }
+
+  return true;
+}
+
 void loop(){
   bool buttonState =  digitalRead(BUTTON_TOP);
-
-
-
-  if(lastDebounceTime - millis() > deboundeDelay){
-    if(buttonState == LOW && buttonState != previousButtonState){
-      changeLed();
-    }
+  if(shouldLedBeChanged(buttonState))
+  {
+    changeLed();
   }
+
   if(buttonState != previousButtonState)
   {
     lastDebounceTime = millis();
