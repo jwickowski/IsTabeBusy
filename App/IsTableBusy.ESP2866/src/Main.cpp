@@ -6,8 +6,25 @@ private:
       int gpioPin;
       unsigned long debounceDelayInMiliseconds;
       void (*callback)();
+
+      bool previousButtonState;
+      unsigned long lastDebounceTime;
+      bool shouldLedBeChanged(bool buttonState){
+        if(lastDebounceTime - millis() <= debounceDelayInMiliseconds)
+        {
+          return false;
+        }
+
+        if(buttonState == HIGH || buttonState == previousButtonState)
+        {
+          return false;
+        }
+
+        return true;
+      }
 public:
       Button(int gpioPin, unsigned long debounceDelayInMiliseconds, void (*aCallback)() );
+      void Process();
 };
 
 Button::Button( int aGpioPin, unsigned long aDebounceDelayInMiliseconds, void (*aCallback)())
@@ -16,51 +33,16 @@ Button::Button( int aGpioPin, unsigned long aDebounceDelayInMiliseconds, void (*
   debounceDelayInMiliseconds = aDebounceDelayInMiliseconds;
   callback = aCallback;
   pinMode(gpioPin, INPUT);
+  lastDebounceTime = millis();
+  previousButtonState = digitalRead(gpioPin);
+
 }
 
-
-#define LED 04
-#define BUTTON_TOP 0
-
-unsigned long lastDebounceTime = millis();
-unsigned long deboundeDelay = 50;
-
-bool previousButtonState;
-bool ledState = LOW;
-
-void setup()
-{
-  pinMode(LED, OUTPUT);
-  pinMode(BUTTON_TOP, INPUT);
-  previousButtonState = digitalRead(BUTTON_TOP);
-  digitalWrite(LED, ledState);
-}
-
-void changeLed(){
-  ledState = !ledState;
-  digitalWrite(LED, ledState);
-}
-
-bool shouldLedBeChanged(bool buttonState)
-{
-  if(lastDebounceTime - millis() <= deboundeDelay)
-  {
-    return false;
-  }
-
-  if(buttonState == HIGH || buttonState == previousButtonState)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-void loop(){
-  bool buttonState =  digitalRead(BUTTON_TOP);
+void Button::Process(){
+  bool buttonState =  digitalRead(gpioPin);
   if(shouldLedBeChanged(buttonState))
   {
-    changeLed();
+    callback();
   }
 
   if(buttonState != previousButtonState)
@@ -68,4 +50,30 @@ void loop(){
     lastDebounceTime = millis();
   }
   previousButtonState = buttonState;
+}
+
+
+#define LED 04
+#define BUTTON_TOP 0
+
+Button* button;
+
+bool ledState;
+
+void changeLed(){
+  ledState = !ledState;
+  digitalWrite(LED, ledState);
+}
+void setup()
+{
+  ledState = LOW;
+  pinMode(LED, OUTPUT);
+  pinMode(BUTTON_TOP, INPUT);
+  digitalWrite(LED, ledState);
+  Button* button = new Button(BUTTON_TOP, 50, changeLed);
+}
+
+
+void loop(){
+button -> Process();
 }
