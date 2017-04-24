@@ -1,41 +1,28 @@
 #include <Arduino.h>
 
+#define LED 04
+#define BUTTON_TOP 0
 
 class Button {
 private:
       int gpioPin;
-      unsigned long debounceDelayInMiliseconds;
+      unsigned long debounceDelayInMiliseconds = 50;
       void (*callback)();
-
       bool previousButtonState;
       unsigned long lastDebounceTime;
-      bool shouldLedBeChanged(bool buttonState){
-        if(lastDebounceTime - millis() <= debounceDelayInMiliseconds)
-        {
-          return false;
-        }
-
-        if(buttonState == HIGH || buttonState == previousButtonState)
-        {
-          return false;
-        }
-
-        return true;
-      }
+      bool shouldLedBeChanged(bool buttonState);
 public:
-      Button(int gpioPin, unsigned long debounceDelayInMiliseconds, void (*aCallback)() );
+      Button(int gpioPin, void (*aCallback)() );
       void Process();
 };
 
-Button::Button( int aGpioPin, unsigned long aDebounceDelayInMiliseconds, void (*aCallback)())
+Button::Button( int aGpioPin, void (*aCallback)())
 {
   gpioPin = aGpioPin;
-  debounceDelayInMiliseconds = aDebounceDelayInMiliseconds;
   callback = aCallback;
   pinMode(gpioPin, INPUT);
   lastDebounceTime = millis();
   previousButtonState = digitalRead(gpioPin);
-
 }
 
 void Button::Process(){
@@ -52,28 +39,37 @@ void Button::Process(){
   previousButtonState = buttonState;
 }
 
+bool Button::shouldLedBeChanged(bool buttonState){
+  if(lastDebounceTime - millis() <= debounceDelayInMiliseconds)
+  {
+    return false;
+  }
 
-#define LED 04
-#define BUTTON_TOP 0
+  if(buttonState == HIGH || buttonState == previousButtonState)
+  {
+    return false;
+  }
 
-Button* button;
+  return true;
+}
 
 bool ledState;
-
 void changeLed(){
   ledState = !ledState;
   digitalWrite(LED, ledState);
 }
+Button button =Button(BUTTON_TOP, changeLed);
+
+
+
 void setup()
 {
-  ledState = LOW;
+  ledState = HIGH;
   pinMode(LED, OUTPUT);
-  pinMode(BUTTON_TOP, INPUT);
+
   digitalWrite(LED, ledState);
-  Button* button = new Button(BUTTON_TOP, 50, changeLed);
 }
 
-
 void loop(){
-button -> Process();
+button.Process();
 }
