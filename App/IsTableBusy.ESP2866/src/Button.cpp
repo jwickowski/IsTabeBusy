@@ -6,13 +6,16 @@ Button::Button( int aGpioPin, void (*aCallback)())
 {
   gpioPin = aGpioPin;
   callback = aCallback;
+
+  debounceDelayInMiliseconds = 50;
   pinMode(gpioPin, INPUT);
+
   lastDebounceTime = millis();
   previousButtonState = digitalRead(gpioPin);
 }
 
 void Button::Process(){
-  bool buttonState =  digitalRead(gpioPin);
+  bool buttonState = digitalRead(gpioPin);
   if(shouldLedBeChanged(buttonState))
   {
     callback();
