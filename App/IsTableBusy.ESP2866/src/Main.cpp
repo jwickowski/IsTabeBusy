@@ -19,13 +19,16 @@ void changeLed()
   }
 }
 
-Button button = Button(BUTTON_TOP, changeLed);
+Button* button;
 
 void setup()
 {
-
+button = new Button(BUTTON_TOP);
 }
 
 void loop(){
-  button.Process();
+  bool isClicked = button->IsClicked();
+  if(isClicked){
+    changeLed();
+  }
 }

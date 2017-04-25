@@ -1,10 +1,9 @@
 #include <Arduino.h>
 #include "Button.h"
 
-Button::Button(int aGpioPin, void (*aCallback)())
+Button::Button(int aGpioPin)
 {
   gpioPin = aGpioPin;
-  callback = aCallback;
 
   debounceDelayInMiliseconds = 50;
   pinMode(gpioPin, INPUT);
@@ -13,21 +12,19 @@ Button::Button(int aGpioPin, void (*aCallback)())
   previousButtonState = digitalRead(gpioPin);
 }
 
-void Button::Process(){
+bool Button::IsClicked(){
   bool buttonState = digitalRead(gpioPin);
-  if(shouldLedBeChanged(buttonState))
-  {
-    callback();
-  }
+  bool isClicked = IsClicked(buttonState);
 
   if(buttonState != previousButtonState)
   {
     lastDebounceTime = millis();
   }
   previousButtonState = buttonState;
+  return isClicked;
 }
 
-bool Button::shouldLedBeChanged(bool buttonState){
+bool Button::IsClicked(bool buttonState){
   if(lastDebounceTime - millis() <= debounceDelayInMiliseconds)
   {
     return false;
