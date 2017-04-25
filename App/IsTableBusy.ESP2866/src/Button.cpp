@@ -5,7 +5,7 @@ Button::Button(int aGpioPin)
 {
   gpioPin = aGpioPin;
 
-  debounceDelayInMiliseconds = 50;
+  debounceDelayInMiliseconds = 100;
   pinMode(gpioPin, INPUT);
 
   lastDebounceTime = millis();
