@@ -2,28 +2,33 @@
 #include "Button.h"
 #include "Light.h"
 
-#define GREEN_LED 04
+#define GREEN_LED 16
+#define RED_LED 14
 #define BUTTON_TOP 0
 
 bool state = true;
-Light green = Light(GREEN_LED);
+Button* button;
+Light* green;
+Light* red;
 
 void changeLed()
 {
   state = !state;
   if(state){
-    green.On();
+    green->On();
+    red->Off();
   }
   else{
-    green.Off();
+    green->Off();
+    red->On();
   }
 }
-
-Button* button;
 
 void setup()
 {
 button = new Button(BUTTON_TOP);
+green = new Light(GREEN_LED);
+red = new Light(RED_LED);
 }
 
 void loop(){
