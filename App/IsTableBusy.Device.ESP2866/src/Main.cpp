@@ -1,10 +1,9 @@
 #include <Arduino.h>
 #include "Button.h"
 #include "Light.h"
-
-#define GREEN_LED 16
-#define RED_LED 14
-#define BUTTON_TOP 0
+#define GREEN_LED 16 //D0
+#define RED_LED 14 //D5
+#define BUTTON_TOP 0 //D3
 
 bool state = true;
 Button* button;
