@@ -10,10 +10,10 @@ char* Configuration::GetWifiPassword()
   return "password";
 }
 
-char* GetApiUrl(){
+char* Configuration::GetApiUrl(){
   return "ApiUrl";
 }
 
-char* GetDeviceId(){
+char* Configuration::GetDeviceId(){
   return "deiveId";
 }
