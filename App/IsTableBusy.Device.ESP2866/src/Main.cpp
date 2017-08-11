@@ -3,13 +3,13 @@
 #include "Light.h"
 #include "WifiConnector.h"
 #include "HttpRequester.h"
+#include "Configuration.h"
 #define GREEN_LED 16 //D0
 #define RED_LED 14 //D5
 #define BUTTON_TOP 0 //D3
 
 
-char ssid[] = "ssid";
-char password[] = "password";
+Configuration* configuration;
 bool state = true;
 WifiConnector* wifiConnector;
 HttpRequester* httpRequester;
@@ -38,7 +38,8 @@ button = new Button(BUTTON_TOP);
 green = new Light(GREEN_LED);
 red = new Light(RED_LED);
 wifiConnector = new WifiConnector();
-wifiConnector->AddConnectionData(ssid, password);
+configuration = new Configuration();
+wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
 httpRequester = new HttpRequester();
 }
 
