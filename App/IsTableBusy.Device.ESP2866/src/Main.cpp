@@ -16,6 +16,7 @@ HttpRequester* httpRequester;
 Button* button;
 Light* green;
 Light* red;
+char* url;
 
 void changeLed()
 {
@@ -30,6 +31,20 @@ void changeLed()
     red->On();
   }
 }
+void setUrl(){
+  char* apiUrl = configuration -> GetApiUrl();
+  char* device = "/device/";
+  char* deviceId = configuration -> GetDeviceId();
+  char* state =  "/state";
+  int lenght = 1 + strlen(apiUrl) + strlen(device) + strlen(deviceId) + strlen(state);
+
+  url = (char *) malloc(lenght);
+  
+  strcpy(url, apiUrl);
+  strcat(url, device);
+  strcat(url, deviceId);
+  strcat(url, state);
+}
 
 void setup()
 {
@@ -41,19 +56,28 @@ wifiConnector = new WifiConnector();
 configuration = new Configuration();
 wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
 httpRequester = new HttpRequester();
+setUrl();
+}
+
+
+
+bool getBusy()
+{
+  String payload = httpRequester->Get(url);
+  Serial.println("payload:");
+  Serial.println(payload);
+  return false;
 }
 
 void loop(){
   bool isClicked = button->IsClicked();
   if(isClicked){
+    
     changeLed();
     bool ran = wifiConnector->Run();
     if(ran){
-      Serial.println("connected");
-      String payload = httpRequester->Get("http://bot.whatismyipaddress.com/");
-      Serial.println("got data");
-      Serial.println(payload);
-
+      state = getBusy();
+      Serial.println(state);
     }
     else{
       Serial.println("not-connected");
