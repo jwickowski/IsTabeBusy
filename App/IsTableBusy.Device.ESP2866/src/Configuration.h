@@ -1,4 +1,3 @@
-
 class Configuration {
 public:
       char* GetWifiSsid();
