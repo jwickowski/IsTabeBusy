@@ -4,13 +4,14 @@
 #include "WifiConnector.h"
 #include "HttpRequester.h"
 #include "Configuration.h"
+#include "ArduinoJson.h"
+
 #define GREEN_LED 16 //D0
 #define RED_LED 14 //D5
 #define BUTTON_TOP 0 //D3
 
-
 Configuration* configuration;
-bool state = true;
+bool isBusy = true;
 WifiConnector* wifiConnector;
 HttpRequester* httpRequester;
 Button* button;
@@ -18,17 +19,20 @@ Light* green;
 Light* red;
 char* url;
 
-void changeLed()
+StaticJsonBuffer<200> jsonBuffer;
+
+void applyLed()
 {
-  Serial.println("changing LED");
-  state = !state;
-  if(state){
-    green->On();
-    red->Off();
-  }
-  else{
+  Serial.println("applying LED");
+  Serial.println(isBusy);
+  Serial.println("---");
+  if(isBusy){
     green->Off();
     red->On();
+  }
+  else{
+    green->On();
+    red->Off();
   }
 }
 void setUrl(){
@@ -39,11 +43,12 @@ void setUrl(){
   int lenght = 1 + strlen(apiUrl) + strlen(device) + strlen(deviceId) + strlen(state);
 
   url = (char *) malloc(lenght);
-  
+
   strcpy(url, apiUrl);
   strcat(url, device);
   strcat(url, deviceId);
   strcat(url, state);
+  Serial.println(url);
 }
 
 void setup()
@@ -66,18 +71,21 @@ bool getBusy()
   String payload = httpRequester->Get(url);
   Serial.println("payload:");
   Serial.println(payload);
-  return false;
+
+  JsonObject& root = jsonBuffer.parseObject(payload);
+  bool isBusy = root["isBusy"];
+  jsonBuffer.clear();
+  return isBusy;
 }
 
 void loop(){
   bool isClicked = button->IsClicked();
   if(isClicked){
-    
-    changeLed();
+    Serial.println("click");
     bool ran = wifiConnector->Run();
     if(ran){
-      state = getBusy();
-      Serial.println(state);
+      isBusy = getBusy();
+      applyLed();
     }
     else{
       Serial.println("not-connected");
