@@ -2,8 +2,8 @@
 #include "Button.h"
 #include "Light.h"
 #include "WifiConnector.h"
-#include "Configuration.h"
 #include "StateReader.h"
+#include "UrlPreparer.h"
 
 #define GREEN_LED 16 //D0
 #define RED_LED 14 //D5
@@ -16,9 +16,8 @@ Button* button;
 Light* green;
 Light* red;
 StateReader *stateReader;
+UrlPreparer *urlPreparer;
 char* url;
-
-
 
 void applyLed()
 {
@@ -34,21 +33,7 @@ void applyLed()
     red->Off();
   }
 }
-void setUrl(){
-  char* apiUrl = configuration -> GetApiUrl();
-  char* device = "/device/";
-  char* deviceId = configuration -> GetDeviceId();
-  char* state =  "/state";
-  int lenght = 1 + strlen(apiUrl) + strlen(device) + strlen(deviceId) + strlen(state);
 
-  url = (char *) malloc(lenght);
-
-  strcpy(url, apiUrl);
-  strcat(url, device);
-  strcat(url, deviceId);
-  strcat(url, state);
-  Serial.println(url);
-}
 
 void setup()
 {
@@ -58,10 +43,11 @@ green = new Light(GREEN_LED);
 red = new Light(RED_LED);
 wifiConnector = new WifiConnector();
 configuration = new Configuration();
-wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
+urlPreparer = new UrlPreparer();
 
+wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
 stateReader = new StateReader();
-setUrl();
+url = urlPreparer -> PrepareUrl();
 }
 
 void loop(){
