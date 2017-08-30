@@ -2,9 +2,7 @@
 #include "Button.h"
 #include "Light.h"
 #include "WifiConnector.h"
-#include "HttpRequester.h"
 #include "Configuration.h"
-#include "ArduinoJson.h"
 #include "StateReader.h"
 
 #define GREEN_LED 16 //D0
@@ -14,14 +12,13 @@
 Configuration* configuration;
 bool isBusy = true;
 WifiConnector* wifiConnector;
-HttpRequester* httpRequester;
 Button* button;
 Light* green;
 Light* red;
 StateReader *stateReader;
 char* url;
 
-StaticJsonBuffer<200> jsonBuffer;
+
 
 void applyLed()
 {
@@ -62,7 +59,7 @@ red = new Light(RED_LED);
 wifiConnector = new WifiConnector();
 configuration = new Configuration();
 wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
-httpRequester = new HttpRequester();
+
 stateReader = new StateReader();
 setUrl();
 }
