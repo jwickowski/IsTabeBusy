@@ -17,7 +17,7 @@ Light* green;
 Light* red;
 StateReader *stateReader;
 UrlPreparer *urlPreparer;
-char* url;
+
 
 void applyLed()
 {
@@ -46,8 +46,8 @@ configuration = new Configuration();
 urlPreparer = new UrlPreparer();
 
 wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
-stateReader = new StateReader();
-url = urlPreparer -> PrepareUrl();
+char* url = urlPreparer -> PrepareUrl();
+stateReader = new StateReader(url);
 }
 
 void loop(){

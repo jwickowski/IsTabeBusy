@@ -4,13 +4,14 @@
 
 StaticJsonBuffer<200> jsonBuffer;
 
-StateReader::StateReader(){
+StateReader::StateReader(char *urlParam){
 httpRequester = new HttpRequester();
+url = urlParam;
 }
 
 bool StateReader::IsBusy()
 {
-  String payload = httpRequester -> Get("url");
+  String payload = httpRequester -> Get(url);
   Serial.println("payload:");
   Serial.println(payload);
 

@@ -21,5 +21,3 @@ char *UrlPreparer::PrepareUrl()
   strcat(url, state);
   return url;
 }
-
-

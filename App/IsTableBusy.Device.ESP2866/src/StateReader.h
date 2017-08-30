@@ -3,7 +3,8 @@
 class StateReader {
 private: 
       HttpRequester *httpRequester;
+      char *url;
 public:
-      StateReader();
+      StateReader(char* urlParam);
       bool IsBusy();
 };
