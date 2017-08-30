@@ -5,6 +5,7 @@
 #include "HttpRequester.h"
 #include "Configuration.h"
 #include "ArduinoJson.h"
+#include "StateReader.h"
 
 #define GREEN_LED 16 //D0
 #define RED_LED 14 //D5
@@ -17,6 +18,7 @@ HttpRequester* httpRequester;
 Button* button;
 Light* green;
 Light* red;
+StateReader *stateReader;
 char* url;
 
 StaticJsonBuffer<200> jsonBuffer;
@@ -61,21 +63,8 @@ wifiConnector = new WifiConnector();
 configuration = new Configuration();
 wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
 httpRequester = new HttpRequester();
+stateReader = new StateReader();
 setUrl();
-}
-
-
-
-bool getBusy()
-{
-  String payload = httpRequester->Get(url);
-  Serial.println("payload:");
-  Serial.println(payload);
-
-  JsonObject& root = jsonBuffer.parseObject(payload);
-  bool isBusy = root["isBusy"];
-  jsonBuffer.clear();
-  return isBusy;
 }
 
 void loop(){
@@ -84,7 +73,7 @@ void loop(){
     Serial.println("click");
     bool ran = wifiConnector->Run();
     if(ran){
-      isBusy = getBusy();
+      isBusy = stateReader -> IsBusy();
       applyLed();
     }
     else{

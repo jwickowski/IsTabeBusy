@@ -2,5 +2,12 @@
 
 bool StateReader::IsBusy()
 {
-  return false;
+  String payload = httpRequester->Get(url);
+  Serial.println("payload:");
+  Serial.println(payload);
+
+  JsonObject& root = jsonBuffer.parseObject(payload);
+  bool isBusy = root["isBusy"];
+  jsonBuffer.clear();
+  return isBusy;
 }
