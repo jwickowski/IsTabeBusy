@@ -13,9 +13,6 @@ ApiClient::ApiClient(char *urlParam)
 bool ApiClient::GetBusy()
 {
   String payload = httpRequester->Get(url);
-  Serial.println("payload:");
-  Serial.println(payload);
-
   JsonObject &root = jsonBuffer.parseObject(payload);
   bool isBusy = root["isBusy"];
   jsonBuffer.clear();
@@ -24,15 +21,11 @@ bool ApiClient::GetBusy()
 
 void ApiClient::SetBusy(bool isBusy)
 {
-  Serial.println("Set BUSY : ");
-  Serial.println(isBusy);
   JsonObject &root = jsonBuffer.createObject();
-  root["isBusy"] = isBusy ? "true" : "false";
+  root["isBusy"] = isBusy;
   char *output = (char *)malloc(100);
 
   root.prettyPrintTo(output, 100);
   jsonBuffer.clear();
-  
-  Serial.println("output");
-  Serial.println(output);
+  httpRequester->Post(url, output);
 }
