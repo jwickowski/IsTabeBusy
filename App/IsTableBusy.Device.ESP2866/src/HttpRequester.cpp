@@ -18,3 +18,13 @@ String HttpRequester::Get(char* url){
   http.end();
   return payload;
 }
+
+
+void HttpRequester::Post(char* url, char* body){
+  HTTPClient http;
+
+http.begin(url);
+
+int httpCode = http.POST(body, strlen(body));
+http.end();
+}
