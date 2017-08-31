@@ -7,4 +7,5 @@ private:
 public:
       ApiClient(char* urlParam);
       bool GetBusy();
+      void SetBusy(bool isBusy);
 };

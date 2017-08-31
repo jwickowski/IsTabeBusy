@@ -57,6 +57,7 @@ void loop(){
     bool ran = wifiConnector->Run();
     if(ran){
       isBusy = apiClient -> GetBusy();
+      apiClient -> SetBusy(!isBusy);
       applyLed();
     }
     else{
