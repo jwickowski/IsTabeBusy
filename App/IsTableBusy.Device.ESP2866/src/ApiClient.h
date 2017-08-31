@@ -1,10 +1,10 @@
 #include "HttpRequester.h"
 
-class StateReader {
+class ApiClient {
 private: 
       HttpRequester *httpRequester;
       char *url;
 public:
-      StateReader(char* urlParam);
+      ApiClient(char* urlParam);
       bool IsBusy();
 };

@@ -1,15 +1,15 @@
-#include "StateReader.h"
+#include "ApiClient.h"
 #include <Arduino.h>
 #include "ArduinoJson.h"
 
 StaticJsonBuffer<200> jsonBuffer;
 
-StateReader::StateReader(char *urlParam){
+ApiClient::ApiClient(char *urlParam){
 httpRequester = new HttpRequester();
 url = urlParam;
 }
 
-bool StateReader::IsBusy()
+bool ApiClient::IsBusy()
 {
   String payload = httpRequester -> Get(url);
   Serial.println("payload:");

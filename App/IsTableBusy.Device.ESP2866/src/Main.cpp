@@ -2,7 +2,7 @@
 #include "Button.h"
 #include "Light.h"
 #include "WifiConnector.h"
-#include "StateReader.h"
+#include "ApiClient.h"
 #include "UrlPreparer.h"
 
 #define GREEN_LED 16 //D0
@@ -15,7 +15,7 @@ WifiConnector* wifiConnector;
 Button* button;
 Light* green;
 Light* red;
-StateReader *stateReader;
+ApiClient *apiClient;
 UrlPreparer *urlPreparer;
 
 
@@ -47,7 +47,7 @@ urlPreparer = new UrlPreparer();
 
 wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
 char* url = urlPreparer -> PrepareUrl();
-stateReader = new StateReader(url);
+apiClient = new ApiClient(url);
 }
 
 void loop(){
@@ -56,7 +56,7 @@ void loop(){
     Serial.println("click");
     bool ran = wifiConnector->Run();
     if(ran){
-      isBusy = stateReader -> IsBusy();
+      isBusy = apiClient -> IsBusy();
       applyLed();
     }
     else{
