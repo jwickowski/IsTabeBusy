@@ -56,7 +56,7 @@ void loop(){
     Serial.println("click");
     bool ran = wifiConnector->Run();
     if(ran){
-      isBusy = apiClient -> IsBusy();
+      isBusy = apiClient -> GetBusy();
       applyLed();
     }
     else{

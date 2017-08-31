@@ -9,7 +9,7 @@ httpRequester = new HttpRequester();
 url = urlParam;
 }
 
-bool ApiClient::IsBusy()
+bool ApiClient::GetBusy()
 {
   String payload = httpRequester -> Get(url);
   Serial.println("payload:");

@@ -6,5 +6,5 @@ private:
       char *url;
 public:
       ApiClient(char* urlParam);
-      bool IsBusy();
+      bool GetBusy();
 };
