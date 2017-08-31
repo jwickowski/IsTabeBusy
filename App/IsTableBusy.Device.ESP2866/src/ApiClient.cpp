@@ -31,7 +31,8 @@ void ApiClient::SetBusy(bool isBusy)
   char *output = (char *)malloc(100);
 
   root.prettyPrintTo(output, 100);
-
+  jsonBuffer.clear();
+  
   Serial.println("output");
   Serial.println(output);
 }
