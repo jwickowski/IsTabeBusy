@@ -1,9 +1,9 @@
 #include <Arduino.h>
-#include "Button.h"
-#include "Light.h"
-#include "WifiConnector.h"
-#include "ApiClient.h"
-#include "UrlPreparer.h"
+#include "Device/Button.h"
+#include "Device/Light.h"
+#include "Device/WifiConnector.h"
+#include "Api/ApiClient.h"
+#include "Api/UrlPreparer.h"
 
 #define GREEN_LED 16 //D0
 #define RED_LED 14 //D5

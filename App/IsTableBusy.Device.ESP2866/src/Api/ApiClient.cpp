@@ -20,6 +20,7 @@ bool ApiClient::GetBusy()
 
 void ApiClient::SetBusy(bool isBusy)
 {
+  StaticJsonBuffer<200> jsonBuffer;
   JsonObject &root = jsonBuffer.createObject();
   root["isBusy"] = isBusy;
   char *output = (char *)malloc(100);
