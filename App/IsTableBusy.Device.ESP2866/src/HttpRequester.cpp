@@ -21,15 +21,10 @@ String HttpRequester::Get(char* url){
 
 
 void HttpRequester::Post(char* url, char* body){
-  Serial.println("POST");
   HTTPClient http;
-http.begin(url);
-http.addHeader("Content-Type", "application/json");
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
 
-Serial.println("body");
-Serial.println(body);
-int httpCode = http.POST(body);
-Serial.println("code");
-Serial.println(httpCode);
-http.end();
+  int httpCode = http.POST(body);
+  http.end();
 }
