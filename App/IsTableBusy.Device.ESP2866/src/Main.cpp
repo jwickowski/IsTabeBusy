@@ -21,9 +21,6 @@ UrlPreparer *urlPreparer;
 
 void applyLed()
 {
-  Serial.println("applying LED");
-  Serial.println(isBusy);
-  Serial.println("---");
   if(isBusy){
     green->Off();
     red->On();
@@ -37,17 +34,17 @@ void applyLed()
 
 void setup()
 {
-Serial.begin(9600);
-button = new Button(BUTTON_TOP);
-green = new Light(GREEN_LED);
-red = new Light(RED_LED);
-wifiConnector = new WifiConnector();
-configuration = new Configuration();
-urlPreparer = new UrlPreparer();
+  Serial.begin(9600);
+  button = new Button(BUTTON_TOP);
+  green = new Light(GREEN_LED);
+  red = new Light(RED_LED);
+  wifiConnector = new WifiConnector();
+  configuration = new Configuration();
+  urlPreparer = new UrlPreparer();
 
-wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
-char* url = urlPreparer -> PrepareUrl();
-apiClient = new ApiClient(url);
+  wifiConnector->AddConnectionData(configuration -> GetWifiSsid(), configuration -> GetWifiPassword());
+  char* url = urlPreparer -> PrepareUrl();
+  apiClient = new ApiClient(url);
 }
 
 void loop(){
