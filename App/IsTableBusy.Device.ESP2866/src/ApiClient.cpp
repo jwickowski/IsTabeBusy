@@ -2,8 +2,6 @@
 #include <Arduino.h>
 #include "ArduinoJson.h"
 
-StaticJsonBuffer<200> jsonBuffer;
-
 ApiClient::ApiClient(char *urlParam)
 {
   httpRequester = new HttpRequester();
@@ -12,6 +10,7 @@ ApiClient::ApiClient(char *urlParam)
 
 bool ApiClient::GetBusy()
 {
+  StaticJsonBuffer<200> jsonBuffer;
   String payload = httpRequester->Get(url);
   JsonObject &root = jsonBuffer.parseObject(payload);
   bool isBusy = root["isBusy"];
