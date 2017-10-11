@@ -4,6 +4,7 @@
 #include "Device/WifiConnector.h"
 #include "Api/ApiClient.h"
 #include "Api/UrlPreparer.h"
+#include "State.h"
 
 #define GREEN_LED 16 //D0
 #define RED_LED 14 //D5
@@ -17,7 +18,7 @@ Light* green;
 Light* red;
 ApiClient *apiClient;
 UrlPreparer *urlPreparer;
-
+State currentState = State::initializing;
 
 void applyLed()
 {
@@ -30,6 +31,7 @@ void applyLed()
     red->Off();
   }
 }
+
 
 
 void setup()
