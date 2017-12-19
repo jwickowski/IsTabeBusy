@@ -4,5 +4,6 @@
         "*.tcc": "cpp",
         "array": "cpp",
         "initializer_list": "cpp"
-    }
+    },
+    "editor.formatOnSave": true
 }
