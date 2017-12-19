@@ -51,7 +51,8 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 ItemId = tableWithFreeDevice.Id,
                 Date = DateTimeSupplier.Date,
                 NewState = true,
-                Event = "State changed"
+                Event = "State changed",
+                DeviceId = tableWithFreeDevice.DeviceId
             };
 
             var audit = context.Audits.OfType<TableAudit>().Single();
@@ -118,7 +119,8 @@ namespace IsTableBusy.Core.Tests.Integration.Devices
                 ItemId = tableWithBusyDevice.Id,
                 Date = DateTimeSupplier.Date,
                 NewState = false,
-                Event = "State changed"
+                Event = "State changed",
+                DeviceId = tableWithBusyDevice.DeviceId
             };
 
             var audit = context.Audits.OfType<TableAudit>().Single();

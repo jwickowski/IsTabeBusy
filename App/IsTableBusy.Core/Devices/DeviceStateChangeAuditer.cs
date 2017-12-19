@@ -21,7 +21,8 @@ namespace IsTableBusy.Core.Devices
                 Event = "State changed",
                 ItemId = table.Id,
                 ItemType = AuditItemType.Table,
-                NewState = table.IsBusy
+                NewState = table.IsBusy,
+                DeviceId = table.DeviceId                
             };
             context.Audits.Add(audit);
         }
