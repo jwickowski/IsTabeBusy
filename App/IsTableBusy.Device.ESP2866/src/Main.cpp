@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <QueueArray.h>
 #include "Device/Button.h"
 #include "Device/Light.h"
 #include "Device/WifiConnector.h"
