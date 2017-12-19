@@ -50,31 +50,26 @@ void setup()
   char *url = urlPreparer->PrepareUrl();
   apiClient = new ApiClient(url);
   currentState = States::Initializing;
-  Serial.println("end of setup");
 }
 
 void Initialize()
 {
-  Serial.println("Initialize");
   bool ran = wifiConnector->Run();
   if (ran)
   {
-    currentState == States::Registering;
+    currentState = States::Registering;
   }
   else
   {
     delay(1000);
   }
-  Serial.println("end - Initialize");
 }
 
 void Register()
 {
-  Serial.println("Register");
   isBusy = apiClient->GetBusy();
   applyLed(isBusy);
-  currentState == States::WaitingForClick;
-  Serial.println("end Register");
+  currentState = States::WaitingForClick;
 }
 
 void CheckClick()
@@ -84,11 +79,11 @@ void CheckClick()
   {
     if (isBusy)
     {
-      currentState == States::UpdatingStatusToFree;
+      currentState = States::UpdatingStatusToFree;
     }
     else
     {
-      currentState == States::UpdatingStatusToBusy;
+      currentState = States::UpdatingStatusToBusy;
     }
   }
 }
@@ -98,6 +93,7 @@ void SetIsBusy(bool newIsBusyValue)
   isBusy = newIsBusyValue;
   apiClient->SetBusy(isBusy);
   applyLed(isBusy);
+  currentState = States::WaitingForClick;
 }
 
 void loop()
