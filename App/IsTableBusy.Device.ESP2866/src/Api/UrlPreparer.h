@@ -1,9 +1,11 @@
 #include "Configuration.h"
 
-class UrlPreparer {
-private: 
+class UrlPreparer
+{
+    private:
       Configuration *configuration;
-public:
+
+    public:
       UrlPreparer();
       char *PrepareUrl();
 };
