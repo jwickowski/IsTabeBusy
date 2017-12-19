@@ -1,19 +1,21 @@
 #include "Configuration.h"
 
-char* Configuration::GetWifiSsid()
+char *Configuration::GetWifiSsid()
 {
   return "ssid";
 }
 
-char* Configuration::GetWifiPassword()
+char *Configuration::GetWifiPassword()
 {
   return "password";
 }
 
-char* Configuration::GetApiUrl(){
+char *Configuration::GetApiUrl()
+{
   return "ApiUrl";
 }
 
-char* Configuration::GetDeviceId(){
+char *Configuration::GetDeviceId()
+{
   return "deiveId";
 }
