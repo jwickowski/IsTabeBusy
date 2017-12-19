@@ -62,6 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="DbMigrationHelpers.cs" />
     <Compile Include="IsTabeBusyDatabaseTool.cs" />
     <Compile Include="Migrations\201512171811127_AddPlacesAndTables.cs" />
     <Compile Include="Migrations\201512171811127_AddPlacesAndTables.Designer.cs">
