@@ -48,11 +48,7 @@ Task("Prepare-Web-Package")
                 .WithTarget("Package")
                 .WithProperty("PackageLocation", new string[]{ webPackageDir.ToString() })
                 );
-    });
 
-Task("Copy-Deploy-Web-Script")
-    .IsDependentOn("Prepare-Web-Package")
-    .Does(() =>{
         CopyFiles("./deploy/Web/*", webDir.ToString());
     });
 
@@ -73,16 +69,13 @@ Task("Prepare-Api-Package")
                 .WithTarget("Package")
                 .WithProperty("PackageLocation", new string[]{ apiPackageDir.ToString()  })
                 );
-    });
-    
-Task("Copy-Deploy-Api-Script")
-    .IsDependentOn("Prepare-Api-Package")
-    .Does(() =>{
+
         CopyFiles("./deploy/Api/*", apiDir.ToString());
     });
+    
 
 Task("Default")
-    .IsDependentOn("Copy-Deploy-Api-Script")
-    .IsDependentOn("Copy-Deploy-Web-Script");
+    .IsDependentOn("Prepare-Api-Package")
+    .IsDependentOn("Prepare-Web-Package");
 
 RunTarget(target);
