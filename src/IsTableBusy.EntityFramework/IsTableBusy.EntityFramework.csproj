@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C10E7CA0-318D-4777-8922-F6494187F513}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IsTableBusy.EntityFramework</RootNamespace>
+    <AssemblyName>IsTableBusy.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Context.cs" />
+    <Compile Include="DbMigrationHelpers.cs" />
+    <Compile Include="IsTabeBusyDatabaseTool.cs" />
+    <Compile Include="Migrations\201512171811127_AddPlacesAndTables.cs" />
+    <Compile Include="Migrations\201512171811127_AddPlacesAndTables.Designer.cs">
+      <DependentUpon>201512171811127_AddPlacesAndTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602110945388_AddDevice.cs" />
+    <Compile Include="Migrations\201602110945388_AddDevice.Designer.cs">
+      <DependentUpon>201602110945388_AddDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603020944546_DeviceAudit.cs" />
+    <Compile Include="Migrations\201603020944546_DeviceAudit.Designer.cs">
+      <DependentUpon>201603020944546_DeviceAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603021246337_ConnectTableWithDevice.cs" />
+    <Compile Include="Migrations\201603021246337_ConnectTableWithDevice.Designer.cs">
+      <DependentUpon>201603021246337_ConnectTableWithDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603021348378_AddTableAudit.cs" />
+    <Compile Include="Migrations\201603021348378_AddTableAudit.Designer.cs">
+      <DependentUpon>201603021348378_AddTableAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603021352006_MoveEventToBaseAudit.cs" />
+    <Compile Include="Migrations\201603021352006_MoveEventToBaseAudit.Designer.cs">
+      <DependentUpon>201603021352006_MoveEventToBaseAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161413527_AddNewStateToTableAudit.cs" />
+    <Compile Include="Migrations\201603161413527_AddNewStateToTableAudit.Designer.cs">
+      <DependentUpon>201603161413527_AddNewStateToTableAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604110559477_AddLastChangeStateDate.cs" />
+    <Compile Include="Migrations\201604110559477_AddLastChangeStateDate.Designer.cs">
+      <DependentUpon>201604110559477_AddLastChangeStateDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Audit\AuditItemType.cs" />
+    <Compile Include="Model\Audit\BaseAudit.cs" />
+    <Compile Include="Model\Audit\DeviceAudit.cs" />
+    <Compile Include="Model\Audit\TableAudit.cs" />
+    <Compile Include="Model\BaseEntity.cs" />
+    <Compile Include="Model\Device.cs" />
+    <Compile Include="Model\Table.cs" />
+    <Compile Include="Model\Place.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512171811127_AddPlacesAndTables.resx">
+      <DependentUpon>201512171811127_AddPlacesAndTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602110945388_AddDevice.resx">
+      <DependentUpon>201602110945388_AddDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603020944546_DeviceAudit.resx">
+      <DependentUpon>201603020944546_DeviceAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603021246337_ConnectTableWithDevice.resx">
+      <DependentUpon>201603021246337_ConnectTableWithDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603021348378_AddTableAudit.resx">
+      <DependentUpon>201603021348378_AddTableAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603021352006_MoveEventToBaseAudit.resx">
+      <DependentUpon>201603021352006_MoveEventToBaseAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161413527_AddNewStateToTableAudit.resx">
+      <DependentUpon>201603161413527_AddNewStateToTableAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604110559477_AddLastChangeStateDate.resx">
+      <DependentUpon>201604110559477_AddLastChangeStateDate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Tools\Tazos.Tools.Extensions.EntityFramework\Tazos.Tools.Extensions.EntityFramework.csproj">
+      <Project>{7CB51056-D9DB-46DE-B76A-A3433AF211A9}</Project>
+      <Name>Tazos.Tools.Extensions.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Tools\Tazos.Tools.XUnit\Tazos.Tools.XUnit.csproj">
+      <Project>{68bb29b5-a07c-4628-8dce-ebdea58d2167}</Project>
+      <Name>Tazos.Tools.XUnit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
