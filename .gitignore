@@ -210,3 +210,5 @@ App/IsTableBusy\.Device\.ESP2866/\.vscode/settings\.json
 Deployment/tools/**
 !Deployment/tools/packages.config
 \.vscode/settings\.json
+
+Deployment/package/
