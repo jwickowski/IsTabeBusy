@@ -201,3 +201,7 @@ App/IsTableBusy.App.Web/Scripts/app/**/*.js.map
 project.lock.json
 *.ncrunchsolution
 *.ncrunchproject
+
+Deployment/\.vscode/settings\.json
+
+App/IsTableBusy\.Device\.ESP2866/\.vscode/settings\.json
