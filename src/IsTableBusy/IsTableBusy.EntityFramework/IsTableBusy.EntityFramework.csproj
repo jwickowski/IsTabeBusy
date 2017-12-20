@@ -138,11 +138,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Tools\Tazos.Tools.Extensions.EntityFramework\Tazos.Tools.Extensions.EntityFramework.csproj">
+    <ProjectReference Include="..\..\..\..\Tools\Tazos.Tools.Extensions.EntityFramework\Tazos.Tools.Extensions.EntityFramework.csproj">
       <Project>{7CB51056-D9DB-46DE-B76A-A3433AF211A9}</Project>
       <Name>Tazos.Tools.Extensions.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Tools\Tazos.Tools.XUnit\Tazos.Tools.XUnit.csproj">
+    <ProjectReference Include="..\..\..\..\Tools\Tazos.Tools.XUnit\Tazos.Tools.XUnit.csproj">
       <Project>{68bb29b5-a07c-4628-8dce-ebdea58d2167}</Project>
       <Name>Tazos.Tools.XUnit</Name>
     </ProjectReference>
