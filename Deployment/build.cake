@@ -1,12 +1,18 @@
 var target = Argument("target", "Default");
 
-Task("Build-Api")
+Task("Restore-NuGet-Packages")
     .Does(()=>{
-        MSBuild("../App/IsTableBusy.sln");
+        NuGetRestore("../src/IsTableBusy/IsTableBusy.sln");
+    });
+
+Task("Build")
+    .IsDependentOn("Restore-NuGet-Packages")
+    .Does(()=>{
+        MSBuild("../src/IsTableBusy/IsTableBusy.sln");
     });
 
 Task("Default")
-    .IsDependentOn("Build-Api")
+    .IsDependentOn("Build")
     .Does(() =>{
             Information("Hallo from cake!!!");
     });
