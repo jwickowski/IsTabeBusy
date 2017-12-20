@@ -205,3 +205,9 @@ project.lock.json
 Deployment/\.vscode/settings\.json
 
 App/IsTableBusy\.Device\.ESP2866/\.vscode/settings\.json
+
+
+# Build related
+Deployment/tools/**
+!Deployment/tools/packages.config
+\.vscode/settings\.json
