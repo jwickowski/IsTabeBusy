@@ -195,9 +195,20 @@ FakesAssemblies/
 *.opt
 Deployment/build.log.txt
 Deployment/deploy.log.txt
-*/**/*.generated.cs
 App/IsTableBusy.App.Web/Scripts/app/**/*.js
 App/IsTableBusy.App.Web/Scripts/app/**/*.js.map
 project.lock.json
 *.ncrunchsolution
 *.ncrunchproject
+
+Deployment/\.vscode/settings\.json
+
+App/IsTableBusy\.Device\.ESP2866/\.vscode/settings\.json
+
+
+# Build related
+Deployment/tools/**
+!Deployment/tools/packages.config
+\.vscode/settings\.json
+
+Deployment/package/

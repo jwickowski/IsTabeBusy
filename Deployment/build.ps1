@@ -1,140 +1,235 @@
-<#
-The MIT License (MIT)
-
-Copyright (c) 2015 Objectivity Bespoke Software Specialists
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-#>
+##########################################################################
+# This is the Cake bootstrapper script for PowerShell.
+# This file was downloaded from https://github.com/cake-build/resources
+# Feel free to change this file to fit your needs.
+##########################################################################
 
 <#
+
 .SYNOPSIS
-Starts the build process. 
-
+This is a Powershell script to bootstrap a Cake build.
 
 .DESCRIPTION
-It imports PSCI library and packages projects according to the commands in the 'try' block. The packages will be stored at $PackagesPath.
+This Powershell script will download NuGet if missing, restore NuGet tools (including Cake)
+and execute your Cake build script with the parameters you provide.
 
-.PARAMETER ProjectRootPath
-Base directory of the project, relative to the directory where this script resides. It is used as a base directory for other directories.
-  
-.PARAMETER PSCILibraryPath
-Base directory where PSCI library resides, relative to $ProjectRootPath.
+.PARAMETER Script
+The build script to execute.
+.PARAMETER Target
+The build script target to run.
+.PARAMETER Configuration
+The build configuration to use.
+.PARAMETER Verbosity
+Specifies the amount of information to be displayed.
+.PARAMETER ShowDescription
+Shows description about tasks.
+.PARAMETER DryRun
+Performs a dry run.
+.PARAMETER Experimental
+Uses the nightly builds of the Roslyn script engine.
+.PARAMETER Mono
+Uses the Mono Compiler rather than the Roslyn script engine.
+.PARAMETER SkipToolPackageRestore
+Skips restoring of packages.
+.PARAMETER ScriptArgs
+Remaining arguments are added here.
 
-.PARAMETER PackagesPath
-Path to the directory where packages will be created, relative to $ProjectRootPath.
+.LINK
+https://cakebuild.net
 
-.PARAMETER DeployConfigurationPath
-Path to the directory where configuration files reside, relative to $ProjectRootPath. By default '<script directory>\deploy'.
-
-.PARAMETER Tasks
-List of tasks (function names) to invoke for this build. If this is not specified, default task will be invoked (Build-All).
-
-.PARAMETER Version
-Version number of the current build.
 #>
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory=$false)]
-    [string]
-    $ProjectRootPath = '..', # Modify this path according to your project structure. This is relative to the directory where build.ps1 resides ($PSScriptRoot).
-    
-    [Parameter(Mandatory=$false)]
-    [string]
-    $PSCILibraryPath = '..\PSCI', # Modify this path according to your project structure. This is absolute or relative to $ProjectRootPath. 
-                                # If PSCI doesn't exist at this location, it will be downloaded from nuget.org.
-    [Parameter(Mandatory=$false)]
-    [string]
-    $PackagesPath = 'bin', # Modify this path according to your project structure. This is absolute or relative to $ProjectRootPath.
 
-    [Parameter(Mandatory=$false)]
-    [string]
-    $DeployConfigurationPath = '', # Modify this path according to your project structure. This is absolute or relative to $ProjectRootPath (by default '<script directory>\deploy').
-    
-    [Parameter(Mandatory=$false)]
-    [string[]]
-    $Tasks, # This can be used to run partial builds (if not empty, specified functions will be run instead of Build-All)
-    
-    [Parameter(Mandatory=$false)]
-    [string]
-    $Version # This should be passed from your CI server
+[CmdletBinding()]
+Param(
+    [string]$Script = "build.cake",
+    [string]$Target,
+    [string]$Configuration,
+    [ValidateSet("Quiet", "Minimal", "Normal", "Verbose", "Diagnostic")]
+    [string]$Verbosity,
+    [switch]$ShowDescription,
+    [Alias("WhatIf", "Noop")]
+    [switch]$DryRun,
+    [switch]$Experimental,
+    [switch]$Mono,
+    [switch]$SkipToolPackageRestore,
+    [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
+    [string[]]$ScriptArgs
 )
 
-$global:ErrorActionPreference = 'Stop'
-
-try {
-    ############# PSCI initialization
-    Push-Location -Path $PSScriptRoot
-    if (![System.IO.Path]::IsPathRooted($PSCILibraryPath)) {
-        $PSCILibraryPath = Join-Path -Path $ProjectRootPath -ChildPath $PSCILibraryPath
+[Reflection.Assembly]::LoadWithPartialName("System.Security") | Out-Null
+function MD5HashFile([string] $filePath)
+{
+    if ([string]::IsNullOrEmpty($filePath) -or !(Test-Path $filePath -PathType Leaf))
+    {
+        return $null
     }
-    
-    if (!(Test-Path -LiteralPath "$PSCILibraryPath\PSCI.psd1")) {
-        if (Test-Path -LiteralPath "$PSScriptRoot\packages\PSCI\PSCI.psd1") {
-            Write-Host -Object "PSCI library found at '$PSScriptRoot\packages\PSCI'."
-        } else {
-            Write-Host -Object "Cannot find PSCI library at '$PSCILibraryPath' (current dir: '$PSScriptRoot') - downloading nuget.exe."
-            Invoke-WebRequest -Uri 'http://nuget.org/nuget.exe' -OutFile "$env:TEMP\NuGet.exe"
-            if (!(Test-Path "$env:TEMP\NuGet.exe")) {
-                Write-Host -Object "Failed to download nuget.exe to '$env:TEMP'. Please download PSCI manually and set PSCILibraryPath parameter to an existing path."
-                exit 1
-            }
-            Write-Host -Object 'Nuget.exe downloaded successfully - installing PSCI.'
 
-            & "$env:TEMP\NuGet.exe" install PSCI -ExcludeVersion -OutputDirectory "$PSScriptRoot\packages"
-            $PSCILibraryPath = "$PSScriptRoot\packages\PSCI"
-
-            if (!(Test-Path -LiteralPath "$PSCILibraryPath\PSCI.psd1")) {
-                Write-Host -Object "Cannot find PSCI library at '$PSCILibraryPath' (current dir: '$PSScriptRoot'). PSCI was not properly installed as nuget."
-                exit 1
-            }
-        }
-        $PSCILibraryPath = "$PSScriptRoot\packages\PSCI"
-    } else {
-        $PSCILibraryPath = (Resolve-Path -Path $PSCILibraryPath).ProviderPath
-        Write-Host -Object "PSCI library found at '$PSCILibraryPath'."
+    [System.IO.Stream] $file = $null;
+    [System.Security.Cryptography.MD5] $md5 = $null;
+    try
+    {
+        $md5 = [System.Security.Cryptography.MD5]::Create()
+        $file = [System.IO.File]::OpenRead($filePath)
+        return [System.BitConverter]::ToString($md5.ComputeHash($file))
     }
-    Import-Module "$PSCILibraryPath\PSCI.psd1" -Force 
-
-    ############# Running build
-    try { 
-        $PSCIGlobalConfiguration.LogFile = "$PSScriptRoot\build.log.txt"
-        Remove-Item -LiteralPath $PSCIGlobalConfiguration.LogFile -ErrorAction SilentlyContinue
-
-        Initialize-ConfigurationPaths -ProjectRootPath $ProjectRootPath -PackagesPath $PackagesPath -DeployConfigurationPath $DeployConfigurationPath
-        if (!$Tasks) { 
-            Remove-PackagesDir
+    finally
+    {
+        if ($file -ne $null)
+        {
+            $file.Dispose()
         }
+    }
+}
 
-        <# 
-          All powershell files available at 'build' directory will be included and custom functions will be invoked based on $Tasks variable.
-          For example if $Tasks = 'Build-Package1', 'Build-Package2', functions 'Build-Package1' and 'Build-Package2' will be invoked.
-          If $Tasks is null, default task will be invoked (Build-All).
-          Any additional parameters in build.ps1 will be automatically passed to custom build functions.
-        #>
-        $cmdName = $PSCmdlet.MyInvocation.MyCommand.Path
-        Write-Log -Info "Starting build at '$cmdName'" -Emphasize
-        $buildParams = (Get-Command -Name $cmdName).ParameterSets[0].Parameters | Where-Object { $_.Position -ge 0 } | Foreach-Object { Get-Variable -Name $_.Name }
+function GetProxyEnabledWebClient
+{
+    $wc = New-Object System.Net.WebClient
+    $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
+    $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials        
+    $wc.Proxy = $proxy
+    return $wc
+}
 
-        Start-Build -BuildParams $buildParams -ScriptsDirectory 'build' -DefaultTask 'Build-All'
+Write-Host "Preparing to run build script..."
+
+if(!$PSScriptRoot){
+    $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
+}
+
+$TOOLS_DIR = Join-Path $PSScriptRoot "tools"
+$ADDINS_DIR = Join-Path $TOOLS_DIR "Addins"
+$MODULES_DIR = Join-Path $TOOLS_DIR "Modules"
+$NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
+$CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
+$NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+$PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
+$PACKAGES_CONFIG_MD5 = Join-Path $TOOLS_DIR "packages.config.md5sum"
+$ADDINS_PACKAGES_CONFIG = Join-Path $ADDINS_DIR "packages.config"
+$MODULES_PACKAGES_CONFIG = Join-Path $MODULES_DIR "packages.config"
+
+# Make sure tools folder exists
+if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
+    Write-Verbose -Message "Creating tools directory..."
+    New-Item -Path $TOOLS_DIR -Type directory | out-null
+}
+
+# Make sure that packages.config exist.
+if (!(Test-Path $PACKAGES_CONFIG)) {
+    Write-Verbose -Message "Downloading packages.config..."    
+    try {        
+        $wc = GetProxyEnabledWebClient
+        $wc.DownloadFile("https://cakebuild.net/download/bootstrapper/packages", $PACKAGES_CONFIG) } catch {
+        Throw "Could not download packages.config."
+    }
+}
+
+# Try find NuGet.exe in path if not exists
+if (!(Test-Path $NUGET_EXE)) {
+    Write-Verbose -Message "Trying to find nuget.exe in PATH..."
+    $existingPaths = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_ -PathType Container) }
+    $NUGET_EXE_IN_PATH = Get-ChildItem -Path $existingPaths -Filter "nuget.exe" | Select -First 1
+    if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH.FullName)) {
+        Write-Verbose -Message "Found in PATH at $($NUGET_EXE_IN_PATH.FullName)."
+        $NUGET_EXE = $NUGET_EXE_IN_PATH.FullName
+    }
+}
+
+# Try download NuGet.exe if not exists
+if (!(Test-Path $NUGET_EXE)) {
+    Write-Verbose -Message "Downloading NuGet.exe..."
+    try {
+        $wc = GetProxyEnabledWebClient
+        $wc.DownloadFile($NUGET_URL, $NUGET_EXE)
     } catch {
-        Write-ErrorRecord -ErrorRecord $_
+        Throw "Could not download NuGet.exe."
     }
-} finally {
+}
+
+# Save nuget.exe path to environment to be available to child processed
+$ENV:NUGET_EXE = $NUGET_EXE
+
+# Restore tools from NuGet?
+if(-Not $SkipToolPackageRestore.IsPresent) {
+    Push-Location
+    Set-Location $TOOLS_DIR
+
+    # Check for changes in packages.config and remove installed tools if true.
+    [string] $md5Hash = MD5HashFile($PACKAGES_CONFIG)
+    if((!(Test-Path $PACKAGES_CONFIG_MD5)) -Or
+      ($md5Hash -ne (Get-Content $PACKAGES_CONFIG_MD5 ))) {
+        Write-Verbose -Message "Missing or changed package.config hash..."
+        Get-ChildItem -Exclude packages.config,nuget.exe,Cake.Bakery |
+        Remove-Item -Recurse
+    }
+
+    Write-Verbose -Message "Restoring tools from NuGet..."
+    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$TOOLS_DIR`""
+
+    if ($LASTEXITCODE -ne 0) {
+        Throw "An error occurred while restoring NuGet tools."
+    }
+    else
+    {
+        $md5Hash | Out-File $PACKAGES_CONFIG_MD5 -Encoding "ASCII"
+    }
+    Write-Verbose -Message ($NuGetOutput | out-string)
+
     Pop-Location
 }
+
+# Restore addins from NuGet
+if (Test-Path $ADDINS_PACKAGES_CONFIG) {
+    Push-Location
+    Set-Location $ADDINS_DIR
+
+    Write-Verbose -Message "Restoring addins from NuGet..."
+    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$ADDINS_DIR`""
+
+    if ($LASTEXITCODE -ne 0) {
+        Throw "An error occurred while restoring NuGet addins."
+    }
+
+    Write-Verbose -Message ($NuGetOutput | out-string)
+
+    Pop-Location
+}
+
+# Restore modules from NuGet
+if (Test-Path $MODULES_PACKAGES_CONFIG) {
+    Push-Location
+    Set-Location $MODULES_DIR
+
+    Write-Verbose -Message "Restoring modules from NuGet..."
+    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$MODULES_DIR`""
+
+    if ($LASTEXITCODE -ne 0) {
+        Throw "An error occurred while restoring NuGet modules."
+    }
+
+    Write-Verbose -Message ($NuGetOutput | out-string)
+
+    Pop-Location
+}
+
+# Make sure that Cake has been installed.
+if (!(Test-Path $CAKE_EXE)) {
+    Throw "Could not find Cake.exe at $CAKE_EXE"
+}
+
+
+
+# Build Cake arguments
+$cakeArguments = @("$Script");
+if ($Target) { $cakeArguments += "-target=$Target" }
+if ($Configuration) { $cakeArguments += "-configuration=$Configuration" }
+if ($Verbosity) { $cakeArguments += "-verbosity=$Verbosity" }
+if ($ShowDescription) { $cakeArguments += "-showdescription" }
+if ($DryRun) { $cakeArguments += "-dryrun" }
+if ($Experimental) { $cakeArguments += "-experimental" }
+if ($Mono) { $cakeArguments += "-mono" }
+$cakeArguments += $ScriptArgs
+
+# Start Cake
+Write-Host "Running build script..."
+&$CAKE_EXE $cakeArguments
+exit $LASTEXITCODE
