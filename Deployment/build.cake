@@ -6,11 +6,8 @@ var packageDir = MakeAbsolute(Directory("./package"));
 
 Task("Clean")
 .DoesForEach(GetDirectories("../src/IsTableBusy/**/bin/" + configuration), (dir)=>{
-    Information("folder:"+  dir.FullPath);
-    if(dir.Segments.Last().Equals(configuration.ToString())){
-        Information("cleaning: " + dir.FullPath);   
-        //CleanDirectory(dir.FullPath);
-    }
+    Information("Directory: " + dir.FullPath);   
+    CleanDirectory(dir.FullPath);
 });
 
 Task("Restore-NuGet-Packages")
@@ -31,9 +28,10 @@ Task("Build")
     var runTestsTask = Task("Run-Tests")
     .IsDependentOn("Build")
     .Does(()=>{
-      //  XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.Tests.dll",
-      //  new XUnit2Settings(){Parallelism = ParallelismOption.All});
+        XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.Tests.dll");
+      
     });
+    
 var webPackageDir = (packageDir + Directory("/Web")).ToString();
 Task("Clean-Web-Package-Dir")
     .Does(()=>{
