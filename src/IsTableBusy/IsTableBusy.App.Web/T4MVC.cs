@@ -170,6 +170,15 @@ namespace Links
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class moment {
+                private const string URLPATH = "~/Scripts/typings/moment";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string moment_node_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment-node.d.min.js") ? Url("moment-node.d.min.js") : Url("moment-node.d.js");
+                public static readonly string moment_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment.d.min.js") ? Url("moment.d.min.js") : Url("moment.d.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class signalr {
                 private const string URLPATH = "~/Scripts/typings/signalr";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -273,6 +282,12 @@ namespace Links
                     }
                 }
                 public static partial class lodash 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+                public static partial class moment 
                 {
                     public static class Assets
                     {
