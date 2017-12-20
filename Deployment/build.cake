@@ -2,7 +2,7 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-var packageDir = MakeAbsolute(Directory("./package"));
+var packageDir = MakeAbsolute(Directory("./packages"));
 
 Task("Clean")
 .DoesForEach(GetDirectories("../src/IsTableBusy/**/bin/" + configuration), (dir)=>{
@@ -29,13 +29,13 @@ Task("Build")
     .IsDependentOn("Build")
     .Does(()=>{
         XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.Tests.dll");
-      
     });
-    
-var webPackageDir = (packageDir + Directory("/Web")).ToString();
+
+var webDir = packageDir + Directory("/Web/");
+var webPackageDir = webDir + Directory("/package");    
 Task("Clean-Web-Package-Dir")
     .Does(()=>{
-        CleanDirectory(webPackageDir);
+        CleanDirectory(webDir);
     });
 
 Task("Prepare-Web-Package")
@@ -46,30 +46,43 @@ Task("Prepare-Web-Package")
                 settings => settings
                 .SetConfiguration(configuration)
                 .WithTarget("Package")
-                .WithProperty("PackageLocation", new string[]{ webPackageDir })
+                .WithProperty("PackageLocation", new string[]{ webPackageDir.ToString() })
                 );
     });
 
-var apiPackageDir = (packageDir + Directory("/Api")).ToString();
+Task("Copy-Deploy-Web-Script")
+    .IsDependentOn("Prepare-Web-Package")
+    .Does(() =>{
+        CopyFiles("./deploy/Web/*", webDir.ToString());
+    });
+
+var apiDir = packageDir + Directory("/Api/");
+var apiPackageDir = apiDir + Directory("/package");
 Task("Clean-Api-Package-Dir")
     .Does(()=>{
-        CleanDirectory(apiPackageDir);
+        CleanDirectory(apiDir);
     });
 
 Task("Prepare-Api-Package")
     .IsDependentOn(runTestsTask)
     .IsDependentOn("Clean-Api-Package-Dir")
-    .Does(async () => {
+    .Does(()=>{
         MSBuild("../src/IsTableBusy/IsTableBusy.App.Api/IsTableBusy.App.Api.csproj",
                 settings => settings
                 .SetConfiguration(configuration)
                 .WithTarget("Package")
-                .WithProperty("PackageLocation", new string[]{ apiPackageDir  })
+                .WithProperty("PackageLocation", new string[]{ apiPackageDir.ToString()  })
                 );
+    });
+    
+Task("Copy-Deploy-Api-Script")
+    .IsDependentOn("Prepare-Api-Package")
+    .Does(() =>{
+        CopyFiles("./deploy/Api/*", apiDir.ToString());
     });
 
 Task("Default")
-    .IsDependentOn("Prepare-Web-Package")
-    .IsDependentOn("Prepare-Api-Package");
+    .IsDependentOn("Copy-Deploy-Api-Script")
+    .IsDependentOn("Copy-Deploy-Web-Script");
 
 RunTarget(target);
