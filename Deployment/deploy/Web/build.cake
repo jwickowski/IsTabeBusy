@@ -32,7 +32,18 @@ Task("Deploy")
             {
                 Name = "IIS Web Application Name",
                 Value = siteName   
-            }
+            },
+            new SetParameter()
+            {
+                Name = "ApiUrl",
+                Value = siteName + "ApiUrl - testURL"  
+            },
+             new SetParameter()
+            {
+                Name = "SignalRUrl",
+                Value =  siteName + "SignalRUrl - testURL"  
+            },
+            
         }
     };
 
