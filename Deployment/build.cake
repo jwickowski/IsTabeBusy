@@ -28,7 +28,12 @@ Task("Build")
     var runTestsTask = Task("Run-Tests")
     .IsDependentOn("Build")
     .Does(()=>{
-        XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.Tests.dll");
+        XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.Tests.dll", 
+            new XUnit2Settings()
+            {
+                HtmlReport = true,
+                OutputDirectory = packageDir + Directory("/TestResults/")
+            });
     });
 
 var webDir = packageDir + Directory("/Web/");
