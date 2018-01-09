@@ -32,6 +32,7 @@ Task("Build")
             new XUnit2Settings()
             {
                 HtmlReport = true,
+                XmlReport = true,
                 OutputDirectory = packageDir + Directory("/TestResults/")
             });
     });
