@@ -212,3 +212,4 @@ Deployment/tools/**
 \.vscode/settings\.json
 
 Deployment/package/
+.idea/
