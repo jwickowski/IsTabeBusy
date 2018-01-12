@@ -38,12 +38,16 @@ Task("Deploy")
                 Name = "ApiUrl",
                 Value = siteName + "ApiUrl - testURL"  
             },
-             new SetParameter()
+            new SetParameter()
             {
                 Name = "SignalRUrl",
                 Value =  siteName + "SignalRUrl - testURL"  
             },
-            
+            new SetParameter()
+            {
+                Name = "DefaultConnection-Web.config Connection String",
+                Value =  siteName + "databaseConnectionSstring"  
+            }
         }
     };
 
