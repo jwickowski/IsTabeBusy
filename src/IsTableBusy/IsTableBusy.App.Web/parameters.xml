@@ -4,13 +4,13 @@
   <parameter name="ApiUrl" defaultValue="">
     <parameterEntry
       kind="XmlFile"
-      scope="IsTableBusy\.App\.Web\\Web\.config$"
+      scope="Web.config"
       match="/configuration/appSettings/add[@key='ApiUrl']/@value" />
   </parameter>
   <parameter name="SignalRUrl" defaultValue="">
     <parameterEntry
       kind="XmlFile"
-      scope="IsTableBusy\.App\.Web\\Web\.config$"
+      scope="Web.config"
       match="/configuration/appSettings/add[@key='SignalRUrl']/@value" />
   </parameter>
 </parameters>
