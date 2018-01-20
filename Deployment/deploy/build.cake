@@ -10,7 +10,7 @@ var dbInitialCatalog = Argument<string>("dbInitialCatalog");
 var dbUserID = Argument<string>("dbUserID");
 var dbPassword = Argument<string>("dbPassword");
 
-var connectionString = $"Server={dbServer};Initial Catalog={dbInitialCatalog};Persist Security Info=False;User ID={dbUserID};Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+var connectionString = $"Server=tcp:{dbServer}.database.windows.net,1433;Initial Catalog={dbInitialCatalog};Persist Security Info=False;User ID={dbUserID};Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
 Task("DeployApiApp")
     .Does(()=>{
@@ -20,14 +20,15 @@ Task("DeployApiApp")
             new SetParameter()
             {
                 Name = "IIS Web Application Name",
-                Value = siteName   
+                Value = apiSiteName   
             },
             new SetParameter()
             {
                 Name = "DefaultConnection-Web.config Connection String",
                 Value =  connectionString  
             }
-        }
+        };
+
         DeployToAzure(apiPackagePath, apiSiteName, apiSitePassword, parameters);
 });
 
@@ -41,7 +42,7 @@ Task("DeployWebApp")
             new SetParameter()
             {
                 Name = "IIS Web Application Name",
-                Value = siteName   
+                Value = webSiteName   
             },
             new SetParameter()
             {
@@ -58,17 +59,17 @@ Task("DeployWebApp")
                 Name = "DefaultConnection-Web.config Connection String",
                 Value =  connectionString  
             }
-        }
+        };
         DeployToAzure(webPackagePath, webSiteName, webSitePassword, parameters);
 });
 
 Task("Default")
-    .IsDependentOn("DeployApiApp");
+    .IsDependentOn("DeployApiApp")
     .IsDependentOn("DeployWebApp");
 
 RunTarget(target);
 
-private static void  DeployToAzure(string packagePath, string siteName, string sitePassword,List<SetParameter> parameters){
+private void  DeployToAzure(string packagePath, string siteName, string sitePassword,List<SetParameter> parameters){
 var settings = new MsDeploySettings
     {
         Source = new PackageProvider
@@ -86,7 +87,7 @@ var settings = new MsDeploySettings
             ComputerName = "https://" + siteName + ".scm.azurewebsites.net:443/msdeploy.axd?site=" + siteName,
             TempAgent = false,
             Username = "$" + siteName,
-            Password = password
+            Password = sitePassword
         },
         SetParams = parameters
     };
