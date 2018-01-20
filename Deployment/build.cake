@@ -41,24 +41,18 @@ Task("Clean-Package-Dir")
 
 Task("Prepare-Web-Package")
     .Does(()=>{
+        var csprojPath = "../src/IsTableBusy/IsTableBusy.App.Web/IsTableBusy.App.Web.csproj";
         var webPackageDir = MakeAbsolute(Directory("./packages/Web")).ToString();    
-        MSBuild("../src/IsTableBusy/IsTableBusy.App.Web/IsTableBusy.App.Web.csproj",
-                settings => settings
-                .SetConfiguration(configuration)
-                .WithTarget("Package")
-                .WithProperty("PackageLocation", new string[]{ webPackageDir.ToString() })
-                );
+
+        BuildPackage(csprojPath, webPackageDir);                
     });
 
 Task("Prepare-Api-Package")
     .Does(()=>{
+        var csprojPath = "../src/IsTableBusy/IsTableBusy.App.Api/IsTableBusy.App.Api.csproj";
         var apiPackageDir = MakeAbsolute(Directory("./packages/Api")).ToString();
-        MSBuild("../src/IsTableBusy/IsTableBusy.App.Api/IsTableBusy.App.Api.csproj",
-                settings => settings
-                .SetConfiguration(configuration)
-                .WithTarget("Package")
-                .WithProperty("PackageLocation", new string[]{ apiPackageDir.ToString()  })
-                );
+
+        BuildPackage(csprojPath, apiPackageDir);
     });
 
 Task("Copy-Deploy-Scripts")
@@ -78,3 +72,12 @@ Task("Default")
     .IsDependentOn("Copy-Deploy-Scripts");
 
 RunTarget(target);
+
+private void BuildPackage(string csprojPath, string packagePath){
+     MSBuild(csprojPath,
+                settings => settings
+                .SetConfiguration(configuration)
+                .WithTarget("Package")
+                .WithProperty("PackageLocation", new string[]{ packagePath })
+                );
+}
