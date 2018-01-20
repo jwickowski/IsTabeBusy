@@ -1,19 +1,81 @@
 #addin "Cake.MsDeploy"
 
 var target = Argument("target", "Default");
-var siteName = Argument<string>("siteName"); //cake-istablebusy-test
-var password = Argument<string>("password"); //cake-istablebusy-test
+var webSiteName = Argument<string>("webSiteName");
+var webSitePassword = Argument<string>("webSitePassword");
+var apiSiteName = Argument<string>("apiSiteName");
+var apiSitePassword = Argument<string>("apiSitePassword");
+var dbServer = Argument<string>("dbServer");
+var dbInitialCatalog = Argument<string>("dbInitialCatalog");
+var dbUserID = Argument<string>("dbUserID");
+var dbPassword = Argument<string>("dbPassword");
 
-Task("Deploy")
+var connectionString = $"Server={dbServer};Initial Catalog={dbInitialCatalog};Persist Security Info=False;User ID={dbUserID};Password={dbPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+Task("DeployWebApp")
     .Does(()=>{
-    var settings = new MsDeploySettings
+        var webPackagePath = MakeAbsolute(File("./web/package/IsTableBusy.App.Web.zip")).ToString();
+        var apiUrl = $"http://{apiSiteName}.azurewebsites.net/";
+        var signalRUrl = $"http://{apiSiteName}.azurewebsites.net/signalr";
+        var parameters = new List<SetParameter>
+        {
+            new SetParameter()
+            {
+                Name = "IIS Web Application Name",
+                Value = siteName   
+            },
+            new SetParameter()
+            {
+                Name = "ApiUrl",
+                Value = apiUrl 
+            },
+            new SetParameter()
+            {
+                Name = "SignalRUrl",
+                Value =  signalRUrl
+            },
+            new SetParameter()
+            {
+                Name = "DefaultConnection-Web.config Connection String",
+                Value =  connectionString  
+            }
+        }
+        DeployToAzure(webPackagePath, webSiteName, webSitePassword, parameters);
+});
+
+Task("DeployApiApp")
+    .Does(()=>{
+        var apiPackagePath = MakeAbsolute(File("./api/package/IsTableBusy.App.Api.zip")).ToString();
+        var parameters = new List<SetParameter>
+        {
+            new SetParameter()
+            {
+                Name = "IIS Web Application Name",
+                Value = siteName   
+            },
+            new SetParameter()
+            {
+                Name = "DefaultConnection-Web.config Connection String",
+                Value =  connectionString  
+            }
+        }
+        DeployToAzure(apiPackagePath, apiSiteName, apiSitePassword, parameters);
+});
+
+
+Task("Default")
+    .IsDependentOn("DeployWebApp");
+
+RunTarget(target);
+
+private static void  DeployToAzure(string packagePath, string siteName, string sitePassword,List<SetParameter> parameters){
+var settings = new MsDeploySettings
     {
         Source = new PackageProvider
         {
             Direction = Direction.source,
-            Path = MakeAbsolute(File("./package/IsTableBusy.App.Web.zip")).ToString()
-        },
-      
+            Path = packagePath
+        },      
         Verb = Operation.Sync,
         RetryAttempts = 5,
         RetryInterval = 5000,
@@ -26,35 +88,8 @@ Task("Deploy")
             Username = "$" + siteName,
             Password = password
         },
-        SetParams = new List<SetParameter>
-        {
-            new SetParameter()
-            {
-                Name = "IIS Web Application Name",
-                Value = siteName   
-            },
-            new SetParameter()
-            {
-                Name = "ApiUrl",
-                Value = siteName + "ApiUrl - testURL"  
-            },
-            new SetParameter()
-            {
-                Name = "SignalRUrl",
-                Value =  siteName + "SignalRUrl - testURL"  
-            },
-            new SetParameter()
-            {
-                Name = "DefaultConnection-Web.config Connection String",
-                Value =  siteName + "databaseConnectionSstring"  
-            }
-        }
+        SetParams = parameters
     };
 
     MsDeploy(settings);
-});
-
-Task("Default")
-    .IsDependentOn("Deploy");
-
-RunTarget(target);
+}
