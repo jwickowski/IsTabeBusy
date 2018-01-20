@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using IsTableBusy.EntityFramework.Model.Audit;
+using config = IsTableBusy.EntityFramework.Migrations;
 
 namespace IsTableBusy.EntityFramework
 {
@@ -11,7 +12,7 @@ namespace IsTableBusy.EntityFramework
 
         public Context() :  base(ConnectionString)
         {
-          
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, config.Configuration>());
         }   
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

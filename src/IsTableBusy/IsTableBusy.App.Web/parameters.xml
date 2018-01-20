@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" defaultValue="Default Web Site/IsTableBusy.App.Web_deploy" />
+  <parameter name="ApiUrl" defaultValue="">
+    <parameterEntry
+      kind="XmlFile"
+      scope="Web.config"
+      match="/configuration/appSettings/add[@key='ApiUrl']/@value" />
+  </parameter>
+  <parameter name="SignalRUrl" defaultValue="">
+    <parameterEntry
+      kind="XmlFile"
+      scope="Web.config"
+      match="/configuration/appSettings/add[@key='SignalRUrl']/@value" />
+  </parameter>
+</parameters>
