@@ -57,7 +57,7 @@ Task("Prepare-Api-Package")
 
 Task("Copy-Deploy-Scripts")
     .Does(()=>{
-        CopyFiles("./deploy/*", packageDir.ToString());
+        CopyFiles("./deployScripts/*", packageDir.ToString());
     });
     
 
