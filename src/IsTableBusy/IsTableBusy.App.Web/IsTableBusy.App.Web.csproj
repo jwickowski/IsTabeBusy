@@ -188,8 +188,6 @@
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="PlacesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
