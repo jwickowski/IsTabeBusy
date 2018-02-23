@@ -1,0 +1,59 @@
+environment:
+  deploy_apiSiteName: 
+    secure: q0b3qJ1VOdhElr8AxVxaIw==
+  deploy_apiSitePassword: 
+    secure: YhFw+Tk8hTX2rI+iTrxP1qNrCvPU9lvHw07bRYjY/T1Z14cPtcHWp6DmiyLcWrUYFy/zi8RIdjmiC/+KsQKZng==
+  deploy_webSiteName: 
+    secure: UBxXc3ZqMJU5SQoNtHBmwA==
+  deploy_webSitePassword: 
+    secure: XT4QneWux4gDAHxxSh0XwrBXDDLR25m1bQLfkkbYCQ+tXX3oz8GhiCLy0YxY+mYKHT8SiAzzqeFLhVf8E4Ircg==
+  deploy_dbServer: 
+    secure: KCni3IknxZAYDRpPixWPIQ==
+  deploy_dbInitialCatalog: 
+    secure: QT93jA5/gGLb8GVur176Pg==
+  deploy_dbUserID: 
+    secure: w/CziMaQ9ZSnU94JGKbrjChi86jvgzDwzEA7+VQS0tk=
+  deploy_dbPassword: 
+    secure: T+Mj1pN4SIZg+BkAi61balv9wppriBYugeyu/vat5kw=
+
+version: 1.0.{build}
+max_jobs: 1
+
+image: Visual Studio 2017
+
+branches:
+  only:
+    - master
+
+shallow_clone: true
+cache:
+  - src/IsTableBusy/packages
+  - '%LocalAppData%\NuGet\v3-cache'
+
+services:
+  - mssql2017
+
+build_script:
+  - ps: ./Deployment/build.ps1 -Script "./Deployment/build.cake"
+
+after_build:
+  - ps: echo $env:APPVEYOR_BUILD_VERSION > "./Deployment/packages/buildVersion.txt"
+
+test: off
+
+artifacts:
+  - path: Deployment/packages
+
+deploy_script:
+  ps: | 
+     ./Deployment/packages/deploy.ps1 
+     -Script "./Deployment/packages/deploy.cake" 
+     -ScriptArgs ("-apiSiteName=""$env:deploy_apiSiteName""",
+     "-apiSitePassword=""$env:deploy_apiSitePassword""", 
+     "-webSiteName=""$env:deploy_webSiteName""", 
+     "-webSitePassword=""$env:deploy_webSitePassword""", 
+     "-dbServer=""$env:deploy_dbServer""", 
+     "-dbInitialCatalog=""$env:deploy_dbInitialCatalog""", 
+     "-dbUserID=""$env:deploy_dbUserID""", 
+     "-dbPassword=""$env:deploy_dbPassword""")
+  

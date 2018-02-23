@@ -1,14 +1,26 @@
 #tool "nuget:?package=xunit.runner.console&version=2.3.1"
 
-var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
+var target = Argument<string>("target", "Default");
+var configuration = Argument<string>("configuration", "Release");
+var integrationTestConnectionString =Argument<string>("integrationTestConnectionString", null);
 var packageDir = MakeAbsolute(Directory("./packages"));
+var tempPackageDir = MakeAbsolute(Directory("./tmpPackages"));
+
 
 Task("Clean")
-.DoesForEach(GetDirectories("../src/IsTableBusy/**/bin/" + configuration), (dir)=>{
-    Information("Directory: " + dir.FullPath);   
-    CleanDirectory(dir.FullPath);
+    .DoesForEach(GetDirectories("../src/IsTableBusy/**/bin/" + configuration), (dir)=>{
+        Information("Cleaning directory: " + dir.FullPath);   
+        CleanDirectory(dir.FullPath);
 });
+
+Task("Clean-Package-Dir")
+    .Does(()=>{
+        Information("Cleaning directory: " + packageDir);   
+        CleanDirectory(packageDir);
+
+        Information("Cleaning directory: " + tempPackageDir);   
+        CleanDirectory(tempPackageDir);
+    });
 
 Task("Restore-NuGet-Packages")
    .Does(()=>{
@@ -17,15 +29,34 @@ Task("Restore-NuGet-Packages")
 
 Task("Build")
     .Does(()=>{
-        MSBuild(
-            "../src/IsTableBusy/IsTableBusy.sln",
-         settings => settings.SetConfiguration(configuration)
-        );
+        MSBuild("../src/IsTableBusy/IsTableBusy.sln",
+            settings => settings
+                .SetConfiguration(configuration)
+                .WithProperty("PackageLocation", new string[]{ tempPackageDir.ToString() })
+                .WithProperty("WebPublishMethod", "Package")
+                .WithProperty("PackageAsSingleFile", "true")
+                .WithProperty("DeployOnBuild", "true")
+                );
     });
 
-Task("Run-Tests") 
+Task("Update-ConnectionString-For-Integration-Tests")
+    .Does(()=> {
+        if(string.IsNullOrEmpty(integrationTestConnectionString)){
+            Information("Argument 'integrationTestConnectionString' is empty. Settings won't be upated.");
+            return;
+        }
+        var dir  = Directory($"../src/IsTableBusy/IsTableBusy.Core.IntegrationTests/bin/{configuration}/");
+        var absolutePath = MakeAbsolute(dir) + "/IsTableBusy.Core.IntegrationTests.dll.config";
+        var settingsFile = File(absolutePath);
+        var xPath = "/configuration/connectionStrings/add[@ name = 'DefaultConnection']/@connectionString";
+        Information($"Updating file '{absolutePath}' with '{integrationTestConnectionString}'");
+        
+        XmlPoke(settingsFile, xPath, integrationTestConnectionString);
+    });
+
+Task("Run-Integration-Tests") 
     .Does(()=>{
-        XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.Tests.dll", 
+        XUnit2("../src/IsTableBusy/**/bin/" + configuration + "/*.IntegrationTests.dll", 
             new XUnit2Settings()
             {
                 HtmlReport = true,
@@ -34,25 +65,34 @@ Task("Run-Tests")
             });
     });
 
-Task("Clean-Package-Dir")
+Task("Copy-Packages")
     .Does(()=>{
-        CleanDirectory(packageDir);
-    });
+        var apiPackagePath = packageDir + "/Api";
+        Information("Creating directory: " + apiPackagePath); 
+        CreateDirectory(apiPackagePath);
+        
+        var apiPackageFileName = "IsTableBusy.App.Api.zip";
+        var apiFiles = new [] {
+            tempPackageDir + "/IsTableBusy.App.Api.zip",
+            tempPackageDir + "/IsTableBusy.App.Api.SetParameters.xml"
+        };
 
-Task("Prepare-Web-Package")
-    .Does(()=>{
-        var csprojPath = "../src/IsTableBusy/IsTableBusy.App.Web/IsTableBusy.App.Web.csproj";
-        var webPackageDir = MakeAbsolute(Directory("./packages/Web")).ToString();    
+        Information("CreatCopying files to: " + apiPackagePath); 
+        CopyFiles(apiFiles, apiPackagePath);
 
-        BuildPackage(csprojPath, webPackageDir);                
-    });
 
-Task("Prepare-Api-Package")
-    .Does(()=>{
-        var csprojPath = "../src/IsTableBusy/IsTableBusy.App.Api/IsTableBusy.App.Api.csproj";
-        var apiPackageDir = MakeAbsolute(Directory("./packages/Api")).ToString();
-
-        BuildPackage(csprojPath, apiPackageDir);
+         var webPackagePath = packageDir + "/Web";
+        Information("Creating directory: " + webPackagePath); 
+        CreateDirectory(webPackagePath);
+        
+        var webPackageFileName = "IsTableBusy.App.Web.zip";
+        var webFiles = new [] {
+            tempPackageDir + "/IsTableBusy.App.Web.zip",
+            tempPackageDir + "/IsTableBusy.App.Web.SetParameters.xml"
+        };
+        
+        Information("CreatCopying files to: " + webPackagePath); 
+        CopyFiles(webFiles, webPackagePath);
     });
 
 Task("Copy-Deploy-Scripts")
@@ -63,21 +103,12 @@ Task("Copy-Deploy-Scripts")
 
 Task("Default")
     .IsDependentOn("Clean")
+    .IsDependentOn("Clean-Package-Dir")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Build")
-    .IsDependentOn("Run-Tests")
-    .IsDependentOn("Clean-Package-Dir")
-    .IsDependentOn("Prepare-Api-Package")
-    .IsDependentOn("Prepare-Web-Package")
+    .IsDependentOn("Update-ConnectionString-For-Integration-Tests")
+    //.IsDependentOn("Run-Integration-Tests")
+    .IsDependentOn("Copy-Packages")
     .IsDependentOn("Copy-Deploy-Scripts");
 
 RunTarget(target);
-
-private void BuildPackage(string csprojPath, string packagePath){
-     MSBuild(csprojPath,
-                settings => settings
-                .SetConfiguration(configuration)
-                .WithTarget("Package")
-                .WithProperty("PackageLocation", new string[]{ packagePath })
-                );
-}
