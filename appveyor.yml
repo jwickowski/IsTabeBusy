@@ -21,6 +21,10 @@ max_jobs: 1
 
 image: Visual Studio 2017
 
+branches:
+  only:
+    - master
+
 shallow_clone: true
 cache:
   - src/IsTableBusy/packages
@@ -40,8 +44,6 @@ test: off
 artifacts:
   - path: Deployment/packages
 
-
-      
 deploy_script:
   ps: | 
      ./Deployment/packages/deploy.ps1 
@@ -54,12 +56,4 @@ deploy_script:
      "-dbInitialCatalog=""$env:deploy_dbInitialCatalog""", 
      "-dbUserID=""$env:deploy_dbUserID""", 
      "-dbPassword=""$env:deploy_dbPassword""")
- 
-for:
--
-  branches:
-    except:
-      - master
-
-deploy: off
   
