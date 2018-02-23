@@ -46,14 +46,5 @@ artifacts:
 
 deploy_script:
   ps: | 
-     ./Deployment/packages/deploy.ps1 
-     -Script "./Deployment/packages/deploy.cake" 
-     -ScriptArgs ("-apiSiteName=""$env:deploy_apiSiteName""",
-     "-apiSitePassword=""$env:deploy_apiSitePassword""", 
-     "-webSiteName=""$env:deploy_webSiteName""", 
-     "-webSitePassword=""$env:deploy_webSitePassword""", 
-     "-dbServer=""$env:deploy_dbServer""", 
-     "-dbInitialCatalog=""$env:deploy_dbInitialCatalog""", 
-     "-dbUserID=""$env:deploy_dbUserID""", 
-     "-dbPassword=""$env:deploy_dbPassword""")
+     ./Deployment/packages/deploy.ps1 -Script "./Deployment/packages/deploy.cake" -ScriptArgs ("-apiSiteName=""$env:deploy_apiSiteName""", "-apiSitePassword=""$env:deploy_apiSitePassword""", "-webSiteName=""$env:deploy_webSiteName""", "-webSitePassword=""$env:deploy_webSitePassword""", "-dbServer=""$env:deploy_dbServer""", "-dbInitialCatalog=""$env:deploy_dbInitialCatalog""", "-dbUserID=""$env:deploy_dbUserID""", "-dbPassword=""$env:deploy_dbPassword""")
   
