@@ -98,6 +98,12 @@ Task("Copy-Packages")
 Task("Copy-Deploy-Scripts")
     .Does(()=>{
         CopyFiles("./deployScripts/*", packageDir.ToString());
+		
+		var packageToolsPath = packageDir + "/Tools";
+		Information("Creating directory: " + packageToolsPath); 
+		CreateDirectory(packageToolsPath);
+		
+		CopyFile("./tools/packages.config", packageToolsPath + "/packages.config");
     });
     
 
@@ -107,7 +113,7 @@ Task("Default")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Build")
     .IsDependentOn("Update-ConnectionString-For-Integration-Tests")
-    .IsDependentOn("Run-Integration-Tests")
+    //.IsDependentOn("Run-Integration-Tests")
     .IsDependentOn("Copy-Packages")
     .IsDependentOn("Copy-Deploy-Scripts");
 
