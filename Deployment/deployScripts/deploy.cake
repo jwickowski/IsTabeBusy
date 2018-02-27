@@ -1,4 +1,4 @@
-#addin "Cake.MsDeploy"
+#addin "Cake.MsDeploy&version=0.4.0"
 
 var target = Argument("target", "Default");
 var webSiteName = Argument<string>("webSiteName");
