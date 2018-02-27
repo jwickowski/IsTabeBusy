@@ -48,7 +48,7 @@ artifacts:
 deploy_script:
   - cd packages
   - ps: | 
-     ./Deployment/packages/deploy.ps1 `
+     ./Deploy.ps1 `
      -ScriptArgs ("-apiSiteName=""$env:deploy_apiSiteName""", `
      "-apiSitePassword=""$env:deploy_apiSitePassword""", `
      "-webSiteName=""$env:deploy_webSiteName""", `
