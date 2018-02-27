@@ -34,10 +34,12 @@ services:
   - mssql2017
 
 build_script:
-  - ps: ./Deployment/build.ps1 -Script "./Deployment/build.cake"
+  - cd Deployment
+  - ps: ./build.ps1
 
 after_build:
-  - ps: echo $env:APPVEYOR_BUILD_VERSION > "./Deployment/packages/buildVersion.txt"
+  - cd Deployment/packages
+  - ps: echo $env:APPVEYOR_BUILD_VERSION > "./buildVersion.txt"
 
 test: off
 
@@ -45,7 +47,8 @@ artifacts:
   - path: Deployment/packages
 
 deploy_script:
-  ps: | 
+  - cd Deployment/packages
+  - ps: | 
      ./Deployment/packages/deploy.ps1 `
      -Script "./Deployment/packages/deploy.cake" `
      -ScriptArgs ("-apiSiteName=""$env:deploy_apiSiteName""", `
