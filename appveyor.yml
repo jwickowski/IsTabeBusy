@@ -38,7 +38,6 @@ build_script:
   - ps: ./build.ps1
 
 after_build:
-  - cd Deployment/packages
   - ps: echo $env:APPVEYOR_BUILD_VERSION > "./buildVersion.txt"
 
 test: off
