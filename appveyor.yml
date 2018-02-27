@@ -34,7 +34,7 @@ services:
   - mssql2017
 
 build_script:
-  - ps: ./Deployment/build.ps1  -Script "./Deployment/build.cake" `
+  - ps: ./Deployment/build.ps1  -Script "./Deployment/build.cake"
 
 after_build:
   - ps: echo $env:APPVEYOR_BUILD_VERSION > "./Deployment/packages/buildVersion.txt"
