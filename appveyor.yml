@@ -26,9 +26,7 @@ branches:
     - master
 
 shallow_clone: true
-cache:
-  - src/IsTableBusy/packages
-  - '%LocalAppData%\NuGet\v3-cache'
+
 
 services:
   - mssql2017
