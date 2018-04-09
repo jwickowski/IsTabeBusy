@@ -24,14 +24,13 @@ image: Visual Studio 2017
 branches:
   only:
     - master
+services:
+  - mssql2017
 
 shallow_clone: true
 cache:
   - src/IsTableBusy/packages
   - '%LocalAppData%\NuGet\v3-cache'
-
-services:
-  - mssql2017
 
 build_script:
   - ps: ./Deployment/build.ps1 -Script "./Deployment/build.cake"
