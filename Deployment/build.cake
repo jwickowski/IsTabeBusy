@@ -112,8 +112,9 @@ Task("Default")
     .IsDependentOn("Clean-Package-Dir")
     .IsDependentOn("Restore-NuGet-Packages")
     .IsDependentOn("Build")
-    .IsDependentOn("Update-ConnectionString-For-Integration-Tests")
+    //.IsDependentOn("Update-ConnectionString-For-Integration-Tests")
     //.IsDependentOn("Run-Integration-Tests")
+
     .IsDependentOn("Copy-Packages")
     .IsDependentOn("Copy-Deploy-Scripts");
 
