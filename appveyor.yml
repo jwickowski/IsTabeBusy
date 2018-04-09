@@ -46,6 +46,11 @@ artifacts:
 
 deploy_script:
   ps: | 
+    if($env:APPVEYOR_REPO_BRANCH -ne 'master' -or $env:APPVEYOR_PULL_REQUEST_NUMBER -ne $null)
+    {
+      Write-Host 'Do not deploy for master or pull requests'
+      return
+    }
      ./Deployment/packages/deploy.ps1 `
      -Script "./Deployment/packages/deploy.cake" `
      -ScriptArgs ("-apiSiteName=""$env:deploy_apiSiteName""", `
