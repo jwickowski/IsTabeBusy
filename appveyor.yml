@@ -24,6 +24,8 @@ services:
   - mssql2017
 
 shallow_clone: true
+
+test: off
 cache:
   - src/IsTableBusy/packages
   - '%LocalAppData%\NuGet\v3-cache'
@@ -33,8 +35,6 @@ build_script:
 
 after_build:
   - ps: echo $env:APPVEYOR_BUILD_VERSION > "./Deployment/packages/buildVersion.txt"
-
-test: off
 
 artifacts:
   - path: Deployment/packages
